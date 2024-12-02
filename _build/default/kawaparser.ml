@@ -7,24 +7,50 @@ module MenhirBasics = struct
     Error
   
   type token = 
+    | WHILE
+    | VOID
+    | VAR
+    | TRUE
+    | THIS
+    | STAR
     | SEMI
     | RPAR
+    | RETURN
     | PRINT
-    | MAIN
-    | LPAR
-    | INT of (
+    | PLUS
+    | OR
+    | NEW
+    | NEQUAL
+    | N of (
 # 8 "kawaparser.mly"
        (int)
-# 19 "kawaparser.ml"
+# 28 "kawaparser.ml"
   )
+    | MINUS
+    | METHOD
+    | MAIN
+    | LPAR
+    | LOWER
+    | LEQUAL
+    | INT
+    | IF
     | IDENT of (
 # 9 "kawaparser.mly"
        (string)
-# 24 "kawaparser.ml"
+# 41 "kawaparser.ml"
   )
+    | FALSE
+    | EQUAL
     | EOF
     | END
+    | ELSE
+    | DIV
+    | CLASS
+    | BOOL
     | BEGIN
+    | ATTRIBUTE
+    | ASSIGN
+    | AND
   
 end
 
@@ -48,7 +74,7 @@ and _menhir_state =
   open Kawa
 
 
-# 52 "kawaparser.ml"
+# 78 "kawaparser.ml"
 
 let rec _menhir_goto_list_instruction_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.seq) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
@@ -69,9 +95,9 @@ let rec _menhir_goto_list_instruction_ : _menhir_env -> 'ttv_tail -> _menhir_sta
                 let _menhir_stack = Obj.magic _menhir_stack in
                 let (_menhir_stack, _, (main : (Kawa.seq))) = _menhir_stack in
                 let _v : (Kawa.program) = 
-# 22 "kawaparser.mly"
+# 26 "kawaparser.mly"
     ( {classes=[]; globals=[]; main} )
-# 75 "kawaparser.ml"
+# 101 "kawaparser.ml"
                  in
                 let _menhir_stack = Obj.magic _menhir_stack in
                 let _menhir_stack = Obj.magic _menhir_stack in
@@ -96,7 +122,7 @@ let rec _menhir_goto_list_instruction_ : _menhir_env -> 'ttv_tail -> _menhir_sta
         let _v : (Kawa.seq) = 
 # 213 "<standard.mly>"
     ( x :: xs )
-# 100 "kawaparser.ml"
+# 126 "kawaparser.ml"
          in
         _menhir_goto_list_instruction_ _menhir_env _menhir_stack _menhir_s _v
 
@@ -116,7 +142,7 @@ and _menhir_reduce3 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
     let _v : (Kawa.seq) = 
 # 211 "<standard.mly>"
     ( [] )
-# 120 "kawaparser.ml"
+# 146 "kawaparser.ml"
      in
     _menhir_goto_list_instruction_ _menhir_env _menhir_stack _menhir_s _v
 
@@ -131,19 +157,19 @@ and _menhir_run3 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
         let _menhir_env = _menhir_discard _menhir_env in
         let _tok = _menhir_env._menhir_token in
         (match _tok with
-        | INT _v ->
+        | N _v ->
             let _menhir_stack = Obj.magic _menhir_stack in
             let _menhir_env = _menhir_discard _menhir_env in
             let _menhir_stack = Obj.magic _menhir_stack in
             let (n : (
 # 8 "kawaparser.mly"
        (int)
-# 142 "kawaparser.ml"
+# 168 "kawaparser.ml"
             )) = _v in
             let _v : (Kawa.expr) = 
-# 30 "kawaparser.mly"
-        ( Int(n) )
-# 147 "kawaparser.ml"
+# 34 "kawaparser.mly"
+      ( Int(n) )
+# 173 "kawaparser.ml"
              in
             let _menhir_stack = (_menhir_stack, _v) in
             let _menhir_stack = Obj.magic _menhir_stack in
@@ -161,9 +187,9 @@ and _menhir_run3 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
                     let _menhir_stack = Obj.magic _menhir_stack in
                     let ((_menhir_stack, _menhir_s), (e : (Kawa.expr))) = _menhir_stack in
                     let _v : (Kawa.instr) = 
-# 26 "kawaparser.mly"
+# 30 "kawaparser.mly"
                                     ( Print(e) )
-# 167 "kawaparser.ml"
+# 193 "kawaparser.ml"
                      in
                     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
                     let _menhir_stack = Obj.magic _menhir_stack in
@@ -259,4 +285,4 @@ and program : (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (Kawa.program) =
 # 269 "<standard.mly>"
   
 
-# 263 "kawaparser.ml"
+# 289 "kawaparser.ml"

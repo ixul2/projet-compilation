@@ -45,19 +45,19 @@ State 4:
 ## LR(1) items:
 instruction -> PRINT LPAR . expression RPAR SEMI [ PRINT END ]
 ## Transitions:
--- On INT shift to state 5
+-- On N shift to state 5
 -- On expression shift to state 6
 ## Reductions:
 
 State 5:
 ## Known stack suffix:
-## INT
+## N
 ## LR(1) items:
-expression -> INT . [ RPAR ]
+expression -> N . [ RPAR ]
 ## Transitions:
 ## Reductions:
 -- On RPAR
---   reduce production expression -> INT
+--   reduce production expression -> N
 
 State 6:
 ## Known stack suffix:

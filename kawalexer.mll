@@ -11,6 +11,7 @@
     [ "print",      PRINT;
       "true",       TRUE;
       "false",      FALSE;
+
       "var",        VAR;
       "attribute",  ATTRIBUTE;
       "method",     METHOD;
@@ -20,6 +21,7 @@
       "if",         IF;
       "else",       ELSE;
       "while",      WHILE;
+      "extends",    EXTENDS;
       "return",     RETURN;
       "int",        INT;
       "bool",       BOOL;
@@ -43,9 +45,10 @@ rule token = parse
   | "//" [^ '\n']* "\n"  { new_line lexbuf; token lexbuf }
   | "/*"                 { comment lexbuf; token lexbuf }
 
-  | number as n  { INT(int_of_string n) }
+  | number as n  { N(int_of_string n) }
   | ident as id  { keyword_or_ident id }
   
+   
   | "="  { ASSIGN }
   | ";"  { SEMI }
   | "("  { LPAR }
@@ -56,9 +59,15 @@ rule token = parse
   | "+"  { PLUS }
   | "-"  { MINUS }
   | "*"  { STAR }
-  | "/"  { DIV  }
+  | "/"  { DIV }
+  | "%"  { MOD }
 
   | "==" { EQUAL }
+  | "!="  { NEQUAL }
+  | "<"  { LOWER }
+  | "<="  { LEQUAL }
+  | "&&"  { AND }
+  | "||"  { OR }
 
   | _    { raise (Error ("unknown character : " ^ lexeme lexbuf)) }
   | eof  { EOF }

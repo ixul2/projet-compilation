@@ -1,14 +1,40 @@
 type token =
-    SEMI
+    WHILE
+  | VOID
+  | VAR
+  | TRUE
+  | THIS
+  | STAR
+  | SEMI
   | RPAR
+  | RETURN
   | PRINT
+  | PLUS
+  | OR
+  | NEW
+  | NEQUAL
+  | N of int
+  | MINUS
+  | METHOD
   | MAIN
   | LPAR
-  | INT of int
+  | LOWER
+  | LEQUAL
+  | INT
+  | IF
   | IDENT of string
+  | FALSE
+  | EQUAL
   | EOF
   | END
+  | ELSE
+  | DIV
+  | CLASS
+  | BOOL
   | BEGIN
+  | ATTRIBUTE
+  | ASSIGN
+  | AND
 val menhir_begin_marker : int
 val xv_program : Kawa.program
 val xv_list_instruction_ : Kawa.seq
