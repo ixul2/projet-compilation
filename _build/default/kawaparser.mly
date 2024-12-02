@@ -8,13 +8,9 @@
 %token <int> INT
 %token <string> IDENT
 %token MAIN
-%token VAR ATTRIBUTE METHOD CLASS NEW THIS IF ELSE WHILE RETURN INT BOOL VOID 
-%token ASSIGN LPAR RPAR BEGIN END SEMI
-%token PLUS MINUS STAR DIV  
-%token EQUAL NEQUAL LOWER LEQUAL AND OR
-%token PRINT TRUE FALSE
+%token LPAR RPAR BEGIN END SEMI
+%token PRINT
 %token EOF
-
 
 %start program
 %type <Kawa.program> program
