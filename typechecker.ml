@@ -21,7 +21,24 @@ let typecheck_prog p =
 
   and type_expr e tenv = match e with
     | Int _  -> TInt
-    | _ -> failwith "case not implemented in type_expr"
+
+    | Bool _ -> TBool
+
+    | Unop Opp expr -> check expr TInt tenv; TInt
+    | Unop Not expr -> check expr TBool tenv; TBool
+
+    | Binop Eq expr1 expr2 | Neq expr1 expr2 -> check expr1 (type_expr expr2 tenv) tenv; TBool
+    | Binop And expr1 expr2 | Or expr1 expr2 -> check expr1 TBool tenv; check expr2 TBool tenv; TBool
+    | Binop op expr1 expr2 -> check expr1 TBool tenv; (*toutes les autres opérations binaires prennent des int*)
+                              check expr2 TBool tenv;
+                              match op with 
+                                    Lt|Le|Gt|Ge -> Bool
+                                    | _ -> TInt 
+
+    | Get Var id -> Env.find id tenv
+    | Get Field exp id -> type_expr expr tenv
+    | This -> 
+
 
   and type_mem_access m tenv = match m with
     | _ -> failwith "case not implemented in type_mem_access"
@@ -30,8 +47,10 @@ let typecheck_prog p =
   let rec check_instr i ret tenv = match i with
     | Print e -> check e TInt tenv
     | _ -> failwith "case not implemented in check_instr"
+
   and check_seq s ret tenv =
     List.iter (fun i -> check_instr i ret tenv) s
+
   in
 
   check_seq p.main TVoid tenv

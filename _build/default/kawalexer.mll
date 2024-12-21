@@ -21,6 +21,7 @@
       "if",         IF;
       "else",       ELSE;
       "while",      WHILE;
+      "extends",    EXTENDS;
       "return",     RETURN;
       "int",        INT;
       "bool",       BOOL;
@@ -47,6 +48,7 @@ rule token = parse
   | number as n  { N(int_of_string n) }
   | ident as id  { keyword_or_ident id }
   
+   
   | "="  { ASSIGN }
   | ";"  { SEMI }
   | "("  { LPAR }
@@ -57,12 +59,15 @@ rule token = parse
   | "+"  { PLUS }
   | "-"  { MINUS }
   | "*"  { STAR }
-  | "/"  { DIV  }
+  | "/"  { DIV }
+  | "%"  { MOD }
 
   | "==" { EQUAL }
   | "!="  { NEQUAL }
   | "<"  { LOWER }
   | "<="  { LEQUAL }
+  | ">"  { GREATER }
+  | ">="  { GEQUAL }
   | "&&"  { AND }
   | "||"  { OR }
 

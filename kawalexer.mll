@@ -9,6 +9,7 @@
   let h = Hashtbl.create 17 in
   List.iter (fun (s, k) -> Hashtbl.add h s k)
     [ "print",      PRINT;
+      "main",       MAIN;
       "true",       TRUE;
       "false",      FALSE;
 
@@ -51,6 +52,7 @@ rule token = parse
    
   | "="  { ASSIGN }
   | ";"  { SEMI }
+  | "."  { DOT }
   | "("  { LPAR }
   | ")"  { RPAR }
   | "{"  { BEGIN }
@@ -61,11 +63,14 @@ rule token = parse
   | "*"  { STAR }
   | "/"  { DIV }
   | "%"  { MOD }
+  | "%"  { MOD }
 
   | "==" { EQUAL }
   | "!="  { NEQUAL }
   | "<"  { LOWER }
   | "<="  { LEQUAL }
+  | ">"  { GREATER }
+  | ">="  { GEQUAL }
   | "&&"  { AND }
   | "||"  { OR }
 

@@ -70,7 +70,7 @@ type method_def = {
     params: (string * typ) list;
     locals: (string * typ) list;
     return: typ;
-  }
+}
         
 (* Définition de classe 
 
