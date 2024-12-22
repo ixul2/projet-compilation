@@ -2,10 +2,10 @@
 # OCAMLPARAM: unset
 # Workspace root:
 # /home/lucas/Documents/travail/l3/compilation/projet/projet-compilation
-$ /usr/bin/nproc > /tmp/dune6d7305.output 2> /dev/null
+$ /usr/bin/nproc > /tmp/duneaecb32.output 2> /dev/null
 # Auto-detected concurrency: 4
 # disable binary cache
-$ /usr/bin/ocamlc.opt -config > /tmp/dunedcac41.output
+$ /usr/bin/ocamlc.opt -config > /tmp/duneacca39.output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"

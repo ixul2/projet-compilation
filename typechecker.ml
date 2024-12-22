@@ -37,6 +37,7 @@ let typecheck_prog p =
 
     | Get Var id -> Env.find id tenv
     | Get Field (exp, id) -> failwith "flemme"
+    | _ -> failwith "flemme"
 
 
   and type_mem_access m tenv = match m with
