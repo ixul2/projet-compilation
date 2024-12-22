@@ -53,6 +53,7 @@ rule token = parse
   | "="  { ASSIGN }
   | ";"  { SEMI }
   | "."  { DOT }
+  | ","  { COMMA }
   | "("  { LPAR }
   | ")"  { RPAR }
   | "{"  { BEGIN }

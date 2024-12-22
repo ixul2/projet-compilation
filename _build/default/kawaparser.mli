@@ -14,9 +14,11 @@ type token =
   | PRINT
   | PLUS
   | OR
+  | NOT
   | NEW
   | NEQUAL
   | N of (int)
+  | MOD
   | MINUS
   | METHOD
   | MAIN
@@ -26,12 +28,17 @@ type token =
   | INT
   | IF
   | IDENT of (string)
+  | GREATER
+  | GEQUAL
   | FALSE
+  | EXTENDS
   | EQUAL
   | EOF
   | END
   | ELSE
+  | DOT
   | DIV
+  | COMMA
   | CLASS
   | BOOL
   | BEGIN

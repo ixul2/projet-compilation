@@ -2,10 +2,10 @@
 # OCAMLPARAM: unset
 # Workspace root:
 # /home/lucas/Documents/travail/l3/compilation/projet/projet-compilation
-$ /usr/bin/nproc > /tmp/dune2dab47.output 2> /dev/null
+$ /usr/bin/nproc > /tmp/dune6d7305.output 2> /dev/null
 # Auto-detected concurrency: 4
 # disable binary cache
-$ /usr/bin/ocamlc.opt -config > /tmp/dune01eca1.output
+$ /usr/bin/ocamlc.opt -config > /tmp/dunedcac41.output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -157,5 +157,9 @@ $ /usr/bin/ocamlc.opt -config > /tmp/dune01eca1.output
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && /usr/bin/ocamllex -q -o kawalexer.ml kawalexer.mll)
-$ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl kawalexer.ml) > _build/default/.kawai.eobjs/kawalexer.ml.d
+$ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl interpreter.ml) > _build/default/.kawai.eobjs/interpreter.ml.d
+$ (cd _build/default && /usr/bin/ocamlc.opt -g -bin-annot -I .kawai.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .kawai.eobjs/byte/dune__exe__Interpreter.cmo -c -impl interpreter.ml)
+$ (cd _build/default && /usr/bin/ocamlc.opt -g -bin-annot -I .kawai.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .kawai.eobjs/byte/dune__exe__Kawai.cmo -c -impl kawai.ml)
+$ (cd _build/default && /usr/bin/ocamlopt.opt -g -I .kawai.eobjs/byte -I .kawai.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .kawai.eobjs/native/dune__exe__Interpreter.cmx -c -impl interpreter.ml)
+$ (cd _build/default && /usr/bin/ocamlopt.opt -g -I .kawai.eobjs/byte -I .kawai.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .kawai.eobjs/native/dune__exe__Kawai.cmx -c -impl kawai.ml)
+$ (cd _build/default && /usr/bin/ocamlopt.opt -g -o kawai.exe .kawai.eobjs/native/dune__exe.cmx .kawai.eobjs/native/dune__exe__Kawa.cmx .kawai.eobjs/native/dune__exe__Interpreter.cmx .kawai.eobjs/native/dune__exe__Kawaparser.cmx .kawai.eobjs/native/dune__exe__Kawalexer.cmx .kawai.eobjs/native/dune__exe__Kawai.cmx)

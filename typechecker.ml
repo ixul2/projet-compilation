@@ -27,17 +27,16 @@ let typecheck_prog p =
     | Unop Opp expr -> check expr TInt tenv; TInt
     | Unop Not expr -> check expr TBool tenv; TBool
 
-    | Binop Eq expr1 expr2 | Neq expr1 expr2 -> check expr1 (type_expr expr2 tenv) tenv; TBool
-    | Binop And expr1 expr2 | Or expr1 expr2 -> check expr1 TBool tenv; check expr2 TBool tenv; TBool
-    | Binop op expr1 expr2 -> check expr1 TBool tenv; (*toutes les autres opérations binaires prennent des int*)
+    | Binop Eq (expr1, expr2) | Binop Neq (expr1, expr2) -> check expr1 (type_expr expr2 tenv) tenv; TBool
+    | Binop And (expr1, expr2) | Binop Or (expr1, expr2) -> check expr1 TBool tenv; check expr2 TBool tenv; TBool
+    | Binop (op, expr1, expr2) -> check expr1 TBool tenv; (*toutes les autres opérations binaires prennent des int*)
                               check expr2 TBool tenv;
                               match op with 
                                     Lt|Le|Gt|Ge -> Bool
                                     | _ -> TInt 
 
     | Get Var id -> Env.find id tenv
-    | Get Field exp id -> type_expr expr tenv
-    | This -> 
+    | Get Field (exp, id) -> failwith "flemme"
 
 
   and type_mem_access m tenv = match m with
