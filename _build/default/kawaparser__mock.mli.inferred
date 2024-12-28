@@ -1,7 +1,6 @@
 type token =
     WHILE
   | VOID
-  | VAR
   | TRUE
   | THIS
   | STAR
@@ -17,7 +16,6 @@ type token =
   | N of int
   | MOD
   | MINUS
-  | METHOD
   | MAIN
   | LPAR
   | LOWER
@@ -39,7 +37,6 @@ type token =
   | CLASS
   | BOOL
   | BEGIN
-  | ATTRIBUTE
   | ASSIGN
   | AND
 val menhir_begin_marker : int
@@ -53,6 +50,7 @@ val xv_separated_nonempty_list_COMMA_expr_ : Kawa.expr list
 val xv_separated_list_COMMA_typed_variable_ : (string * Kawa.typ) list
 val xv_separated_list_COMMA_expr_ : Kawa.expr list
 val xv_program : Kawa.program
+val xv_option_class_extension_ : string option
 val xv_method_def : Kawa.method_def
 val xv_mem : Kawa.mem_access
 val xv_main : Kawa.seq
@@ -60,13 +58,15 @@ val xv_loption_separated_nonempty_list_COMMA_typed_variable__ :
   (string * Kawa.typ) list
 val xv_loption_separated_nonempty_list_COMMA_expr__ : Kawa.expr list
 val xv_list_var_decl_ : (string * Kawa.typ) list
-val xv_list_method_def_ : Kawa.method_def list
+val xv_list_instr_var_decl_ : Kawa.instr_var_decl list
 val xv_list_instr_ : Kawa.seq
 val xv_list_class_def_ : Kawa.class_def list
-val xv_list_attr_decl_ : (string * Kawa.typ) list
+val xv_list_class_attr_meth_ : Kawa.class_attr_metho list
+val xv_instr_var_decl : Kawa.instr_var_decl
 val xv_instr : Kawa.instr
 val xv_expr : Kawa.expr
+val xv_class_extension : string
 val xv_class_def : Kawa.class_def
+val xv_class_attr_meth : Kawa.class_attr_metho
 val xv_bop : Kawa.binop
-val xv_attr_decl : string * Kawa.typ
 val menhir_end_marker : int

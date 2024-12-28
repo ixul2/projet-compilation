@@ -4,7 +4,6 @@
 type token = 
   | WHILE
   | VOID
-  | VAR
   | TRUE
   | THIS
   | STAR
@@ -20,7 +19,6 @@ type token =
   | N of (int)
   | MOD
   | MINUS
-  | METHOD
   | MAIN
   | LPAR
   | LOWER
@@ -42,7 +40,6 @@ type token =
   | CLASS
   | BOOL
   | BEGIN
-  | ATTRIBUTE
   | ASSIGN
   | AND
 

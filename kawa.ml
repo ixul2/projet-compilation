@@ -71,6 +71,10 @@ type method_def = {
     locals: (string * typ) list;
     return: typ;
 }
+
+type instr_var_decl =
+  | Instr of instr
+  | Var_decl of string * typ
         
 (* Définition de classe 
 
@@ -86,6 +90,10 @@ type class_def = {
     methods: method_def list;
     parent: string option;
   }
+
+type class_attr_metho =
+  | Method of method_def
+  | Attr of string * typ
 
 (* Programme complet : variables globales, classes, et une séquence 
    d'instructions *)
