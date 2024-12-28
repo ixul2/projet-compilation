@@ -44,7 +44,9 @@ rule token = parse
   | "/*"                 { comment lexbuf; token lexbuf }
 
   | number as n  { N(int_of_string n) }
-  | ident as id  { keyword_or_ident id }
+  | ident as id  { match (List.find_opt (fun x -> x=id) ["var"; "attribute"; "method"]) with
+                     None -> keyword_or_ident id
+                   | _ -> token lexbuf }
   
    
   | "="  { ASSIGN }

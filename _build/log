@@ -1,10 +1,10 @@
 # dune build
 # OCAMLPARAM: unset
 # Workspace root: /home/solidarismin/Bureau/projet_lucas/projet-compilation
-$ /usr/bin/nproc > /tmp/duned45e88.output 2> /dev/null
+$ /usr/bin/nproc > /tmp/dune609eda.output 2> /dev/null
 # Auto-detected concurrency: 8
 # disable binary cache
-$ /usr/bin/ocamlc.opt -config > /tmp/dunef13982.output
+$ /usr/bin/ocamlc.opt -config > /tmp/dune15ada2.output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -156,3 +156,11 @@ $ /usr/bin/ocamlc.opt -config > /tmp/dunef13982.output
 #      ; windows_unicode = false
 #      }
 #  }
+$ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl kawai.ml) > _build/default/.kawai.eobjs/kawai.ml.d
+$ (cd _build/default && /usr/bin/ocamlc.opt -g -bin-annot -I .kawai.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .kawai.eobjs/byte/dune__exe__Typechecker.cmo -c -impl typechecker.ml)
+> File "typechecker.ml", line 27, characters 6-19:
+> 27 |     | Unop Opp expr -> check expr TInt tenv; TInt
+>            ^^^^^^^^^^^^^
+> Error: The constructor Unop expects 2 argument(s),
+>        but is applied here to 1 argument(s)
+[2]

@@ -6,9 +6,9 @@ type value =
   | VObj  of obj
   | Null
 
-and obj = {
+and obj = { 
   cls:    string;
-  fields: (string, value) Hashtbl.t;
+  fields: (string, value) Hashtbl.t ;
 }
 
 exception Error of string
@@ -81,8 +81,14 @@ let exec_prog (p: program): unit =
       | Binop (Mul, expr1, expr2) -> VInt (evali(expr1) * evali(expr2))
       | Binop (Div, expr1, expr2) -> VInt (evali(expr1) / evali(expr2))
       | Binop (Rem, expr1, expr2) -> VInt (evali(expr1) mod evali(expr2))
-      | Binop (Eq, expr1, expr2) -> VBool (eval(expr1) == eval(expr2))
-      | Binop (Neq, expr1, expr2) -> VBool (eval(expr1) != eval(expr2))
+      | Binop (Eq, expr1, expr2) -> (match eval(expr1), eval(expr2) with 
+                                            VBool b1, VBool b2 ->  VBool (b1==b2)
+                                          | VInt n1, VInt n2 ->  VBool (n1==n2)
+                                          | VObj obj1, VObj obj2 -> VBool (obj1 == obj2)
+                                          | Null, Null -> VBool true
+                                          | _, _ -> VBool false)
+
+      | Binop (Neq, expr1, expr2) -> VBool (not (evalb (Binop (Eq, expr1, expr2))))
       | Binop (Lt, expr1, expr2) -> VBool (evali(expr1) < evali(expr2))
       | Binop (Le, expr1, expr2) -> VBool (evali(expr1) <= evali(expr2))
       | Binop (Gt, expr1, expr2) -> VBool (evali(expr1) > evali(expr2))
@@ -119,10 +125,8 @@ let exec_prog (p: program): unit =
                                 exec_seq seq2
 
       | While (e, seq) -> if evalb e then
-                              begin
                                 let _ = exec_seq seq in
                                 exec (While (e, seq))
-                              end
 
       | Set (Var s, e) -> (match search_env_opt s with
                               None -> failwith "Can't set a variable that hasn't been declared" 
