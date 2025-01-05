@@ -72,9 +72,17 @@ type method_def = {
     return: typ;
 }
 
+<<<<<<< HEAD
 type instr_var_decl =
   | Instr of instr
   | Var_decl of string * typ
+=======
+type attribute_def = {
+    attribute_name: string;
+    attribute_typ: typ;
+    final: bool;
+}
+>>>>>>> 541246b (idk anymore)
         
 (* Définition de classe 
 
@@ -84,9 +92,10 @@ type instr_var_decl =
    On considère que toute classe C contient une définition de méthode de nom
    "constructor" et de type de retour void, qui initialise les champs du 
    paramètre implicite this. *)
+
 type class_def = {
     class_name: string;
-    attributes: (string * typ) list;
+    attributes: attribute_def list;
     methods: method_def list;
     parent: string option;
   }

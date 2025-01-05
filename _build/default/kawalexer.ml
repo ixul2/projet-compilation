@@ -14,6 +14,13 @@
       "true",       TRUE;
       "false",      FALSE;
 
+<<<<<<< HEAD
+=======
+      "var",        VAR;
+      "attribute",  ATTRIBUTE;
+      "final",      FINAL;
+      "method",     METHOD;
+>>>>>>> 541246b (idk anymore)
       "class",      CLASS;
       "new",        NEW;
       "this",       THIS;
@@ -31,7 +38,11 @@
     with Not_found -> IDENT(s)  
         
 
+<<<<<<< HEAD
 # 35 "kawalexer.ml"
+=======
+# 39 "kawalexer.ml"
+>>>>>>> 541246b (idk anymore)
 let __ocaml_lex_tables = {
   Lexing.lex_base =
    "\000\000\226\255\227\255\002\000\001\000\002\000\003\000\004\000\
@@ -158,6 +169,7 @@ let rec token lexbuf =
 and __ocaml_lex_token_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
+<<<<<<< HEAD
 # 40 "kawalexer.mll"
                       ( new_line lexbuf; token lexbuf )
 # 164 "kawalexer.ml"
@@ -318,6 +330,166 @@ let
 # 78 "kawalexer.mll"
          ( EOF )
 # 321 "kawalexer.ml"
+=======
+# 44 "kawalexer.mll"
+                      ( new_line lexbuf; token lexbuf )
+# 168 "kawalexer.ml"
+
+  | 1 ->
+# 45 "kawalexer.mll"
+                      ( token lexbuf )
+# 173 "kawalexer.ml"
+
+  | 2 ->
+# 47 "kawalexer.mll"
+                         ( new_line lexbuf; token lexbuf )
+# 178 "kawalexer.ml"
+
+  | 3 ->
+# 48 "kawalexer.mll"
+                         ( comment lexbuf; token lexbuf )
+# 183 "kawalexer.ml"
+
+  | 4 ->
+let
+# 50 "kawalexer.mll"
+              n
+# 189 "kawalexer.ml"
+= Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
+# 50 "kawalexer.mll"
+                 ( N(int_of_string n) )
+# 193 "kawalexer.ml"
+
+  | 5 ->
+let
+# 51 "kawalexer.mll"
+             id
+# 199 "kawalexer.ml"
+= Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
+# 51 "kawalexer.mll"
+                 ( keyword_or_ident id )
+# 203 "kawalexer.ml"
+
+  | 6 ->
+# 54 "kawalexer.mll"
+         ( ASSIGN )
+# 208 "kawalexer.ml"
+
+  | 7 ->
+# 55 "kawalexer.mll"
+         ( SEMI )
+# 213 "kawalexer.ml"
+
+  | 8 ->
+# 56 "kawalexer.mll"
+         ( DOT )
+# 218 "kawalexer.ml"
+
+  | 9 ->
+# 57 "kawalexer.mll"
+         ( COMMA )
+# 223 "kawalexer.ml"
+
+  | 10 ->
+# 58 "kawalexer.mll"
+         ( LPAR )
+# 228 "kawalexer.ml"
+
+  | 11 ->
+# 59 "kawalexer.mll"
+         ( RPAR )
+# 233 "kawalexer.ml"
+
+  | 12 ->
+# 60 "kawalexer.mll"
+         ( BEGIN )
+# 238 "kawalexer.ml"
+
+  | 13 ->
+# 61 "kawalexer.mll"
+         ( END )
+# 243 "kawalexer.ml"
+
+  | 14 ->
+# 63 "kawalexer.mll"
+         ( PLUS )
+# 248 "kawalexer.ml"
+
+  | 15 ->
+# 64 "kawalexer.mll"
+         ( MINUS )
+# 253 "kawalexer.ml"
+
+  | 16 ->
+# 65 "kawalexer.mll"
+         ( STAR )
+# 258 "kawalexer.ml"
+
+  | 17 ->
+# 66 "kawalexer.mll"
+         ( DIV )
+# 263 "kawalexer.ml"
+
+  | 18 ->
+# 67 "kawalexer.mll"
+         ( MOD )
+# 268 "kawalexer.ml"
+
+  | 19 ->
+# 68 "kawalexer.mll"
+         ( MOD )
+# 273 "kawalexer.ml"
+
+  | 20 ->
+# 70 "kawalexer.mll"
+         ( EQUAL )
+# 278 "kawalexer.ml"
+
+  | 21 ->
+# 71 "kawalexer.mll"
+          ( NEQUAL )
+# 283 "kawalexer.ml"
+
+  | 22 ->
+# 72 "kawalexer.mll"
+         ( LOWER )
+# 288 "kawalexer.ml"
+
+  | 23 ->
+# 73 "kawalexer.mll"
+          ( LEQUAL )
+# 293 "kawalexer.ml"
+
+  | 24 ->
+# 74 "kawalexer.mll"
+         ( GREATER )
+# 298 "kawalexer.ml"
+
+  | 25 ->
+# 75 "kawalexer.mll"
+          ( GEQUAL )
+# 303 "kawalexer.ml"
+
+  | 26 ->
+# 76 "kawalexer.mll"
+          ( AND )
+# 308 "kawalexer.ml"
+
+  | 27 ->
+# 77 "kawalexer.mll"
+          ( OR )
+# 313 "kawalexer.ml"
+
+  | 28 ->
+# 79 "kawalexer.mll"
+         ( raise (Error ("unknown character : " ^ lexeme lexbuf)) )
+# 318 "kawalexer.ml"
+
+  | 29 ->
+# 80 "kawalexer.mll"
+         ( EOF )
+# 323 "kawalexer.ml"
+>>>>>>> 541246b (idk anymore)
 
   | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf;
       __ocaml_lex_token_rec lexbuf __ocaml_lex_state
@@ -327,6 +499,7 @@ and comment lexbuf =
 and __ocaml_lex_comment_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
+<<<<<<< HEAD
 # 81 "kawalexer.mll"
          ( () )
 # 333 "kawalexer.ml"
@@ -340,6 +513,21 @@ and __ocaml_lex_comment_rec lexbuf __ocaml_lex_state =
 # 83 "kawalexer.mll"
          ( raise (Error "unterminated comment") )
 # 343 "kawalexer.ml"
+=======
+# 83 "kawalexer.mll"
+         ( () )
+# 335 "kawalexer.ml"
+
+  | 1 ->
+# 84 "kawalexer.mll"
+         ( comment lexbuf )
+# 340 "kawalexer.ml"
+
+  | 2 ->
+# 85 "kawalexer.mll"
+         ( raise (Error "unterminated comment") )
+# 345 "kawalexer.ml"
+>>>>>>> 541246b (idk anymore)
 
   | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf;
       __ocaml_lex_comment_rec lexbuf __ocaml_lex_state

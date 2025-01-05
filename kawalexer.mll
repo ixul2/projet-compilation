@@ -13,6 +13,8 @@
       "true",       TRUE;
       "false",      FALSE;
 
+
+      "final",      FINAL;
       "class",      CLASS;
       "new",        NEW;
       "this",       THIS;

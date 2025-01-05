@@ -18,16 +18,16 @@ let exec_prog (p: program): unit =
   let env = Hashtbl.create 16 in
   List.iter (fun (x, _) -> Hashtbl.add env x Null) p.globals;
   
-  let rec eval_call f this args =
-    let rec explore_heritage_class cls = let cls = List.find (fun c -> cls=c.class_name) p.classes in
+  let rec eval_call f this args = 
+    let rec explore_heritage_tree cls = let cls = List.find (fun c -> cls=c.class_name) p.classes in
                                           match List.find_opt (fun m->m.method_name=f) cls.methods with 
                                           None -> (match cls.parent with 
                                                     None -> failwith "Class doesn't have this method"
-                                                    | Some parent -> explore_heritage_class parent)
+                                                    | Some parent -> explore_heritage_tree parent)
 
                                           | Some f -> f
     in
-    let f = explore_heritage_class this.cls in
+    let f = explore_heritage_tree this.cls in
     let lenv = Hashtbl.create 16 in
     List.iter (fun (x, _) -> Hashtbl.add lenv x Null) f.locals;
     if List.length f.params  <> List.length args then failwith "Invalid parameters for the class" else
@@ -57,7 +57,7 @@ let exec_prog (p: program): unit =
                                       
 
     and initialize_class name = 
-      let rec initialize_attributes cls ht =  List.iter (fun (field_name, _) -> Hashtbl.add ht field_name Null) cls.attributes;
+      let rec initialize_attributes cls ht =  List.iter (fun attr -> Hashtbl.add ht attr.attribute_name Null) cls.attributes;
                                               match cls.parent with 
                                                   None -> ()
                                                 | Some parent -> initialize_attributes (List.find (fun c -> c.class_name=parent) p.classes) ht
@@ -141,7 +141,7 @@ let exec_prog (p: program): unit =
                               
 
       | Return expr ->  Hashtbl.add lenv "return" (eval expr)
-      | Expr _ -> () (*if it's an expression it's not supposed to do anything*)
+      | Expr expr -> let _ = eval expr in ()
 
 
     and exec_seq s = 

@@ -1,10 +1,19 @@
 # dune build
 # OCAMLPARAM: unset
+<<<<<<< HEAD
 # Workspace root: /home/solidarismin/Bureau/projet_lucas/projet-compilation
 $ /usr/bin/nproc > /tmp/dune609eda.output 2> /dev/null
 # Auto-detected concurrency: 8
 # disable binary cache
 $ /usr/bin/ocamlc.opt -config > /tmp/dune15ada2.output
+=======
+# Workspace root:
+# /home/lucas/Documents/travail/l3/compilation/projet/projet-compilation
+$ /usr/bin/nproc > /tmp/dune742a36.output 2> /dev/null
+# Auto-detected concurrency: 4
+# disable binary cache
+$ /usr/bin/ocamlc.opt -config > /tmp/dune1c6b13.output
+>>>>>>> 541246b (idk anymore)
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -156,6 +165,7 @@ $ /usr/bin/ocamlc.opt -config > /tmp/dune15ada2.output
 #      ; windows_unicode = false
 #      }
 #  }
+<<<<<<< HEAD
 $ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl kawai.ml) > _build/default/.kawai.eobjs/kawai.ml.d
 $ (cd _build/default && /usr/bin/ocamlc.opt -g -bin-annot -I .kawai.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .kawai.eobjs/byte/dune__exe__Typechecker.cmo -c -impl typechecker.ml)
 > File "typechecker.ml", line 27, characters 6-19:
@@ -164,3 +174,12 @@ $ (cd _build/default && /usr/bin/ocamlc.opt -g -bin-annot -I .kawai.eobjs/byte -
 > Error: The constructor Unop expects 2 argument(s),
 >        but is applied here to 1 argument(s)
 [2]
+=======
+$ (cd _build/default && /usr/bin/menhir --explain --dump kawaparser.mly --base kawaparser --infer-write-query kawaparser__mock.ml.mock)
+$ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl kawaparser__mock.ml.mock) > _build/default/.kawai.eobjs/kawaparser__mock.ml.mock.d
+$ (cd _build/default && /usr/bin/ocamlc.opt -g -I .kawai.eobjs/byte -open Dune__exe -short-paths -i -impl kawaparser__mock.ml.mock) > _build/default/kawaparser__mock.mli.inferred
+$ (cd _build/default && /usr/bin/menhir --explain --dump kawaparser.mly --base kawaparser --infer-read-reply kawaparser__mock.mli.inferred)
+$ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl kawaparser.ml) > _build/default/.kawai.eobjs/kawaparser.ml.d
+$ (cd _build/default && /usr/bin/ocamlopt.opt -g -I .kawai.eobjs/byte -I .kawai.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .kawai.eobjs/native/dune__exe__Kawaparser.cmx -c -impl kawaparser.ml)
+$ (cd _build/default && /usr/bin/ocamlopt.opt -g -o kawai.exe .kawai.eobjs/native/dune__exe.cmx .kawai.eobjs/native/dune__exe__Kawa.cmx .kawai.eobjs/native/dune__exe__Interpreter.cmx .kawai.eobjs/native/dune__exe__Kawaparser.cmx .kawai.eobjs/native/dune__exe__Kawalexer.cmx .kawai.eobjs/native/dune__exe__Typechecker.cmx .kawai.eobjs/native/dune__exe__Kawai.cmx)
+>>>>>>> 541246b (idk anymore)

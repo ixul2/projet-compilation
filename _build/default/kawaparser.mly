@@ -7,7 +7,11 @@
 
 %token <int> N
 %token <string> IDENT
+<<<<<<< HEAD
 %token CLASS NEW THIS IF ELSE WHILE RETURN INT BOOL VOID EXTENDS MAIN
+=======
+%token VAR ATTRIBUTE FINAL METHOD CLASS NEW THIS IF ELSE WHILE RETURN INT BOOL VOID EXTENDS MAIN
+>>>>>>> 541246b (idk anymore)
 %token ASSIGN LPAR RPAR BEGIN END SEMI COMMA DOT
 %token PLUS MINUS STAR DIV MOD
 %token EQUAL NEQUAL LOWER LEQUAL GREATER GEQUAL AND OR NOT
@@ -27,13 +31,14 @@
 %%
 
 program:
-| glb=list(var_decl) cls=list(class_def) main_fun=main EOF { {classes=cls; globals=glb; main=main_fun} }
+| glb=list(var_decl) cls=list(class_def) main_fun=main EOF { {classes=cls; globals=List.concat glb; main=main_fun} }
 ;
 
 main:
 | MAIN BEGIN seq=list(instr) END { seq }
 ;
 
+<<<<<<< HEAD
 class_def:
 | CLASS cls_name=IDENT parent=option(class_extension) BEGIN attrs_methods=list(class_attr_meth) END { let methods = List.filter_map (fun m_v -> match m_v with Method m -> Some m | _ -> None) attrs_methods in
                                                                        let attrs = List.filter_map (fun m_v -> match m_v with Attr (id, t) -> Some (id, t) | _ -> None) attrs_methods in
@@ -68,6 +73,14 @@ var_decl:
 typed_variable:
 | typ=type_ id=IDENT { (id, typ) }
 ;
+=======
+var_decl:
+| VAR t=type_ id_list=separated_list(COMMA, IDENT) SEMI { List.map (fun id -> (id, t)) id_list } 
+
+attr_decl:
+| FINAL ATTRIBUTE t=type_ id=IDENT SEMI { {attribute_name=id; attribute_typ=t; final=true} }
+| ATTRIBUTE t=type_ id=IDENT SEMI { {attribute_name=id; attribute_typ=t; final=false} }
+>>>>>>> 541246b (idk anymore)
 
 type_:
 | BOOL { TBool }
@@ -76,6 +89,7 @@ type_:
 | cls_name=IDENT { TClass(cls_name) }
 ;
 
+<<<<<<< HEAD
 instr:
 | PRINT LPAR e=expr RPAR SEMI { Print(e) }
 | mem=mem ASSIGN e=expr SEMI { Set(mem, e) }
@@ -84,6 +98,13 @@ instr:
 | RETURN e=expr SEMI { Return(e) }
 | e=expr SEMI { Expr(e) }
 ;
+=======
+method_def:
+| METHOD ret=type_ id=IDENT LPAR params=separated_list(COMMA, typed_variable) RPAR BEGIN loc=list(var_decl) code=list(instr) END { {method_name=id; code=code; params=params; locals=List.concat loc; return=ret} }
+
+typed_variable:
+| typ =type_ id=IDENT { (id, typ)}
+>>>>>>> 541246b (idk anymore)
 
 expr:
 | n=N { Int(n) }

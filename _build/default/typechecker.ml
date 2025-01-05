@@ -15,42 +15,109 @@ let add_env l tenv =
 let typecheck_prog p =
   let tenv = add_env p.globals Env.empty in
 
+  let get_class class_name = match List.find_opt (fun cls -> cls.class_name=class_name) p.classes with
+                                None -> failwith "Class doesn't exist"
+                              | Some cls -> cls
+
+  in
+
+  let rec explore_heritage_tree func cls = match func cls with 
+                                              Some v -> Some v 
+                                            | None -> match cls.parent with 
+                                                  None -> None
+                                                | Some parent -> explore_heritage_tree func (List.find (fun cls -> cls.class_name=parent) p.classes)
+  in
+
+  let get_method class_name method_name = match explore_heritage_tree (fun cls -> List.find_opt (fun m -> m.method_name = method_name) cls.methods) (get_class class_name) with
+                                            None -> failwith "class does not have this method"
+                                          | Some m -> m
+  in
+
+  let get_attribute class_name attribute_name = match explore_heritage_tree (fun cls -> List.find_opt (fun attr -> attr.attribute_name = attribute_name) cls.attributes) (get_class class_name) with
+                                                    None -> failwith "Class does not have this attribute"
+                                                  | Some attr-> attr
+  in
+
   let rec check e typ tenv =
     let typ_e = type_expr e tenv in
-    if typ_e <> typ then type_error typ_e typ
+    match typ, typ_e with 
+      TClass class_typ, TClass class_typ_e -> (match explore_heritage_tree (fun cls -> if cls.class_name = class_typ then Some class_typ else None) (get_class class_typ_e) with 
+                                                  None -> type_error typ_e typ
+                                                | _ -> ())
 
+      | _ -> if typ <> typ_e then type_error typ_e typ
+
+  and check_call cls_name method_name params =  let meth = get_method cls_name method_name in
+                                                if List.for_all2 (fun (_, typ) param -> param=typ) meth.params params then 
+                                                  meth.return
+
+                                                else
+                                                  failwith "Incorrect types for arguments given"
+  
   and type_expr e tenv = match e with
     | Int _  -> TInt
 
     | Bool _ -> TBool
 
-    | Unop Opp expr -> check expr TInt tenv; TInt
-    | Unop Not expr -> check expr TBool tenv; TBool
+    | Unop (Opp, expr) -> check expr TInt tenv; TInt
+    | Unop (Not, expr) -> check expr TBool tenv; TBool
 
-    | Binop Eq (expr1, expr2) | Binop Neq (expr1, expr2) -> check expr1 (type_expr expr2 tenv) tenv; TBool
-    | Binop And (expr1, expr2) | Binop Or (expr1, expr2) -> check expr1 TBool tenv; check expr2 TBool tenv; TBool
-    | Binop (op, expr1, expr2) -> check expr1 TBool tenv; (*toutes les autres opérations binaires prennent des int*)
-                              check expr2 TBool tenv;
-                              match op with 
-                                    Lt|Le|Gt|Ge -> Bool
-                                    | _ -> TInt 
+    | Binop (Eq, expr1, expr2) | Binop (Neq, expr1, expr2) -> check expr1 (type_expr expr2 tenv) tenv; TBool
+    | Binop (And, expr1, expr2) | Binop (Or, expr1, expr2) -> check expr1 TBool tenv; check expr2 TBool tenv; TBool
+    | Binop (op, expr1, expr2) -> check expr1 TInt tenv; (*toutes les autres opérations binaires prennent des int*)
+                              check expr2 TInt tenv;
+                              (match op with 
+                                    Lt|Le|Gt|Ge -> TBool
+                                    | _ -> TInt)
 
-    | Get Var id -> Env.find id tenv
-    | Get Field (exp, id) -> failwith "flemme"
-    | _ -> failwith "flemme"
+    | Get (Var id) -> (match Env.find_opt id tenv with 
+                        None -> failwith "Variable doesn't exist"
+                      | Some v -> v)
 
+    | Get (Field (expr_obj, method_name)) -> (match type_expr expr_obj tenv with 
+                                    TClass cls -> (get_attribute cls method_name).attribute_typ
+                                  | _ -> failwith "Type doesn't have attributes")
 
-  and type_mem_access m tenv = match m with
-    | _ -> failwith "case not implemented in type_mem_access"
+    | New cls_name -> let _ = get_class cls_name in TClass cls_name
+    | NewCstr (cls_name, params) -> let _ = check_call cls_name "constructor" (List.map (fun p -> type_expr p tenv) params) in TClass cls_name
+
+    | MethCall (expr_obj, method_name, params) -> (match type_expr expr_obj tenv with
+                                                     TClass cls_name -> check_call cls_name method_name (List.map (fun p -> type_expr p tenv) params)
+                                                    | _ -> failwith "Trying to access method of non-object type")
+                                                
+    | This -> type_expr (Get (Var "this")) tenv
+
   in
-
-  let rec check_instr i ret tenv = match i with
+  let rec check_instr i ret class_final_allowed tenv = match i with
     | Print e -> check e TInt tenv
-    | _ -> failwith "case not implemented in check_instr"
+    | Expr e -> check e TVoid tenv 
+    | Return e -> check e ret tenv (*Technically a void function should be able to return the result of another void function*)
+    | Set (Var id, expr) -> check expr (type_expr (Get (Var id)) tenv) tenv
+    | Set (Field (expr_obj, method_name), expr) -> (match type_expr expr_obj tenv with 
+                                                      TClass cls -> let attr = (get_attribute cls method_name) in
+                                                                    check expr attr.attribute_typ tenv;
+                                                                    if attr.final && not (match class_final_allowed with None -> false | Some cls_name -> cls_name = cls) then
+                                                                      failwith "Can't change final attribute"
 
-  and check_seq s ret tenv =
-    List.iter (fun i -> check_instr i ret tenv) s
+                                                      | _ -> failwith "Type doesn't have attributes")
+
+    | If (expr, seq1, seq2) -> check expr TBool tenv; check_seq seq1 ret class_final_allowed tenv; check_seq seq2 ret class_final_allowed tenv
+    | While (expr, seq) -> check expr TBool tenv; check_seq seq ret class_final_allowed tenv
+
+  and check_seq s ret class_final_allowed tenv =
+    List.iter (fun i -> check_instr i ret class_final_allowed tenv) s
 
   in
+  check_seq p.main TVoid None tenv;
+  List.iter (fun cls -> let lenv = tenv in
+                        let lenv = Env.add "this" (TClass cls.class_name) lenv in
+                        List.iter (fun meth ->  let lenv = List.fold_left (fun env (var_name, var_type) -> Env.add var_name var_type env) lenv meth.locals in
+                                                let lenv = List.fold_left (fun env (param_name, param_type) -> Env.add param_name param_type env) lenv meth.params in
+                                                if meth.method_name = "constructor" then
+                                                  if meth.return != TVoid then failwith "Constructor must have type void" else
+                                                  check_seq meth.code meth.return (Some cls.class_name) lenv
 
-  check_seq p.main TVoid tenv
+                                                else
+                                                  check_seq meth.code meth.return None lenv;
+                        ) cls.methods;
+            ) p.classes

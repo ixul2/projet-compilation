@@ -28,6 +28,7 @@ type token =
   | IDENT of (string)
   | GREATER
   | GEQUAL
+  | FINAL
   | FALSE
   | EXTENDS
   | EQUAL

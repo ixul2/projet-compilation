@@ -2,6 +2,10 @@
 
   open Lexing
   open Kawa
+  let disentangle_initilialized_variables vars =  let vars = List.concat vars in
+                                                  match vars with 
+                                                   [typed_variables, init_code] -> List.concat typed_variables, List.concat init_code
+                                                   | _ -> failwith "This error shouldn't be reachable"
 
 %}
 
@@ -27,13 +31,14 @@
 %%
 
 program:
-| glb=list(var_decl) cls=list(class_def) main_fun=main EOF { {classes=cls; globals=glb; main=main_fun} }
+| variables=list(var_decl) cls=list(class_def) main_fun=main EOF { let glb, init_code = disentangle_initilialized_variables variables in {classes=cls; globals=glb; main=init_code@main_fun} }
 ;
 
 main:
 | MAIN BEGIN seq=list(instr) END { seq }
 ;
 
+<<<<<<< HEAD
 class_def:
 | CLASS cls_name=IDENT parent=option(class_extension) BEGIN attrs_methods=list(class_attr_meth) END { let methods = List.filter_map (fun m_v -> match m_v with Method m -> Some m | _ -> None) attrs_methods in
                                                                        let attrs = List.filter_map (fun m_v -> match m_v with Attr (id, t) -> Some (id, t) | _ -> None) attrs_methods in

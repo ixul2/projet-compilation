@@ -25,6 +25,7 @@ type token =
   | IDENT of string
   | GREATER
   | GEQUAL
+  | FINAL
   | FALSE
   | EXTENDS
   | EQUAL
@@ -40,15 +41,17 @@ type token =
   | ASSIGN
   | AND
 val menhir_begin_marker : int
-val xv_var_decl : string * Kawa.typ
+val xv_var_decl : (string * Kawa.typ) list
 val xv_uop : Kawa.unop
 val xv_typed_variable : string * Kawa.typ
 val xv_type_ : Kawa.typ
 val xv_separated_nonempty_list_COMMA_typed_variable_ :
   (string * Kawa.typ) list
 val xv_separated_nonempty_list_COMMA_expr_ : Kawa.expr list
+val xv_separated_nonempty_list_COMMA_IDENT_ : string list
 val xv_separated_list_COMMA_typed_variable_ : (string * Kawa.typ) list
 val xv_separated_list_COMMA_expr_ : Kawa.expr list
+val xv_separated_list_COMMA_IDENT_ : string list
 val xv_program : Kawa.program
 val xv_option_class_extension_ : string option
 val xv_method_def : Kawa.method_def
@@ -57,16 +60,29 @@ val xv_main : Kawa.seq
 val xv_loption_separated_nonempty_list_COMMA_typed_variable__ :
   (string * Kawa.typ) list
 val xv_loption_separated_nonempty_list_COMMA_expr__ : Kawa.expr list
+<<<<<<< HEAD
 val xv_list_var_decl_ : (string * Kawa.typ) list
 val xv_list_instr_var_decl_ : Kawa.instr_var_decl list
 val xv_list_instr_ : Kawa.seq
 val xv_list_class_def_ : Kawa.class_def list
 val xv_list_class_attr_meth_ : Kawa.class_attr_metho list
 val xv_instr_var_decl : Kawa.instr_var_decl
+=======
+val xv_loption_separated_nonempty_list_COMMA_IDENT__ : string list
+val xv_list_var_decl_ : (string * Kawa.typ) list list
+val xv_list_method_def_ : Kawa.method_def list
+val xv_list_instr_ : Kawa.seq
+val xv_list_class_def_ : Kawa.class_def list
+val xv_list_attr_decl_ : Kawa.attribute_def list
+>>>>>>> 541246b (idk anymore)
 val xv_instr : Kawa.instr
 val xv_expr : Kawa.expr
 val xv_class_extension : string
 val xv_class_def : Kawa.class_def
 val xv_class_attr_meth : Kawa.class_attr_metho
 val xv_bop : Kawa.binop
+<<<<<<< HEAD
+=======
+val xv_attr_decl : Kawa.attribute_def
+>>>>>>> 541246b (idk anymore)
 val menhir_end_marker : int

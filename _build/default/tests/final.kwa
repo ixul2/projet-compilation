@@ -1,0 +1,20 @@
+var c el;
+
+class c{
+  final attribute int x;
+  attribute int y;
+
+  method void constructor(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  method void change_x(){ 
+    //this.x = 5; //program fails
+  }
+}
+
+main {
+  el = new c(1, 2);
+  print(el.x);
+}
