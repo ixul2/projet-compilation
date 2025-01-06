@@ -9,7 +9,7 @@ on utilise "return" comme pseudo-variable pour renvoyer valeur
 on peut changer ordre methods attributes
 nouvelles erreurs pour que ce soit plus claire
 on peut accéder à l'environnement global depuis les méthodes
-nouveaux tests dont environnement
+nouveaux tests
+proper error handling
 
 //to do, initialiser les objets avec les attributs de tous les parents 
-//make it so we can access variables from global environnement 

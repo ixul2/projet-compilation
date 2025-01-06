@@ -6,6 +6,17 @@ let type_error ty_actual ty_expected =
   error (Printf.sprintf "expected %s, got %s"
            (typ_to_string ty_expected) (typ_to_string ty_actual))
 
+let undefined_element_error ty_el name_el =
+  error (Printf.sprintf "the %s %s does not exist"
+           (ty_el) (name_el))
+
+let not_a_class_error ty_el =
+  error (Printf.sprintf "Trying to access %s of non-object type"
+           (ty_el))
+
+let final_error el_name = error (Printf.sprintf "Trying to change value of final attribute : %s"
+           (el_name))
+
 module Env = Map.Make(String)
 type tenv = typ Env.t
 
@@ -32,13 +43,13 @@ let typecheck_prog p =
 
   (*method to fetch method with proper error handling*)
   let get_method class_name method_name = match explore_heritage_tree (fun cls -> List.find_opt (fun m -> m.method_name = method_name) cls.methods) (get_class class_name) with
-                                            None -> failwith "class does not have this method"
+                                            None -> undefined_element_error "method" (method_name^"("^class_name^")")
                                           | Some m -> m
   in
 
   (*method to fetch attribute with proper error handling*)
   let get_attribute class_name attribute_name = match explore_heritage_tree (fun cls -> List.find_opt (fun attr -> attr.attribute_name = attribute_name) cls.attributes) (get_class class_name) with
-                                                    None -> failwith "Class does not have this attribute"
+                                                    None -> undefined_element_error "attribute" (attribute_name^"("^class_name^")")
                                                   | Some attr-> attr
   in
 
@@ -52,11 +63,8 @@ let typecheck_prog p =
       | _ -> if typ <> typ_e then type_error typ_e typ
 
   and type_call cls_name method_name params =  let meth = get_method cls_name method_name in
-                                                if List.for_all2 (fun (_, typ) param -> param=typ) meth.params params then (*we check the arguments are all the right type*)
-                                                  meth.return
-
-                                                else
-                                                  failwith "Incorrect types for arguments given"
+                                                List.iter2 (fun (_, typ) param -> if param<>typ then type_error typ param) meth.params params; (*we check the arguments are all the right type*)
+                                                meth.return
   
   and type_expr e tenv = match e with
     | Int _  -> TInt
@@ -78,12 +86,12 @@ let typecheck_prog p =
                           Some v -> v
                         | None -> match Env.find_opt id global_env with (*then we check the global environnement*)
                                      Some v -> v
-                                   | None -> failwith "Variable doesn't exist")
+                                   | None -> undefined_element_error "variable" id)
                       
 
     | Get (Field (expr_obj, method_name)) -> (match type_expr expr_obj tenv with 
                                     TClass cls -> (get_attribute cls method_name).attribute_typ
-                                  | _ -> failwith "Trying to access attribute of non-object type")
+                                  | _ -> not_a_class_error "attribute")
 
     | New cls_name -> let _ = get_class cls_name in TClass cls_name
 
@@ -91,7 +99,7 @@ let typecheck_prog p =
 
     | MethCall (expr_obj, method_name, params) -> (match type_expr expr_obj tenv with
                                                      TClass cls_name -> type_call cls_name method_name (List.map (fun p -> type_expr p tenv) params)
-                                                    | _ -> failwith "Trying to access method of non-object type")
+                                                    | _ -> not_a_class_error "method")
                                                 
     | This -> type_expr (Get (Var "this")) tenv
 
@@ -105,9 +113,9 @@ let typecheck_prog p =
                                                       TClass cls -> let attr = (get_attribute cls method_name) in
                                                                     check expr attr.attribute_typ tenv;
                                                                     if attr.final && not (match class_final_allowed with None -> false | Some cls_name -> cls_name = cls) then
-                                                                      failwith "Can't change final attribute"
+                                                                      final_error attr.attribute_name
 
-                                                      | _ -> failwith "Trying to access attribute of non-object type")
+                                                      | _ -> not_a_class_error "attribute")
 
     | If (expr, seq1, seq2) -> check expr TBool tenv; check_seq seq1 ret class_final_allowed tenv; check_seq seq2 ret class_final_allowed tenv
     | While (expr, seq) -> check expr TBool tenv; check_seq seq ret class_final_allowed tenv
@@ -123,9 +131,10 @@ let typecheck_prog p =
                                                 let lenv = List.fold_left (fun env (param_name, param_type) -> Env.add param_name param_type env) lenv meth.params in (*we add the parameters to the environnement*)
                                                 if meth.method_name = "constructor" then
                                                   if meth.return != TVoid then 
-                                                    failwith "Constructor must have type void"
+                                                    type_error meth.return TVoid
+
                                                   else
-                                                    check_seq meth.code meth.return (Some cls.class_name) lenv
+                                                    check_seq meth.code meth.return (Some cls.class_name) lenv (*if it's the constructor we're allowed to change final variables of the current object*)
 
                                                 else
                                                   check_seq meth.code meth.return None lenv;
