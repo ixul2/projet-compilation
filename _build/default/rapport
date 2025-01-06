@@ -1,0 +1,15 @@
+extensions implémentées :
+- retirer les mots clés method, attribute, et var 
+- pouvoir déclarer plusieurs variables du même type en même temps (int a, b, c;)
+- le mot clé final
+- l'égalité structurel. L'opération === (resp : =/=) indique l'égalité en mémoire. L'opération 
+
+quelques choix :
+on utilise "return" comme pseudo-variable pour renvoyer valeur
+on peut changer ordre methods attributes
+nouvelles erreurs pour que ce soit plus claire
+on peut accéder à l'environnement global depuis les méthodes
+nouveaux tests dont environnement
+
+//to do, initialiser les objets avec les attributs de tous les parents 
+//make it so we can access variables from global environnement 

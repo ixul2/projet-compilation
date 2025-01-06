@@ -13,14 +13,16 @@ let add_env l tenv =
   List.fold_left (fun env (x, t) -> Env.add x t env) tenv l
 
 let typecheck_prog p =
-  let tenv = add_env p.globals Env.empty in
-
+  let global_env = add_env p.globals Env.empty in
+ 
+  (*method to fetch class with proper error handling*)
   let get_class class_name = match List.find_opt (fun cls -> cls.class_name=class_name) p.classes with
                                 None -> failwith "Class doesn't exist"
                               | Some cls -> cls
 
   in
 
+  (*method to explore heritage tree of a class and call a given function on each class. The first time the function returns a non-None value, the exploration stops. This could be extended to allow a class to inherit from several classe at once*)
   let rec explore_heritage_tree func cls = match func cls with 
                                               Some v -> Some v 
                                             | None -> match cls.parent with 
@@ -28,11 +30,13 @@ let typecheck_prog p =
                                                 | Some parent -> explore_heritage_tree func (List.find (fun cls -> cls.class_name=parent) p.classes)
   in
 
+  (*method to fetch method with proper error handling*)
   let get_method class_name method_name = match explore_heritage_tree (fun cls -> List.find_opt (fun m -> m.method_name = method_name) cls.methods) (get_class class_name) with
                                             None -> failwith "class does not have this method"
                                           | Some m -> m
   in
 
+  (*method to fetch attribute with proper error handling*)
   let get_attribute class_name attribute_name = match explore_heritage_tree (fun cls -> List.find_opt (fun attr -> attr.attribute_name = attribute_name) cls.attributes) (get_class class_name) with
                                                     None -> failwith "Class does not have this attribute"
                                                   | Some attr-> attr
@@ -47,8 +51,8 @@ let typecheck_prog p =
 
       | _ -> if typ <> typ_e then type_error typ_e typ
 
-  and check_call cls_name method_name params =  let meth = get_method cls_name method_name in
-                                                if List.for_all2 (fun (_, typ) param -> param=typ) meth.params params then 
+  and type_call cls_name method_name params =  let meth = get_method cls_name method_name in
+                                                if List.for_all2 (fun (_, typ) param -> param=typ) meth.params params then (*we check the arguments are all the right type*)
                                                   meth.return
 
                                                 else
@@ -71,18 +75,21 @@ let typecheck_prog p =
                                     | _ -> TInt)
 
     | Get (Var id) -> (match Env.find_opt id tenv with 
-                        None -> failwith "Variable doesn't exist"
-                      | Some v -> v)
+                        Some v -> v
+                        | None -> match Env.find_opt id global_env with
+                                     Some v -> v
+                                   | None -> failwith "Variable doesn't exist")
+                      
 
     | Get (Field (expr_obj, method_name)) -> (match type_expr expr_obj tenv with 
                                     TClass cls -> (get_attribute cls method_name).attribute_typ
                                   | _ -> failwith "Type doesn't have attributes")
 
     | New cls_name -> let _ = get_class cls_name in TClass cls_name
-    | NewCstr (cls_name, params) -> let _ = check_call cls_name "constructor" (List.map (fun p -> type_expr p tenv) params) in TClass cls_name
+    | NewCstr (cls_name, params) -> let _ = type_call cls_name "constructor" (List.map (fun p -> type_expr p tenv) params) in TClass cls_name
 
     | MethCall (expr_obj, method_name, params) -> (match type_expr expr_obj tenv with
-                                                     TClass cls_name -> check_call cls_name method_name (List.map (fun p -> type_expr p tenv) params)
+                                                     TClass cls_name -> type_call cls_name method_name (List.map (fun p -> type_expr p tenv) params)
                                                     | _ -> failwith "Trying to access method of non-object type")
                                                 
     | This -> type_expr (Get (Var "this")) tenv
@@ -108,8 +115,8 @@ let typecheck_prog p =
     List.iter (fun i -> check_instr i ret class_final_allowed tenv) s
 
   in
-  check_seq p.main TVoid None tenv;
-  List.iter (fun cls -> let lenv = tenv in
+  check_seq p.main TVoid None Env.empty; (*we check main*)
+  List.iter (fun cls -> let lenv = Env.empty in (*we check all the methods of all classes even though some might not be called during the execution*)
                         let lenv = Env.add "this" (TClass cls.class_name) lenv in
                         List.iter (fun meth ->  let lenv = List.fold_left (fun env (var_name, var_type) -> Env.add var_name var_type env) lenv meth.locals in
                                                 let lenv = List.fold_left (fun env (param_name, param_type) -> Env.add param_name param_type env) lenv meth.params in

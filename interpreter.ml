@@ -18,8 +18,9 @@ let exec_prog (p: program): unit =
   let env = Hashtbl.create 16 in
   List.iter (fun (x, _) -> Hashtbl.add env x Null) p.globals;
   
-  let rec eval_call f this args = 
-    let rec explore_heritage_tree cls = let cls = List.find (fun c -> cls=c.class_name) p.classes in
+  let rec eval_call f this args = (*function used to hand a method call*)
+    (*we define a function to help us explore the heritage tree of a class and get the desired method. This could be generalized to allow a class to inherit from several classes*)
+    let rec explore_heritage_tree cls = let cls = List.find (fun c -> cls=c.class_name) p.classes in 
                                           match List.find_opt (fun m->m.method_name=f) cls.methods with 
                                           None -> (match cls.parent with 
                                                     None -> failwith "Class doesn't have this method"
@@ -28,13 +29,13 @@ let exec_prog (p: program): unit =
                                           | Some f -> f
     in
     let f = explore_heritage_tree this.cls in
-    let lenv = Hashtbl.create 16 in
-    List.iter (fun (x, _) -> Hashtbl.add lenv x Null) f.locals;
+    let lenv = Hashtbl.create 16 in (*we create the local environnement*)
+    List.iter (fun (x, _) -> Hashtbl.add lenv x Null) f.locals; (*we initialize the local varables*)
     if List.length f.params  <> List.length args then failwith "Invalid parameters for the class" else
-    List.iter2 (fun (param_name, _) arg -> Hashtbl.add lenv param_name arg) f.params args;
-    Hashtbl.add lenv "this" (VObj this);
+    List.iter2 (fun (param_name, _) arg -> Hashtbl.add lenv param_name arg) f.params args; (*we create the variables for the arguments*)
+    Hashtbl.add lenv "this" (VObj this); (*we add the object 'this'*)
     exec_seq f.code lenv;
-    match Hashtbl.find_opt lenv "return" with None -> Null | Some v -> v
+    match Hashtbl.find_opt lenv "return" with None -> Null | Some v -> v (*we use the pseudo-variable "return" in the local environnement to pass the return value back to the caller*)
 
   and exec_seq s lenv =
     let rec evali e = match eval e with
@@ -49,9 +50,9 @@ let exec_prog (p: program): unit =
       | VObj o -> o
       | _ -> assert false
 
-    and search_env_opt s = match Hashtbl.find_opt lenv s with (*First we search local variables*)
+    and search_env_opt s = match Hashtbl.find_opt lenv s with (*First we search local variables in the local environnement*)
                             Some v -> Some (lenv, v)
-                            | None -> match Hashtbl.find_opt env s with (*Then we search global variables*)
+                            | None -> match Hashtbl.find_opt env s with (*Then we search global variables in the global environnement*)
                               | Some v -> Some (env, v)
                               | None -> None
                                       
@@ -111,7 +112,7 @@ let exec_prog (p: program): unit =
       | New s -> VObj (initialize_class s)
 
       | NewCstr (s, params) -> let obj = initialize_class s in 
-                              let _ = eval_call "constructor" obj (List.map (fun expr -> eval expr) params) in 
+                              let _ = eval_call "constructor" obj (List.map (fun expr -> eval expr) params) in (*we call the constructor method*)
                               VObj obj
 
       | This -> eval (Get (Var "this")) 

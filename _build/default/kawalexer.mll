@@ -34,7 +34,7 @@
 }
 
 let digit = ['0'-'9']
-let number = digit+ (*removed "['-']?" instead '- is handled as a unary operator by the grammar. Otherwise 2-2 is misinterpreted as Number Number by the lexer*)
+let number = digit+ (*removed "['-']?" instead the character '-' is handled as a unary operator by the grammar. Otherwise 2-2 gets misinterpreted as 'Number Number' by the lexer*)
 let alpha = ['a'-'z' 'A'-'Z']
 let ident = ['a'-'z' '_'] (alpha | '_' | digit)*
   

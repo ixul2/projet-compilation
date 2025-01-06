@@ -34,27 +34,34 @@ main:
 ;
 
 class_def:
-| CLASS cls_name=IDENT parent=option(class_extension) BEGIN attrs_methods=list(class_attr_meth) END { let methods = List.filter_map (fun m_v -> match m_v with Method m -> Some m | _ -> None) attrs_methods in
-                                                                       let attrs = List.filter_map (fun m_v -> match m_v with Attr (attr) -> Some attr | _ -> None) attrs_methods in
-                                                                       {class_name=cls_name; attributes=List.concat attrs; methods=methods; parent=parent} 
-                                                                     }
+| CLASS cls_name=IDENT parent=option(class_extension) BEGIN attrs_methods=list(class_attr_meth) END { (*here we get a list of both methods and attributes and we split them back. This choice means there's no constraint as far as the order : an attribute can be after a method*)
+                                                                                                      let methods = List.filter_map (fun m_v -> match m_v with Method m -> Some m | _ -> None) attrs_methods in 
+                                                                                                      let attrs = List.filter_map (fun m_v -> match m_v with Attr (attr) -> Some attr | _ -> None) attrs_methods in
+                                                                                                      {class_name=cls_name; attributes=List.concat attrs; methods=methods; parent=parent} 
+                                                                                                     }
 ;
 
-class_extension:
+class_extension: /*class_extension needs to be its own nonterminal symbol to be used as an option in class_def*/
 | EXTENDS parent=IDENT { parent }
 ;
 
-class_attr_meth:
+class_attr_meth: 
 | m=method_def { Method(m) }
 | attr=attr_decl { Attr(attr) }
 
-method_def:
-| ret=type_ id=IDENT LPAR params=separated_list(COMMA, typed_variable) RPAR BEGIN instr_var_decls=list(instr_var_decl) END { let loc = List.filter_map (fun v_i -> match v_i with Var_decl vars -> Some vars | _ -> None) instr_var_decls in
-                                                                                                             let code = List.filter_map (fun v_i -> match v_i with Instr i -> Some i | _ -> None) instr_var_decls in
-                                                                                                             {method_name=id; code=code; params=params; locals=List.concat loc; return=ret}
-                                                                                                           }
+attr_decl:
+| vars=typed_variables SEMI {List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=false}) vars} 
+| FINAL vars=typed_variables SEMI {List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=true}) vars} 
 ;
- 
+
+method_def:
+| ret=type_ id=IDENT LPAR params=separated_list(COMMA, typed_variable) RPAR BEGIN instr_var_decls=list(instr_var_decl) END { (*we use the same trick for variables and instructions in method_def as we did for attributes and methods in class_def*)
+                                                                                                                             let loc = List.filter_map (fun v_i -> match v_i with Var_decl vars -> Some vars | _ -> None) instr_var_decls in
+                                                                                                                             let code = List.filter_map (fun v_i -> match v_i with Instr i -> Some i | _ -> None) instr_var_decls in
+                                                                                                                             {method_name=id; code=code; params=params; locals=List.concat loc; return=ret}
+                                                                                                                           }
+;
+
 typed_variable:
 | typ=type_ id=IDENT { (id, typ) }
 ;
@@ -65,18 +72,14 @@ instr_var_decl:
 | i=instr { Instr(i) }
 
 
-attr_decl:
-| vars=typed_variables SEMI {List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=false}) vars} 
-| FINAL vars=typed_variables SEMI {List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=true}) vars} 
-;
-
 var_decl:
 | vars=typed_variables SEMI { vars } 
 ;
 
-typed_variables:
+typed_variables: /*for example : int a, b, c;*/
 | typ=type_ ids=separated_nonempty_list (COMMA, IDENT) { List.map (fun id -> (id, typ)) ids }
 ;
+
 
 type_:
 | BOOL { TBool }
@@ -107,6 +110,7 @@ expr:
 | NEW id=IDENT LPAR params=separated_list(COMMA, expr) RPAR { NewCstr(id, params) }
 | e=expr DOT id=IDENT LPAR params=separated_list(COMMA, expr) RPAR { MethCall(e, id, params) }
 ;
+
 
 mem:
 | var=IDENT { Var(var) }
