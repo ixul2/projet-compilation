@@ -2,19 +2,14 @@
 
   open Lexing
   open Kawa
-  let disentangle_initilialized_variables vars =  let vars = List.concat vars in
-                                                  match vars with 
-                                                   [typed_variables, init_code] -> List.concat typed_variables, List.concat init_code
-                                                   | _ -> failwith "This error shouldn't be reachable"
-
 %}
 
 %token <int> N
 %token <string> IDENT
-%token CLASS NEW THIS IF ELSE WHILE RETURN INT BOOL VOID EXTENDS MAIN
+%token FINAL CLASS NEW THIS IF ELSE WHILE RETURN INT BOOL VOID EXTENDS MAIN
 %token ASSIGN LPAR RPAR BEGIN END SEMI COMMA DOT
 %token PLUS MINUS STAR DIV MOD
-%token EQUAL NEQUAL LOWER LEQUAL GREATER GEQUAL AND OR NOT
+%token EQUAL NEQUAL EQUAL_STRUCT NEQUAL_STRUCT LOWER LEQUAL GREATER GEQUAL AND OR NOT
 %token PRINT TRUE FALSE
 %token EOF
 
@@ -31,18 +26,17 @@
 %%
 
 program:
-| variables=list(var_decl) cls=list(class_def) main_fun=main EOF { let glb, init_code = disentangle_initilialized_variables variables in {classes=cls; globals=glb; main=init_code@main_fun} }
+| glb=list(var_decl) cls=list(class_def) main_fun=main EOF { {classes=cls; globals= List.concat glb; main=main_fun} }
 ;
 
 main:
 | MAIN BEGIN seq=list(instr) END { seq }
 ;
 
-<<<<<<< HEAD
 class_def:
 | CLASS cls_name=IDENT parent=option(class_extension) BEGIN attrs_methods=list(class_attr_meth) END { let methods = List.filter_map (fun m_v -> match m_v with Method m -> Some m | _ -> None) attrs_methods in
-                                                                       let attrs = List.filter_map (fun m_v -> match m_v with Attr (id, t) -> Some (id, t) | _ -> None) attrs_methods in
-                                                                       {class_name=cls_name; attributes=attrs; methods=methods; parent=parent} 
+                                                                       let attrs = List.filter_map (fun m_v -> match m_v with Attr (attr) -> Some attr | _ -> None) attrs_methods in
+                                                                       {class_name=cls_name; attributes=List.concat attrs; methods=methods; parent=parent} 
                                                                      }
 ;
 
@@ -52,26 +46,36 @@ class_extension:
 
 class_attr_meth:
 | m=method_def { Method(m) }
-| v_t=var_decl { let v, t = v_t in Attr(v, t) }
+| attr=attr_decl { Attr(attr) }
 
 method_def:
-| var=typed_variable LPAR params=separated_list(COMMA, typed_variable) RPAR BEGIN instr_var_decls=list(instr_var_decl) END { let loc = List.filter_map (fun v_i -> match v_i with Var_decl (v, t) -> Some(v, t) | _ -> None) instr_var_decls in
+| ret=type_ id=IDENT LPAR params=separated_list(COMMA, typed_variable) RPAR BEGIN instr_var_decls=list(instr_var_decl) END { let loc = List.filter_map (fun v_i -> match v_i with Var_decl vars -> Some vars | _ -> None) instr_var_decls in
                                                                                                              let code = List.filter_map (fun v_i -> match v_i with Instr i -> Some i | _ -> None) instr_var_decls in
-                                                                                                             let id, ret = var in 
-                                                                                                             {method_name=id; code=code; params=params; locals=loc; return=ret}
+                                                                                                             {method_name=id; code=code; params=params; locals=List.concat loc; return=ret}
                                                                                                            }
 ;
-
-instr_var_decl:
-| v_t=var_decl { let v, t = v_t in Var_decl(v, t) }
-| i=instr { Instr(i) }
-
-var_decl:
-| var=typed_variable SEMI { var } 
-;
-
+ 
 typed_variable:
 | typ=type_ id=IDENT { (id, typ) }
+;
+
+
+instr_var_decl:
+| vars=var_decl { Var_decl(vars) }
+| i=instr { Instr(i) }
+
+
+attr_decl:
+| vars=typed_variables SEMI {List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=false}) vars} 
+| FINAL vars=typed_variables SEMI {List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=true}) vars} 
+;
+
+var_decl:
+| vars=typed_variables SEMI { vars } 
+;
+
+typed_variables:
+| typ=type_ ids=separated_nonempty_list (COMMA, IDENT) { List.map (fun id -> (id, typ)) ids }
 ;
 
 type_:
@@ -128,4 +132,6 @@ mem:
 | GEQUAL { Ge }
 | AND { And }
 | OR { Or }
+| EQUAL_STRUCT { Eq_struct }
+| NEQUAL_STRUCT { Neq_struct }
 ;

@@ -81,6 +81,9 @@ let exec_prog (p: program): unit =
       | Binop (Mul, expr1, expr2) -> VInt (evali(expr1) * evali(expr2))
       | Binop (Div, expr1, expr2) -> VInt (evali(expr1) / evali(expr2))
       | Binop (Rem, expr1, expr2) -> VInt (evali(expr1) mod evali(expr2))
+      | Binop (Eq_struct, expr1, expr2) -> VBool (eval(expr1)=eval(expr2))
+      | Binop (Neq_struct, expr1, expr2) -> VBool (eval(expr1)<>eval(expr2))
+
       | Binop (Eq, expr1, expr2) -> (match eval(expr1), eval(expr2) with 
                                             VBool b1, VBool b2 ->  VBool (b1==b2)
                                           | VInt n1, VInt n2 ->  VBool (n1==n2)

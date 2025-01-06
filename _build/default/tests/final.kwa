@@ -1,15 +1,15 @@
-var c el;
+c el;
 
 class c{
-  final attribute int x;
-  attribute int y;
+  final int x;
+  int y;
 
-  method void constructor(int x, int y) {
+  void constructor(int x, int y) {
     this.x = x;
     this.y = y;
   }
 
-  method void change_x(){ 
+  void change_x(){ 
     //this.x = 5; //program fails
   }
 }

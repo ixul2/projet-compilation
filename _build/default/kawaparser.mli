@@ -15,6 +15,7 @@ type token =
   | OR
   | NOT
   | NEW
+  | NEQUAL_STRUCT
   | NEQUAL
   | N of (int)
   | MOD
@@ -31,6 +32,7 @@ type token =
   | FINAL
   | FALSE
   | EXTENDS
+  | EQUAL_STRUCT
   | EQUAL
   | EOF
   | END

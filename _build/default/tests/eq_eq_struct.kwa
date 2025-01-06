@@ -1,0 +1,32 @@
+int n1, n2;
+foo a, b, c, d;
+
+class foo {
+  int x;
+  int y;
+  void constructor(int x, int y){
+    this.x = x;
+    this.y = y;
+  }
+}
+
+main {
+  n1 = 5;
+  n2 = 5;
+  if (n1==n2){print(1);} else {print(0);}
+  if (n1===n2){print(1);} else {print(0);}
+  n1 = 6;
+  if (n1!=n2){print(1);} else {print(0);}
+  if (n1=/=n2){print(1);} else {print(0);}
+  a = new foo(1, 2);
+  b = a;
+  c = new foo(1, 2);
+  d = new foo(2, 2);
+  if (a==b){print(1);} else {print(0);}
+  if (a===b){print(1);} else {print(0);}
+  if (a==c){print(1);} else {print(0);}
+  if (a=/=c){print(1);} else {print(0);}
+  if (a!=d){print(1);} else {print(0);}
+  if (a=/=d){print(1);} else {print(0);}
+  // Ne doit renvoyer que des 1
+}

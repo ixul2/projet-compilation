@@ -13,11 +13,12 @@ type token =
   | OR
   | NOT
   | NEW
+  | NEQUAL_STRUCT
   | NEQUAL
   | N of (
-# 8 "kawaparser.mly"
+# 7 "kawaparser.mly"
        (int)
-# 21 "kawaparser__mock.ml.mock"
+# 22 "kawaparser__mock.ml.mock"
 )
   | MOD
   | MINUS
@@ -28,15 +29,16 @@ type token =
   | INT
   | IF
   | IDENT of (
-# 9 "kawaparser.mly"
+# 8 "kawaparser.mly"
        (string)
-# 34 "kawaparser__mock.ml.mock"
+# 35 "kawaparser__mock.ml.mock"
 )
   | GREATER
   | GEQUAL
   | FINAL
   | FALSE
   | EXTENDS
+  | EQUAL_STRUCT
   | EQUAL
   | EOF
   | END
@@ -56,2129 +58,1139 @@ type token =
   open Lexing
   open Kawa
 
-
-<<<<<<< HEAD
-# 60 "kawaparser__mock.ml.mock"
-=======
-# 64 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 62 "kawaparser__mock.ml.mock"
 
 let menhir_begin_marker =
   0
 
-<<<<<<< HEAD
-and (xv_var_decl, xv_uop, xv_typed_variable, xv_type_, xv_separated_nonempty_list_COMMA_typed_variable_, xv_separated_nonempty_list_COMMA_expr_, xv_separated_list_COMMA_typed_variable_, xv_separated_list_COMMA_expr_, xv_program, xv_option_class_extension_, xv_method_def, xv_mem, xv_main, xv_loption_separated_nonempty_list_COMMA_typed_variable__, xv_loption_separated_nonempty_list_COMMA_expr__, xv_list_var_decl_, xv_list_instr_var_decl_, xv_list_instr_, xv_list_class_def_, xv_list_class_attr_meth_, xv_instr_var_decl, xv_instr, xv_expr, xv_class_extension, xv_class_def, xv_class_attr_meth, xv_bop) =
+and (xv_var_decl, xv_uop, xv_typed_variables, xv_typed_variable, xv_type_, xv_separated_nonempty_list_COMMA_typed_variable_, xv_separated_nonempty_list_COMMA_expr_, xv_separated_nonempty_list_COMMA_IDENT_, xv_separated_list_COMMA_typed_variable_, xv_separated_list_COMMA_expr_, xv_program, xv_option_class_extension_, xv_method_def, xv_mem, xv_main, xv_loption_separated_nonempty_list_COMMA_typed_variable__, xv_loption_separated_nonempty_list_COMMA_expr__, xv_list_var_decl_, xv_list_instr_var_decl_, xv_list_instr_, xv_list_class_def_, xv_list_class_attr_meth_, xv_instr_var_decl, xv_instr, xv_expr, xv_class_extension, xv_class_def, xv_class_attr_meth, xv_bop, xv_attr_decl) =
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 242 "<standard.mly>"
                     xs
-# 69 "kawaparser__mock.ml.mock"
+# 71 "kawaparser__mock.ml.mock"
    : 'tv_separated_nonempty_list_COMMA_typed_variable_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
 # 242 "<standard.mly>"
         _2
-# 73 "kawaparser__mock.ml.mock"
+# 75 "kawaparser__mock.ml.mock"
    : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
 # 242 "<standard.mly>"
   x
-# 77 "kawaparser__mock.ml.mock"
-=======
-and (xv_var_decl, xv_uop, xv_typed_variable, xv_type_, xv_separated_nonempty_list_COMMA_typed_variable_, xv_separated_nonempty_list_COMMA_expr_, xv_separated_nonempty_list_COMMA_IDENT_, xv_separated_list_COMMA_typed_variable_, xv_separated_list_COMMA_expr_, xv_separated_list_COMMA_IDENT_, xv_program, xv_method_def, xv_mem, xv_main, xv_loption_separated_nonempty_list_COMMA_typed_variable__, xv_loption_separated_nonempty_list_COMMA_expr__, xv_loption_separated_nonempty_list_COMMA_IDENT__, xv_list_var_decl_, xv_list_method_def_, xv_list_instr_, xv_list_class_def_, xv_list_attr_decl_, xv_instr, xv_expr, xv_class_def, xv_bop, xv_attr_decl) =
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 242 "<standard.mly>"
-                    xs
-# 73 "kawaparser__mock.ml.mock"
-   : 'tv_separated_nonempty_list_COMMA_typed_variable_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
-# 242 "<standard.mly>"
-        _2
-# 77 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 242 "<standard.mly>"
-  x
-# 81 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 79 "kawaparser__mock.ml.mock"
    : 'tv_typed_variable) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 243 "<standard.mly>"
     ( x :: xs )
-<<<<<<< HEAD
-# 82 "kawaparser__mock.ml.mock"
-=======
-# 86 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 84 "kawaparser__mock.ml.mock"
      : 'tv_separated_nonempty_list_COMMA_typed_variable_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 240 "<standard.mly>"
   x
-<<<<<<< HEAD
-# 87 "kawaparser__mock.ml.mock"
-=======
-# 91 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 89 "kawaparser__mock.ml.mock"
    : 'tv_typed_variable) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 241 "<standard.mly>"
     ( [ x ] )
-<<<<<<< HEAD
-# 92 "kawaparser__mock.ml.mock"
-=======
-# 96 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 94 "kawaparser__mock.ml.mock"
      : 'tv_separated_nonempty_list_COMMA_typed_variable_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 242 "<standard.mly>"
                     xs
-<<<<<<< HEAD
-# 97 "kawaparser__mock.ml.mock"
+# 99 "kawaparser__mock.ml.mock"
    : 'tv_separated_nonempty_list_COMMA_expr_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
 # 242 "<standard.mly>"
         _2
-# 101 "kawaparser__mock.ml.mock"
+# 103 "kawaparser__mock.ml.mock"
    : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
 # 242 "<standard.mly>"
   x
-# 105 "kawaparser__mock.ml.mock"
-=======
-# 101 "kawaparser__mock.ml.mock"
-   : 'tv_separated_nonempty_list_COMMA_expr_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
-# 242 "<standard.mly>"
-        _2
-# 105 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 242 "<standard.mly>"
-  x
-# 109 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 107 "kawaparser__mock.ml.mock"
    : 'tv_expr) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 243 "<standard.mly>"
     ( x :: xs )
-<<<<<<< HEAD
-# 110 "kawaparser__mock.ml.mock"
-=======
-# 114 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 112 "kawaparser__mock.ml.mock"
      : 'tv_separated_nonempty_list_COMMA_expr_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 240 "<standard.mly>"
   x
-<<<<<<< HEAD
-# 115 "kawaparser__mock.ml.mock"
-=======
-# 119 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 117 "kawaparser__mock.ml.mock"
    : 'tv_expr) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 241 "<standard.mly>"
     ( [ x ] )
-<<<<<<< HEAD
-# 120 "kawaparser__mock.ml.mock"
-=======
-# 124 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 122 "kawaparser__mock.ml.mock"
      : 'tv_separated_nonempty_list_COMMA_expr_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 242 "<standard.mly>"
                     xs
-# 129 "kawaparser__mock.ml.mock"
+# 127 "kawaparser__mock.ml.mock"
    : 'tv_separated_nonempty_list_COMMA_IDENT_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
 # 242 "<standard.mly>"
         _2
-# 133 "kawaparser__mock.ml.mock"
+# 131 "kawaparser__mock.ml.mock"
    : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
 # 242 "<standard.mly>"
   x
-# 137 "kawaparser__mock.ml.mock"
+# 135 "kawaparser__mock.ml.mock"
    : (
-# 9 "kawaparser.mly"
+# 8 "kawaparser.mly"
        (string)
-# 141 "kawaparser__mock.ml.mock"
+# 139 "kawaparser__mock.ml.mock"
   )) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 243 "<standard.mly>"
     ( x :: xs )
-# 146 "kawaparser__mock.ml.mock"
+# 144 "kawaparser__mock.ml.mock"
      : 'tv_separated_nonempty_list_COMMA_IDENT_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 240 "<standard.mly>"
   x
-# 151 "kawaparser__mock.ml.mock"
+# 149 "kawaparser__mock.ml.mock"
    : (
-# 9 "kawaparser.mly"
+# 8 "kawaparser.mly"
        (string)
-# 155 "kawaparser__mock.ml.mock"
+# 153 "kawaparser__mock.ml.mock"
   )) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 241 "<standard.mly>"
     ( [ x ] )
-# 160 "kawaparser__mock.ml.mock"
+# 158 "kawaparser__mock.ml.mock"
      : 'tv_separated_nonempty_list_COMMA_IDENT_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 231 "<standard.mly>"
   xs
-<<<<<<< HEAD
-# 125 "kawaparser__mock.ml.mock"
-=======
-# 165 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 163 "kawaparser__mock.ml.mock"
    : 'tv_loption_separated_nonempty_list_COMMA_typed_variable__) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) ->
     (
 # 232 "<standard.mly>"
     ( xs )
-<<<<<<< HEAD
-# 130 "kawaparser__mock.ml.mock"
-=======
-# 170 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 168 "kawaparser__mock.ml.mock"
      : 'tv_separated_list_COMMA_typed_variable_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 231 "<standard.mly>"
   xs
-<<<<<<< HEAD
-# 135 "kawaparser__mock.ml.mock"
-=======
-# 175 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 173 "kawaparser__mock.ml.mock"
    : 'tv_loption_separated_nonempty_list_COMMA_expr__) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) ->
     (
 # 232 "<standard.mly>"
     ( xs )
-<<<<<<< HEAD
-# 140 "kawaparser__mock.ml.mock"
+# 178 "kawaparser__mock.ml.mock"
      : 'tv_separated_list_COMMA_expr_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 115 "<standard.mly>"
   x
-# 145 "kawaparser__mock.ml.mock"
+# 183 "kawaparser__mock.ml.mock"
    : 'tv_class_extension) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 116 "<standard.mly>"
     ( Some x )
-# 150 "kawaparser__mock.ml.mock"
+# 188 "kawaparser__mock.ml.mock"
      : 'tv_option_class_extension_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) ->
     (
 # 114 "<standard.mly>"
     ( None )
-# 156 "kawaparser__mock.ml.mock"
+# 194 "kawaparser__mock.ml.mock"
      : 'tv_option_class_extension_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 143 "<standard.mly>"
   x
-# 161 "kawaparser__mock.ml.mock"
-=======
-# 180 "kawaparser__mock.ml.mock"
-     : 'tv_separated_list_COMMA_expr_) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 231 "<standard.mly>"
-  xs
-# 185 "kawaparser__mock.ml.mock"
-   : 'tv_loption_separated_nonempty_list_COMMA_IDENT__) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) ->
-    (
-# 232 "<standard.mly>"
-    ( xs )
-# 190 "kawaparser__mock.ml.mock"
-     : 'tv_separated_list_COMMA_IDENT_) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 143 "<standard.mly>"
-  x
-# 195 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 199 "kawaparser__mock.ml.mock"
    : 'tv_separated_nonempty_list_COMMA_typed_variable_) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 144 "<standard.mly>"
     ( x )
-<<<<<<< HEAD
-# 166 "kawaparser__mock.ml.mock"
-=======
-# 200 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 204 "kawaparser__mock.ml.mock"
      : 'tv_loption_separated_nonempty_list_COMMA_typed_variable__) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) ->
     (
 # 142 "<standard.mly>"
     ( [] )
-<<<<<<< HEAD
-# 172 "kawaparser__mock.ml.mock"
-=======
-# 206 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 210 "kawaparser__mock.ml.mock"
      : 'tv_loption_separated_nonempty_list_COMMA_typed_variable__) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 143 "<standard.mly>"
   x
-<<<<<<< HEAD
-# 177 "kawaparser__mock.ml.mock"
-=======
-# 211 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 215 "kawaparser__mock.ml.mock"
    : 'tv_separated_nonempty_list_COMMA_expr_) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 144 "<standard.mly>"
     ( x )
-<<<<<<< HEAD
-# 182 "kawaparser__mock.ml.mock"
-=======
-# 216 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 220 "kawaparser__mock.ml.mock"
      : 'tv_loption_separated_nonempty_list_COMMA_expr__) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) ->
     (
 # 142 "<standard.mly>"
     ( [] )
-<<<<<<< HEAD
-# 188 "kawaparser__mock.ml.mock"
-=======
-# 222 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 226 "kawaparser__mock.ml.mock"
      : 'tv_loption_separated_nonempty_list_COMMA_expr__) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 143 "<standard.mly>"
-  x
-# 227 "kawaparser__mock.ml.mock"
-   : 'tv_separated_nonempty_list_COMMA_IDENT_) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
-    (
-# 144 "<standard.mly>"
-    ( x )
-# 232 "kawaparser__mock.ml.mock"
-     : 'tv_loption_separated_nonempty_list_COMMA_IDENT__) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) ->
-    (
-# 142 "<standard.mly>"
-    ( [] )
-# 238 "kawaparser__mock.ml.mock"
-     : 'tv_loption_separated_nonempty_list_COMMA_IDENT__) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 212 "<standard.mly>"
          xs
-<<<<<<< HEAD
-# 193 "kawaparser__mock.ml.mock"
+# 231 "kawaparser__mock.ml.mock"
    : 'tv_list_var_decl_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
 # 212 "<standard.mly>"
   x
-# 197 "kawaparser__mock.ml.mock"
-=======
-# 243 "kawaparser__mock.ml.mock"
-   : 'tv_list_var_decl_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
-# 212 "<standard.mly>"
-  x
-# 247 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 235 "kawaparser__mock.ml.mock"
    : 'tv_var_decl) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 213 "<standard.mly>"
     ( x :: xs )
-<<<<<<< HEAD
-# 202 "kawaparser__mock.ml.mock"
-=======
-# 252 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 240 "kawaparser__mock.ml.mock"
      : 'tv_list_var_decl_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) ->
     (
 # 211 "<standard.mly>"
     ( [] )
-<<<<<<< HEAD
-# 208 "kawaparser__mock.ml.mock"
-=======
-# 258 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 246 "kawaparser__mock.ml.mock"
      : 'tv_list_var_decl_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 212 "<standard.mly>"
          xs
-<<<<<<< HEAD
-# 213 "kawaparser__mock.ml.mock"
+# 251 "kawaparser__mock.ml.mock"
    : 'tv_list_instr_var_decl_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
 # 212 "<standard.mly>"
   x
-# 217 "kawaparser__mock.ml.mock"
+# 255 "kawaparser__mock.ml.mock"
    : 'tv_instr_var_decl) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 213 "<standard.mly>"
     ( x :: xs )
-# 222 "kawaparser__mock.ml.mock"
+# 260 "kawaparser__mock.ml.mock"
      : 'tv_list_instr_var_decl_) in
-=======
-# 263 "kawaparser__mock.ml.mock"
-   : 'tv_list_method_def_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
-# 212 "<standard.mly>"
-  x
-# 267 "kawaparser__mock.ml.mock"
-   : 'tv_method_def) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
-    (
-# 213 "<standard.mly>"
-    ( x :: xs )
-# 272 "kawaparser__mock.ml.mock"
-     : 'tv_list_method_def_) in
->>>>>>> 541246b (idk anymore)
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) ->
     (
 # 211 "<standard.mly>"
     ( [] )
-<<<<<<< HEAD
-# 228 "kawaparser__mock.ml.mock"
+# 266 "kawaparser__mock.ml.mock"
      : 'tv_list_instr_var_decl_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 212 "<standard.mly>"
          xs
-# 233 "kawaparser__mock.ml.mock"
+# 271 "kawaparser__mock.ml.mock"
    : 'tv_list_instr_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
 # 212 "<standard.mly>"
   x
-# 237 "kawaparser__mock.ml.mock"
-=======
-# 278 "kawaparser__mock.ml.mock"
-     : 'tv_list_method_def_) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 212 "<standard.mly>"
-         xs
-# 283 "kawaparser__mock.ml.mock"
-   : 'tv_list_instr_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
-# 212 "<standard.mly>"
-  x
-# 287 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 275 "kawaparser__mock.ml.mock"
    : 'tv_instr) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 213 "<standard.mly>"
     ( x :: xs )
-<<<<<<< HEAD
-# 242 "kawaparser__mock.ml.mock"
-=======
-# 292 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 280 "kawaparser__mock.ml.mock"
      : 'tv_list_instr_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) ->
     (
 # 211 "<standard.mly>"
     ( [] )
-<<<<<<< HEAD
-# 248 "kawaparser__mock.ml.mock"
-=======
-# 298 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 286 "kawaparser__mock.ml.mock"
      : 'tv_list_instr_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 212 "<standard.mly>"
          xs
-<<<<<<< HEAD
-# 253 "kawaparser__mock.ml.mock"
+# 291 "kawaparser__mock.ml.mock"
    : 'tv_list_class_def_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
 # 212 "<standard.mly>"
   x
-# 257 "kawaparser__mock.ml.mock"
-=======
-# 303 "kawaparser__mock.ml.mock"
-   : 'tv_list_class_def_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
-# 212 "<standard.mly>"
-  x
-# 307 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 295 "kawaparser__mock.ml.mock"
    : 'tv_class_def) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 213 "<standard.mly>"
     ( x :: xs )
-<<<<<<< HEAD
-# 262 "kawaparser__mock.ml.mock"
-=======
-# 312 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 300 "kawaparser__mock.ml.mock"
      : 'tv_list_class_def_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) ->
     (
 # 211 "<standard.mly>"
     ( [] )
-<<<<<<< HEAD
-# 268 "kawaparser__mock.ml.mock"
-=======
-# 318 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 306 "kawaparser__mock.ml.mock"
      : 'tv_list_class_def_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 212 "<standard.mly>"
          xs
-<<<<<<< HEAD
-# 273 "kawaparser__mock.ml.mock"
+# 311 "kawaparser__mock.ml.mock"
    : 'tv_list_class_attr_meth_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
 # 212 "<standard.mly>"
   x
-# 277 "kawaparser__mock.ml.mock"
+# 315 "kawaparser__mock.ml.mock"
    : 'tv_class_attr_meth) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
     (
 # 213 "<standard.mly>"
     ( x :: xs )
-# 282 "kawaparser__mock.ml.mock"
+# 320 "kawaparser__mock.ml.mock"
      : 'tv_list_class_attr_meth_) in
-=======
-# 323 "kawaparser__mock.ml.mock"
-   : 'tv_list_attr_decl_) (_startpos_xs_ : Lexing.position) (_endpos_xs_ : Lexing.position) (_startofs_xs_ : int) (_endofs_xs_ : int) (_loc_xs_ : Lexing.position * Lexing.position) (
-# 212 "<standard.mly>"
-  x
-# 327 "kawaparser__mock.ml.mock"
-   : 'tv_attr_decl) (_startpos_x_ : Lexing.position) (_endpos_x_ : Lexing.position) (_startofs_x_ : int) (_endofs_x_ : int) (_loc_x_ : Lexing.position * Lexing.position) ->
-    (
-# 213 "<standard.mly>"
-    ( x :: xs )
-# 332 "kawaparser__mock.ml.mock"
-     : 'tv_list_attr_decl_) in
->>>>>>> 541246b (idk anymore)
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) ->
     (
 # 211 "<standard.mly>"
     ( [] )
-<<<<<<< HEAD
-# 288 "kawaparser__mock.ml.mock"
+# 326 "kawaparser__mock.ml.mock"
      : 'tv_list_class_attr_meth_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 65 "kawaparser.mly"
-                    _2
-# 293 "kawaparser__mock.ml.mock"
+# 74 "kawaparser.mly"
+                      _2
+# 331 "kawaparser__mock.ml.mock"
    : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 65 "kawaparser.mly"
-  var
-# 297 "kawaparser__mock.ml.mock"
-   : 'tv_typed_variable) (_startpos_var_ : Lexing.position) (_endpos_var_ : Lexing.position) (_startofs_var_ : int) (_endofs_var_ : int) (_loc_var_ : Lexing.position * Lexing.position) ->
+# 74 "kawaparser.mly"
+  vars
+# 335 "kawaparser__mock.ml.mock"
+   : 'tv_typed_variables) (_startpos_vars_ : Lexing.position) (_endpos_vars_ : Lexing.position) (_startofs_vars_ : int) (_endofs_vars_ : int) (_loc_vars_ : Lexing.position * Lexing.position) ->
     (
-# 65 "kawaparser.mly"
-                          ( var )
-# 302 "kawaparser__mock.ml.mock"
+# 74 "kawaparser.mly"
+                            ( vars )
+# 340 "kawaparser__mock.ml.mock"
      : 'tv_var_decl) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 109 "kawaparser.mly"
+# 118 "kawaparser.mly"
  _1
-# 307 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 109 "kawaparser.mly"
-      ( Not )
-# 312 "kawaparser__mock.ml.mock"
-     : 'tv_uop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 108 "kawaparser.mly"
- _1
-# 317 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 108 "kawaparser.mly"
-        ( Opp )
-# 322 "kawaparser__mock.ml.mock"
-     : 'tv_uop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 69 "kawaparser.mly"
-            id
-# 327 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 331 "kawaparser__mock.ml.mock"
-  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
-# 69 "kawaparser.mly"
-  typ
-# 335 "kawaparser__mock.ml.mock"
-   : 'tv_type_) (_startpos_typ_ : Lexing.position) (_endpos_typ_ : Lexing.position) (_startofs_typ_ : int) (_endofs_typ_ : int) (_loc_typ_ : Lexing.position * Lexing.position) ->
-    (
-# 69 "kawaparser.mly"
-                     ( (id, typ) )
-# 340 "kawaparser__mock.ml.mock"
-     : 'tv_typed_variable) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 76 "kawaparser.mly"
-  cls_name
 # 345 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 349 "kawaparser__mock.ml.mock"
-  )) (_startpos_cls_name_ : Lexing.position) (_endpos_cls_name_ : Lexing.position) (_startofs_cls_name_ : int) (_endofs_cls_name_ : int) (_loc_cls_name_ : Lexing.position * Lexing.position) ->
-    (
-# 76 "kawaparser.mly"
-                 ( TClass(cls_name) )
-# 354 "kawaparser__mock.ml.mock"
-     : 'tv_type_) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 75 "kawaparser.mly"
- _1
-# 359 "kawaparser__mock.ml.mock"
    : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
     (
-# 75 "kawaparser.mly"
-       ( TVoid )
-# 364 "kawaparser__mock.ml.mock"
-     : 'tv_type_) in
+# 118 "kawaparser.mly"
+      ( Not )
+# 350 "kawaparser__mock.ml.mock"
+     : 'tv_uop) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 74 "kawaparser.mly"
- _1
-# 369 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 74 "kawaparser.mly"
-      ( TInt )
-# 374 "kawaparser__mock.ml.mock"
-     : 'tv_type_) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 73 "kawaparser.mly"
- _1
-# 379 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 73 "kawaparser.mly"
-       ( TBool )
-# 384 "kawaparser__mock.ml.mock"
-=======
-# 338 "kawaparser__mock.ml.mock"
-     : 'tv_list_attr_decl_) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 39 "kawaparser.mly"
-                                                  _4
-# 343 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 39 "kawaparser.mly"
-              id_list
-# 347 "kawaparser__mock.ml.mock"
-   : 'tv_separated_list_COMMA_IDENT_) (_startpos_id_list_ : Lexing.position) (_endpos_id_list_ : Lexing.position) (_startofs_id_list_ : int) (_endofs_id_list_ : int) (_loc_id_list_ : Lexing.position * Lexing.position) (
-# 39 "kawaparser.mly"
-      t
-# 351 "kawaparser__mock.ml.mock"
-   : 'tv_type_) (_startpos_t_ : Lexing.position) (_endpos_t_ : Lexing.position) (_startofs_t_ : int) (_endofs_t_ : int) (_loc_t_ : Lexing.position * Lexing.position) (
-# 39 "kawaparser.mly"
+# 117 "kawaparser.mly"
  _1
 # 355 "kawaparser__mock.ml.mock"
    : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
     (
-# 39 "kawaparser.mly"
-                                                        ( List.map (fun id -> (id, t)) id_list )
-# 360 "kawaparser__mock.ml.mock"
-     : 'tv_var_decl) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 86 "kawaparser.mly"
- _1
-# 365 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 86 "kawaparser.mly"
-      ( Not )
-# 370 "kawaparser__mock.ml.mock"
-     : 'tv_uop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 85 "kawaparser.mly"
- _1
-# 375 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 85 "kawaparser.mly"
+# 117 "kawaparser.mly"
         ( Opp )
-# 380 "kawaparser__mock.ml.mock"
+# 360 "kawaparser__mock.ml.mock"
      : 'tv_uop) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 55 "kawaparser.mly"
-             id
-# 385 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 389 "kawaparser__mock.ml.mock"
-  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
-# 55 "kawaparser.mly"
+# 78 "kawaparser.mly"
+            ids
+# 365 "kawaparser__mock.ml.mock"
+   : 'tv_separated_nonempty_list_COMMA_IDENT_) (_startpos_ids_ : Lexing.position) (_endpos_ids_ : Lexing.position) (_startofs_ids_ : int) (_endofs_ids_ : int) (_loc_ids_ : Lexing.position * Lexing.position) (
+# 78 "kawaparser.mly"
   typ
-# 393 "kawaparser__mock.ml.mock"
+# 369 "kawaparser__mock.ml.mock"
    : 'tv_type_) (_startpos_typ_ : Lexing.position) (_endpos_typ_ : Lexing.position) (_startofs_typ_ : int) (_endofs_typ_ : int) (_loc_typ_ : Lexing.position * Lexing.position) ->
     (
-# 55 "kawaparser.mly"
-                      ( (id, typ))
-# 398 "kawaparser__mock.ml.mock"
+# 78 "kawaparser.mly"
+                                                       ( List.map (fun id -> (id, typ)) ids )
+# 374 "kawaparser__mock.ml.mock"
+     : 'tv_typed_variables) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 59 "kawaparser.mly"
+            id
+# 379 "kawaparser__mock.ml.mock"
+   : (
+# 8 "kawaparser.mly"
+       (string)
+# 383 "kawaparser__mock.ml.mock"
+  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
+# 59 "kawaparser.mly"
+  typ
+# 387 "kawaparser__mock.ml.mock"
+   : 'tv_type_) (_startpos_typ_ : Lexing.position) (_endpos_typ_ : Lexing.position) (_startofs_typ_ : int) (_endofs_typ_ : int) (_loc_typ_ : Lexing.position * Lexing.position) ->
+    (
+# 59 "kawaparser.mly"
+                     ( (id, typ) )
+# 392 "kawaparser__mock.ml.mock"
      : 'tv_typed_variable) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 49 "kawaparser.mly"
+# 85 "kawaparser.mly"
   cls_name
-# 403 "kawaparser__mock.ml.mock"
+# 397 "kawaparser__mock.ml.mock"
    : (
-# 9 "kawaparser.mly"
+# 8 "kawaparser.mly"
        (string)
-# 407 "kawaparser__mock.ml.mock"
+# 401 "kawaparser__mock.ml.mock"
   )) (_startpos_cls_name_ : Lexing.position) (_endpos_cls_name_ : Lexing.position) (_startofs_cls_name_ : int) (_endofs_cls_name_ : int) (_loc_cls_name_ : Lexing.position * Lexing.position) ->
     (
-# 49 "kawaparser.mly"
+# 85 "kawaparser.mly"
                  ( TClass(cls_name) )
-# 412 "kawaparser__mock.ml.mock"
+# 406 "kawaparser__mock.ml.mock"
      : 'tv_type_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 48 "kawaparser.mly"
+# 84 "kawaparser.mly"
  _1
-# 417 "kawaparser__mock.ml.mock"
+# 411 "kawaparser__mock.ml.mock"
    : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
     (
-# 48 "kawaparser.mly"
+# 84 "kawaparser.mly"
        ( TVoid )
-# 422 "kawaparser__mock.ml.mock"
+# 416 "kawaparser__mock.ml.mock"
      : 'tv_type_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 47 "kawaparser.mly"
+# 83 "kawaparser.mly"
  _1
-# 427 "kawaparser__mock.ml.mock"
+# 421 "kawaparser__mock.ml.mock"
    : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
     (
-# 47 "kawaparser.mly"
+# 83 "kawaparser.mly"
       ( TInt )
-# 432 "kawaparser__mock.ml.mock"
+# 426 "kawaparser__mock.ml.mock"
      : 'tv_type_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 46 "kawaparser.mly"
+# 82 "kawaparser.mly"
  _1
-# 437 "kawaparser__mock.ml.mock"
+# 431 "kawaparser__mock.ml.mock"
    : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
     (
-# 46 "kawaparser.mly"
+# 82 "kawaparser.mly"
        ( TBool )
-# 442 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
+# 436 "kawaparser__mock.ml.mock"
      : 'tv_type_) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 30 "kawaparser.mly"
+# 29 "kawaparser.mly"
                                                       _4
-<<<<<<< HEAD
-# 389 "kawaparser__mock.ml.mock"
+# 441 "kawaparser__mock.ml.mock"
    : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 30 "kawaparser.mly"
+# 29 "kawaparser.mly"
                                          main_fun
-# 393 "kawaparser__mock.ml.mock"
+# 445 "kawaparser__mock.ml.mock"
    : 'tv_main) (_startpos_main_fun_ : Lexing.position) (_endpos_main_fun_ : Lexing.position) (_startofs_main_fun_ : int) (_endofs_main_fun_ : int) (_loc_main_fun_ : Lexing.position * Lexing.position) (
-# 30 "kawaparser.mly"
+# 29 "kawaparser.mly"
                      cls
-# 397 "kawaparser__mock.ml.mock"
+# 449 "kawaparser__mock.ml.mock"
    : 'tv_list_class_def_) (_startpos_cls_ : Lexing.position) (_endpos_cls_ : Lexing.position) (_startofs_cls_ : int) (_endofs_cls_ : int) (_loc_cls_ : Lexing.position * Lexing.position) (
-# 30 "kawaparser.mly"
+# 29 "kawaparser.mly"
   glb
-# 401 "kawaparser__mock.ml.mock"
+# 453 "kawaparser__mock.ml.mock"
    : 'tv_list_var_decl_) (_startpos_glb_ : Lexing.position) (_endpos_glb_ : Lexing.position) (_startofs_glb_ : int) (_endofs_glb_ : int) (_loc_glb_ : Lexing.position * Lexing.position) ->
     ((
-# 30 "kawaparser.mly"
-                                                           ( {classes=cls; globals=glb; main=main_fun} )
-# 406 "kawaparser__mock.ml.mock"
+# 29 "kawaparser.mly"
+                                                           ( {classes=cls; globals= List.concat glb; main=main_fun} )
+# 458 "kawaparser__mock.ml.mock"
      : 'tv_program) : (
-# 25 "kawaparser.mly"
+# 24 "kawaparser.mly"
       (Kawa.program)
-# 410 "kawaparser__mock.ml.mock"
+# 462 "kawaparser__mock.ml.mock"
     )) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 53 "kawaparser.mly"
-                                                                                                                      _7
-# 415 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__7_ : Lexing.position) (_endpos__7_ : Lexing.position) (_startofs__7_ : int) (_endofs__7_ : int) (_loc__7_ : Lexing.position * Lexing.position) (
-# 53 "kawaparser.mly"
+# 52 "kawaparser.mly"
+                                                                                                                      _8
+# 467 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__8_ : Lexing.position) (_endpos__8_ : Lexing.position) (_startofs__8_ : int) (_endofs__8_ : int) (_loc__8_ : Lexing.position * Lexing.position) (
+# 52 "kawaparser.mly"
                                                                                   instr_var_decls
-# 419 "kawaparser__mock.ml.mock"
+# 471 "kawaparser__mock.ml.mock"
    : 'tv_list_instr_var_decl_) (_startpos_instr_var_decls_ : Lexing.position) (_endpos_instr_var_decls_ : Lexing.position) (_startofs_instr_var_decls_ : int) (_endofs_instr_var_decls_ : int) (_loc_instr_var_decls_ : Lexing.position * Lexing.position) (
-# 53 "kawaparser.mly"
-                                                                           _5
-# 423 "kawaparser__mock.ml.mock"
+# 52 "kawaparser.mly"
+                                                                           _6
+# 475 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__6_ : Lexing.position) (_endpos__6_ : Lexing.position) (_startofs__6_ : int) (_endofs__6_ : int) (_loc__6_ : Lexing.position * Lexing.position) (
+# 52 "kawaparser.mly"
+                                                                      _5
+# 479 "kawaparser__mock.ml.mock"
    : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
-# 53 "kawaparser.mly"
-                                                                      _4
-# 427 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 53 "kawaparser.mly"
+# 52 "kawaparser.mly"
                           params
-# 431 "kawaparser__mock.ml.mock"
+# 483 "kawaparser__mock.ml.mock"
    : 'tv_separated_list_COMMA_typed_variable_) (_startpos_params_ : Lexing.position) (_endpos_params_ : Lexing.position) (_startofs_params_ : int) (_endofs_params_ : int) (_loc_params_ : Lexing.position * Lexing.position) (
-# 53 "kawaparser.mly"
-                    _2
-# 435 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 53 "kawaparser.mly"
-  var
-# 439 "kawaparser__mock.ml.mock"
-   : 'tv_typed_variable) (_startpos_var_ : Lexing.position) (_endpos_var_ : Lexing.position) (_startofs_var_ : int) (_endofs_var_ : int) (_loc_var_ : Lexing.position * Lexing.position) ->
+# 52 "kawaparser.mly"
+                    _3
+# 487 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 52 "kawaparser.mly"
+            id
+# 491 "kawaparser__mock.ml.mock"
+   : (
+# 8 "kawaparser.mly"
+       (string)
+# 495 "kawaparser__mock.ml.mock"
+  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
+# 52 "kawaparser.mly"
+  ret
+# 499 "kawaparser__mock.ml.mock"
+   : 'tv_type_) (_startpos_ret_ : Lexing.position) (_endpos_ret_ : Lexing.position) (_startofs_ret_ : int) (_endofs_ret_ : int) (_loc_ret_ : Lexing.position * Lexing.position) ->
     (
-# 53 "kawaparser.mly"
-                                                                                                                           ( let loc = List.filter_map (fun v_i -> match v_i with Var_decl (v, t) -> Some(v, t) | _ -> None) instr_var_decls in
+# 52 "kawaparser.mly"
+                                                                                                                           ( let loc = List.filter_map (fun v_i -> match v_i with Var_decl vars -> Some vars | _ -> None) instr_var_decls in
                                                                                                              let code = List.filter_map (fun v_i -> match v_i with Instr i -> Some i | _ -> None) instr_var_decls in
-                                                                                                             let id, ret = var in 
-                                                                                                             {method_name=id; code=code; params=params; locals=loc; return=ret}
+                                                                                                             {method_name=id; code=code; params=params; locals=List.concat loc; return=ret}
                                                                                                            )
-# 448 "kawaparser__mock.ml.mock"
+# 507 "kawaparser__mock.ml.mock"
      : 'tv_method_def) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 104 "kawaparser.mly"
+# 113 "kawaparser.mly"
              var
-# 453 "kawaparser__mock.ml.mock"
+# 512 "kawaparser__mock.ml.mock"
    : (
-# 9 "kawaparser.mly"
+# 8 "kawaparser.mly"
        (string)
-# 457 "kawaparser__mock.ml.mock"
+# 516 "kawaparser__mock.ml.mock"
   )) (_startpos_var_ : Lexing.position) (_endpos_var_ : Lexing.position) (_startofs_var_ : int) (_endofs_var_ : int) (_loc_var_ : Lexing.position * Lexing.position) (
-# 104 "kawaparser.mly"
+# 113 "kawaparser.mly"
         _2
-# 461 "kawaparser__mock.ml.mock"
+# 520 "kawaparser__mock.ml.mock"
    : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 104 "kawaparser.mly"
+# 113 "kawaparser.mly"
   e
-# 465 "kawaparser__mock.ml.mock"
+# 524 "kawaparser__mock.ml.mock"
    : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) ->
     (
-# 104 "kawaparser.mly"
+# 113 "kawaparser.mly"
                        ( Field(e, var) )
-# 470 "kawaparser__mock.ml.mock"
+# 529 "kawaparser__mock.ml.mock"
      : 'tv_mem) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 103 "kawaparser.mly"
+# 112 "kawaparser.mly"
   var
-# 475 "kawaparser__mock.ml.mock"
+# 534 "kawaparser__mock.ml.mock"
    : (
-# 9 "kawaparser.mly"
+# 8 "kawaparser.mly"
        (string)
-# 479 "kawaparser__mock.ml.mock"
+# 538 "kawaparser__mock.ml.mock"
   )) (_startpos_var_ : Lexing.position) (_endpos_var_ : Lexing.position) (_startofs_var_ : int) (_endofs_var_ : int) (_loc_var_ : Lexing.position * Lexing.position) ->
     (
-# 103 "kawaparser.mly"
+# 112 "kawaparser.mly"
             ( Var(var) )
-# 484 "kawaparser__mock.ml.mock"
+# 543 "kawaparser__mock.ml.mock"
      : 'tv_mem) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 34 "kawaparser.mly"
+# 33 "kawaparser.mly"
                             _4
-# 489 "kawaparser__mock.ml.mock"
+# 548 "kawaparser__mock.ml.mock"
    : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 34 "kawaparser.mly"
+# 33 "kawaparser.mly"
              seq
-# 493 "kawaparser__mock.ml.mock"
+# 552 "kawaparser__mock.ml.mock"
    : 'tv_list_instr_) (_startpos_seq_ : Lexing.position) (_endpos_seq_ : Lexing.position) (_startofs_seq_ : int) (_endofs_seq_ : int) (_loc_seq_ : Lexing.position * Lexing.position) (
-# 34 "kawaparser.mly"
+# 33 "kawaparser.mly"
       _2
-# 497 "kawaparser__mock.ml.mock"
+# 556 "kawaparser__mock.ml.mock"
    : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 34 "kawaparser.mly"
+# 33 "kawaparser.mly"
  _1
-# 501 "kawaparser__mock.ml.mock"
+# 560 "kawaparser__mock.ml.mock"
    : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
     (
-# 34 "kawaparser.mly"
+# 33 "kawaparser.mly"
                                  ( seq )
-# 506 "kawaparser__mock.ml.mock"
+# 565 "kawaparser__mock.ml.mock"
      : 'tv_main) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 62 "kawaparser.mly"
+# 65 "kawaparser.mly"
   i
-# 511 "kawaparser__mock.ml.mock"
+# 570 "kawaparser__mock.ml.mock"
    : 'tv_instr) (_startpos_i_ : Lexing.position) (_endpos_i_ : Lexing.position) (_startofs_i_ : int) (_endofs_i_ : int) (_loc_i_ : Lexing.position * Lexing.position) ->
     (
-# 62 "kawaparser.mly"
+# 65 "kawaparser.mly"
           ( Instr(i) )
-# 516 "kawaparser__mock.ml.mock"
-     : 'tv_instr_var_decl) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 61 "kawaparser.mly"
-  v_t
-# 521 "kawaparser__mock.ml.mock"
-   : 'tv_var_decl) (_startpos_v_t_ : Lexing.position) (_endpos_v_t_ : Lexing.position) (_startofs_v_t_ : int) (_endofs_v_t_ : int) (_loc_v_t_ : Lexing.position * Lexing.position) ->
-    (
-# 61 "kawaparser.mly"
-               ( let v, t = v_t in Var_decl(v, t) )
-# 526 "kawaparser__mock.ml.mock"
-     : 'tv_instr_var_decl) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 85 "kawaparser.mly"
-        _2
-# 531 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 85 "kawaparser.mly"
-  e
-# 535 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) ->
-    (
-# 85 "kawaparser.mly"
-              ( Expr(e) )
-# 540 "kawaparser__mock.ml.mock"
-     : 'tv_instr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 84 "kawaparser.mly"
-               _3
-# 545 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
-# 84 "kawaparser.mly"
-         e
-# 549 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 84 "kawaparser.mly"
- _1
-# 553 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 84 "kawaparser.mly"
-                     ( Return(e) )
-# 558 "kawaparser__mock.ml.mock"
-     : 'tv_instr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 83 "kawaparser.mly"
-                                              _7
-# 563 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__7_ : Lexing.position) (_endpos__7_ : Lexing.position) (_startofs__7_ : int) (_endofs__7_ : int) (_loc__7_ : Lexing.position * Lexing.position) (
-# 83 "kawaparser.mly"
-                               seq
-# 567 "kawaparser__mock.ml.mock"
-   : 'tv_list_instr_) (_startpos_seq_ : Lexing.position) (_endpos_seq_ : Lexing.position) (_startofs_seq_ : int) (_endofs_seq_ : int) (_loc_seq_ : Lexing.position * Lexing.position) (
-# 83 "kawaparser.mly"
-                        _5
-# 571 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
-# 83 "kawaparser.mly"
-                   _4
 # 575 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 83 "kawaparser.mly"
-             e
-# 579 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 83 "kawaparser.mly"
-       _2
-# 583 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 83 "kawaparser.mly"
- _1
-# 587 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+     : 'tv_instr_var_decl) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 64 "kawaparser.mly"
+  vars
+# 580 "kawaparser__mock.ml.mock"
+   : 'tv_var_decl) (_startpos_vars_ : Lexing.position) (_endpos_vars_ : Lexing.position) (_startofs_vars_ : int) (_endofs_vars_ : int) (_loc_vars_ : Lexing.position * Lexing.position) ->
     (
-# 83 "kawaparser.mly"
-                                                   ( While(e, seq) )
-# 592 "kawaparser__mock.ml.mock"
-     : 'tv_instr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 82 "kawaparser.mly"
-                                                                            _11
-# 597 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__11_ : Lexing.position) (_endpos__11_ : Lexing.position) (_startofs__11_ : int) (_endofs__11_ : int) (_loc__11_ : Lexing.position * Lexing.position) (
-# 82 "kawaparser.mly"
-                                                            seq2
-# 601 "kawaparser__mock.ml.mock"
-   : 'tv_list_instr_) (_startpos_seq2_ : Lexing.position) (_endpos_seq2_ : Lexing.position) (_startofs_seq2_ : int) (_endofs_seq2_ : int) (_loc_seq2_ : Lexing.position * Lexing.position) (
-# 82 "kawaparser.mly"
-                                                     _9
-# 605 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__9_ : Lexing.position) (_endpos__9_ : Lexing.position) (_startofs__9_ : int) (_endofs__9_ : int) (_loc__9_ : Lexing.position * Lexing.position) (
-# 82 "kawaparser.mly"
-                                                _8
-# 609 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__8_ : Lexing.position) (_endpos__8_ : Lexing.position) (_startofs__8_ : int) (_endofs__8_ : int) (_loc__8_ : Lexing.position * Lexing.position) (
-# 82 "kawaparser.mly"
-                                            _7
-# 613 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__7_ : Lexing.position) (_endpos__7_ : Lexing.position) (_startofs__7_ : int) (_endofs__7_ : int) (_loc__7_ : Lexing.position * Lexing.position) (
-# 82 "kawaparser.mly"
-                            seq1
-# 617 "kawaparser__mock.ml.mock"
-   : 'tv_list_instr_) (_startpos_seq1_ : Lexing.position) (_endpos_seq1_ : Lexing.position) (_startofs_seq1_ : int) (_endofs_seq1_ : int) (_loc_seq1_ : Lexing.position * Lexing.position) (
-# 82 "kawaparser.mly"
-                     _5
-# 621 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
-# 82 "kawaparser.mly"
-                _4
-# 625 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 82 "kawaparser.mly"
-          e
-# 629 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 82 "kawaparser.mly"
-    _2
-# 633 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 82 "kawaparser.mly"
-=======
-# 447 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 30 "kawaparser.mly"
-                                         main_fun
-# 451 "kawaparser__mock.ml.mock"
-   : 'tv_main) (_startpos_main_fun_ : Lexing.position) (_endpos_main_fun_ : Lexing.position) (_startofs_main_fun_ : int) (_endofs_main_fun_ : int) (_loc_main_fun_ : Lexing.position * Lexing.position) (
-# 30 "kawaparser.mly"
-                     cls
-# 455 "kawaparser__mock.ml.mock"
-   : 'tv_list_class_def_) (_startpos_cls_ : Lexing.position) (_endpos_cls_ : Lexing.position) (_startofs_cls_ : int) (_endofs_cls_ : int) (_loc_cls_ : Lexing.position * Lexing.position) (
-# 30 "kawaparser.mly"
-  glb
-# 459 "kawaparser__mock.ml.mock"
-   : 'tv_list_var_decl_) (_startpos_glb_ : Lexing.position) (_endpos_glb_ : Lexing.position) (_startofs_glb_ : int) (_endofs_glb_ : int) (_loc_glb_ : Lexing.position * Lexing.position) ->
-    ((
-# 30 "kawaparser.mly"
-                                                           ( {classes=cls; globals=List.concat glb; main=main_fun} )
-# 464 "kawaparser__mock.ml.mock"
-     : 'tv_program) : (
-# 25 "kawaparser.mly"
-      (Kawa.program)
-# 468 "kawaparser__mock.ml.mock"
-    )) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 52 "kawaparser.mly"
-                                                                                                                            _10
-# 473 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__10_ : Lexing.position) (_endpos__10_ : Lexing.position) (_startofs__10_ : int) (_endofs__10_ : int) (_loc__10_ : Lexing.position * Lexing.position) (
-# 52 "kawaparser.mly"
-                                                                                                            code
-# 477 "kawaparser__mock.ml.mock"
-   : 'tv_list_instr_) (_startpos_code_ : Lexing.position) (_endpos_code_ : Lexing.position) (_startofs_code_ : int) (_endofs_code_ : int) (_loc_code_ : Lexing.position * Lexing.position) (
-# 52 "kawaparser.mly"
-                                                                                         loc
-# 481 "kawaparser__mock.ml.mock"
-   : 'tv_list_var_decl_) (_startpos_loc_ : Lexing.position) (_endpos_loc_ : Lexing.position) (_startofs_loc_ : int) (_endofs_loc_ : int) (_loc_loc_ : Lexing.position * Lexing.position) (
-# 52 "kawaparser.mly"
-                                                                                  _7
-# 485 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__7_ : Lexing.position) (_endpos__7_ : Lexing.position) (_startofs__7_ : int) (_endofs__7_ : int) (_loc__7_ : Lexing.position * Lexing.position) (
-# 52 "kawaparser.mly"
-                                                                             _6
-# 489 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__6_ : Lexing.position) (_endpos__6_ : Lexing.position) (_startofs__6_ : int) (_endofs__6_ : int) (_loc__6_ : Lexing.position * Lexing.position) (
-# 52 "kawaparser.mly"
-                                 params
-# 493 "kawaparser__mock.ml.mock"
-   : 'tv_separated_list_COMMA_typed_variable_) (_startpos_params_ : Lexing.position) (_endpos_params_ : Lexing.position) (_startofs_params_ : int) (_endofs_params_ : int) (_loc_params_ : Lexing.position * Lexing.position) (
-# 52 "kawaparser.mly"
-                           _4
-# 497 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 52 "kawaparser.mly"
-                   id
-# 501 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 505 "kawaparser__mock.ml.mock"
-  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
-# 52 "kawaparser.mly"
-         ret
-# 509 "kawaparser__mock.ml.mock"
-   : 'tv_type_) (_startpos_ret_ : Lexing.position) (_endpos_ret_ : Lexing.position) (_startofs_ret_ : int) (_endofs_ret_ : int) (_loc_ret_ : Lexing.position * Lexing.position) (
-# 52 "kawaparser.mly"
- _1
-# 513 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 52 "kawaparser.mly"
-                                                                                                                                 ( {method_name=id; code=code; params=params; locals=List.concat loc; return=ret} )
-# 518 "kawaparser__mock.ml.mock"
-     : 'tv_method_def) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 73 "kawaparser.mly"
-             var
-# 523 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 527 "kawaparser__mock.ml.mock"
-  )) (_startpos_var_ : Lexing.position) (_endpos_var_ : Lexing.position) (_startofs_var_ : int) (_endofs_var_ : int) (_loc_var_ : Lexing.position * Lexing.position) (
-# 73 "kawaparser.mly"
-        _2
-# 531 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 73 "kawaparser.mly"
-  e
-# 535 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) ->
-    (
-# 73 "kawaparser.mly"
-                       ( Field(e, var) )
-# 540 "kawaparser__mock.ml.mock"
-     : 'tv_mem) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 72 "kawaparser.mly"
-  var
-# 545 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 549 "kawaparser__mock.ml.mock"
-  )) (_startpos_var_ : Lexing.position) (_endpos_var_ : Lexing.position) (_startofs_var_ : int) (_endofs_var_ : int) (_loc_var_ : Lexing.position * Lexing.position) ->
-    (
-# 72 "kawaparser.mly"
-            ( Var(var) )
-# 554 "kawaparser__mock.ml.mock"
-     : 'tv_mem) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 104 "kawaparser.mly"
-                            _4
-# 559 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 104 "kawaparser.mly"
-             seq
-# 563 "kawaparser__mock.ml.mock"
-   : 'tv_list_instr_) (_startpos_seq_ : Lexing.position) (_endpos_seq_ : Lexing.position) (_startofs_seq_ : int) (_endofs_seq_ : int) (_loc_seq_ : Lexing.position * Lexing.position) (
-# 104 "kawaparser.mly"
-      _2
-# 567 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 104 "kawaparser.mly"
- _1
-# 571 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 104 "kawaparser.mly"
-                                 ( seq )
-# 576 "kawaparser__mock.ml.mock"
-     : 'tv_main) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 81 "kawaparser.mly"
-        _2
-# 581 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 81 "kawaparser.mly"
-  e
+# 64 "kawaparser.mly"
+                ( Var_decl(vars) )
 # 585 "kawaparser__mock.ml.mock"
+     : 'tv_instr_var_decl) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 94 "kawaparser.mly"
+        _2
+# 590 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 94 "kawaparser.mly"
+  e
+# 594 "kawaparser__mock.ml.mock"
    : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) ->
     (
-# 81 "kawaparser.mly"
+# 94 "kawaparser.mly"
               ( Expr(e) )
-# 590 "kawaparser__mock.ml.mock"
-     : 'tv_instr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 80 "kawaparser.mly"
-               _3
-# 595 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
-# 80 "kawaparser.mly"
-         e
 # 599 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 80 "kawaparser.mly"
- _1
-# 603 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 80 "kawaparser.mly"
-                     ( Return(e) )
+     : 'tv_instr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 93 "kawaparser.mly"
+               _3
+# 604 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 93 "kawaparser.mly"
+         e
 # 608 "kawaparser__mock.ml.mock"
-     : 'tv_instr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 79 "kawaparser.mly"
-                                              _7
-# 613 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__7_ : Lexing.position) (_endpos__7_ : Lexing.position) (_startofs__7_ : int) (_endofs__7_ : int) (_loc__7_ : Lexing.position * Lexing.position) (
-# 79 "kawaparser.mly"
-                               seq
-# 617 "kawaparser__mock.ml.mock"
-   : 'tv_list_instr_) (_startpos_seq_ : Lexing.position) (_endpos_seq_ : Lexing.position) (_startofs_seq_ : int) (_endofs_seq_ : int) (_loc_seq_ : Lexing.position * Lexing.position) (
-# 79 "kawaparser.mly"
-                        _5
-# 621 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
-# 79 "kawaparser.mly"
-                   _4
-# 625 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 79 "kawaparser.mly"
-             e
-# 629 "kawaparser__mock.ml.mock"
    : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 79 "kawaparser.mly"
-       _2
-# 633 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 79 "kawaparser.mly"
->>>>>>> 541246b (idk anymore)
+# 93 "kawaparser.mly"
  _1
-# 637 "kawaparser__mock.ml.mock"
+# 612 "kawaparser__mock.ml.mock"
    : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
     (
-<<<<<<< HEAD
-# 82 "kawaparser.mly"
-                                                                                 ( If(e, seq1, seq2) )
-# 642 "kawaparser__mock.ml.mock"
+# 93 "kawaparser.mly"
+                     ( Return(e) )
+# 617 "kawaparser__mock.ml.mock"
      : 'tv_instr) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 81 "kawaparser.mly"
-                       _4
-# 647 "kawaparser__mock.ml.mock"
+# 92 "kawaparser.mly"
+                                              _7
+# 622 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__7_ : Lexing.position) (_endpos__7_ : Lexing.position) (_startofs__7_ : int) (_endofs__7_ : int) (_loc__7_ : Lexing.position * Lexing.position) (
+# 92 "kawaparser.mly"
+                               seq
+# 626 "kawaparser__mock.ml.mock"
+   : 'tv_list_instr_) (_startpos_seq_ : Lexing.position) (_endpos_seq_ : Lexing.position) (_startofs_seq_ : int) (_endofs_seq_ : int) (_loc_seq_ : Lexing.position * Lexing.position) (
+# 92 "kawaparser.mly"
+                        _5
+# 630 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
+# 92 "kawaparser.mly"
+                   _4
+# 634 "kawaparser__mock.ml.mock"
    : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 81 "kawaparser.mly"
-                 e
-# 651 "kawaparser__mock.ml.mock"
+# 92 "kawaparser.mly"
+             e
+# 638 "kawaparser__mock.ml.mock"
    : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 81 "kawaparser.mly"
-         _2
-# 655 "kawaparser__mock.ml.mock"
+# 92 "kawaparser.mly"
+       _2
+# 642 "kawaparser__mock.ml.mock"
    : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 81 "kawaparser.mly"
+# 92 "kawaparser.mly"
+ _1
+# 646 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 92 "kawaparser.mly"
+                                                   ( While(e, seq) )
+# 651 "kawaparser__mock.ml.mock"
+     : 'tv_instr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 91 "kawaparser.mly"
+                                                                            _11
+# 656 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__11_ : Lexing.position) (_endpos__11_ : Lexing.position) (_startofs__11_ : int) (_endofs__11_ : int) (_loc__11_ : Lexing.position * Lexing.position) (
+# 91 "kawaparser.mly"
+                                                            seq2
+# 660 "kawaparser__mock.ml.mock"
+   : 'tv_list_instr_) (_startpos_seq2_ : Lexing.position) (_endpos_seq2_ : Lexing.position) (_startofs_seq2_ : int) (_endofs_seq2_ : int) (_loc_seq2_ : Lexing.position * Lexing.position) (
+# 91 "kawaparser.mly"
+                                                     _9
+# 664 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__9_ : Lexing.position) (_endpos__9_ : Lexing.position) (_startofs__9_ : int) (_endofs__9_ : int) (_loc__9_ : Lexing.position * Lexing.position) (
+# 91 "kawaparser.mly"
+                                                _8
+# 668 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__8_ : Lexing.position) (_endpos__8_ : Lexing.position) (_startofs__8_ : int) (_endofs__8_ : int) (_loc__8_ : Lexing.position * Lexing.position) (
+# 91 "kawaparser.mly"
+                                            _7
+# 672 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__7_ : Lexing.position) (_endpos__7_ : Lexing.position) (_startofs__7_ : int) (_endofs__7_ : int) (_loc__7_ : Lexing.position * Lexing.position) (
+# 91 "kawaparser.mly"
+                            seq1
+# 676 "kawaparser__mock.ml.mock"
+   : 'tv_list_instr_) (_startpos_seq1_ : Lexing.position) (_endpos_seq1_ : Lexing.position) (_startofs_seq1_ : int) (_endofs_seq1_ : int) (_loc_seq1_ : Lexing.position * Lexing.position) (
+# 91 "kawaparser.mly"
+                     _5
+# 680 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
+# 91 "kawaparser.mly"
+                _4
+# 684 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
+# 91 "kawaparser.mly"
+          e
+# 688 "kawaparser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 91 "kawaparser.mly"
+    _2
+# 692 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 91 "kawaparser.mly"
+ _1
+# 696 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 91 "kawaparser.mly"
+                                                                                 ( If(e, seq1, seq2) )
+# 701 "kawaparser__mock.ml.mock"
+     : 'tv_instr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 90 "kawaparser.mly"
+                       _4
+# 706 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
+# 90 "kawaparser.mly"
+                 e
+# 710 "kawaparser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 90 "kawaparser.mly"
+         _2
+# 714 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 90 "kawaparser.mly"
   mem
-# 659 "kawaparser__mock.ml.mock"
+# 718 "kawaparser__mock.ml.mock"
    : 'tv_mem) (_startpos_mem_ : Lexing.position) (_endpos_mem_ : Lexing.position) (_startofs_mem_ : int) (_endofs_mem_ : int) (_loc_mem_ : Lexing.position * Lexing.position) ->
     (
-# 81 "kawaparser.mly"
+# 90 "kawaparser.mly"
                              ( Set(mem, e) )
-# 664 "kawaparser__mock.ml.mock"
+# 723 "kawaparser__mock.ml.mock"
      : 'tv_instr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 80 "kawaparser.mly"
-                        _5
-# 669 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
-# 80 "kawaparser.mly"
-                   _4
-# 673 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 80 "kawaparser.mly"
-             e
-# 677 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 80 "kawaparser.mly"
-       _2
-# 681 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 80 "kawaparser.mly"
- _1
-# 685 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 80 "kawaparser.mly"
-                              ( Print(e) )
-# 690 "kawaparser__mock.ml.mock"
-     : 'tv_instr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 99 "kawaparser.mly"
-                                                             _6
-# 695 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__6_ : Lexing.position) (_endpos__6_ : Lexing.position) (_startofs__6_ : int) (_endofs__6_ : int) (_loc__6_ : Lexing.position * Lexing.position) (
-# 99 "kawaparser.mly"
-                           params
-# 699 "kawaparser__mock.ml.mock"
-   : 'tv_separated_list_COMMA_expr_) (_startpos_params_ : Lexing.position) (_endpos_params_ : Lexing.position) (_startofs_params_ : int) (_endofs_params_ : int) (_loc_params_ : Lexing.position * Lexing.position) (
-# 99 "kawaparser.mly"
-                     _4
-# 703 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 99 "kawaparser.mly"
-             id
-# 707 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 711 "kawaparser__mock.ml.mock"
-  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
-# 99 "kawaparser.mly"
-        _2
-# 715 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 99 "kawaparser.mly"
-  e
-# 719 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) ->
-    (
-# 99 "kawaparser.mly"
-                                                                   ( MethCall(e, id, params) )
-# 724 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 98 "kawaparser.mly"
-                                                      _5
-# 729 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
-# 98 "kawaparser.mly"
-                    params
-# 733 "kawaparser__mock.ml.mock"
-   : 'tv_separated_list_COMMA_expr_) (_startpos_params_ : Lexing.position) (_endpos_params_ : Lexing.position) (_startofs_params_ : int) (_endofs_params_ : int) (_loc_params_ : Lexing.position * Lexing.position) (
-# 98 "kawaparser.mly"
-              _3
-# 737 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
-# 98 "kawaparser.mly"
-      id
-# 741 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 745 "kawaparser__mock.ml.mock"
-  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
-# 98 "kawaparser.mly"
- _1
-# 749 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 98 "kawaparser.mly"
-                                                            ( NewCstr(id, params) )
-# 754 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 97 "kawaparser.mly"
-      id
-# 759 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 763 "kawaparser__mock.ml.mock"
-  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
-# 97 "kawaparser.mly"
- _1
-# 767 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 97 "kawaparser.mly"
-               ( New(id) )
-# 772 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 96 "kawaparser.mly"
-             _3
-# 777 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
-# 96 "kawaparser.mly"
-       e
-# 781 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 96 "kawaparser.mly"
- _1
-# 785 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 96 "kawaparser.mly"
-                   ( e )
-# 790 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 95 "kawaparser.mly"
-                e2
-# 795 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e2_ : Lexing.position) (_endpos_e2_ : Lexing.position) (_startofs_e2_ : int) (_endofs_e2_ : int) (_loc_e2_ : Lexing.position * Lexing.position) (
-# 95 "kawaparser.mly"
-          b
-# 799 "kawaparser__mock.ml.mock"
-   : 'tv_bop) (_startpos_b_ : Lexing.position) (_endpos_b_ : Lexing.position) (_startofs_b_ : int) (_endofs_b_ : int) (_loc_b_ : Lexing.position * Lexing.position) (
-# 95 "kawaparser.mly"
-  e1
-# 803 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e1_ : Lexing.position) (_endpos_e1_ : Lexing.position) (_startofs_e1_ : int) (_endofs_e1_ : int) (_loc_e1_ : Lexing.position * Lexing.position) ->
-    (
-# 95 "kawaparser.mly"
-                        ( Binop(b, e1, e2) )
-# 808 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 94 "kawaparser.mly"
-        e
-# 813 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 94 "kawaparser.mly"
-  u
-# 817 "kawaparser__mock.ml.mock"
-   : 'tv_uop) (_startpos_u_ : Lexing.position) (_endpos_u_ : Lexing.position) (_startofs_u_ : int) (_endofs_u_ : int) (_loc_u_ : Lexing.position * Lexing.position) ->
-    (
-# 94 "kawaparser.mly"
-               ( Unop(u, e) )
-# 822 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 93 "kawaparser.mly"
-  m
-# 827 "kawaparser__mock.ml.mock"
-   : 'tv_mem) (_startpos_m_ : Lexing.position) (_endpos_m_ : Lexing.position) (_startofs_m_ : int) (_endofs_m_ : int) (_loc_m_ : Lexing.position * Lexing.position) ->
-    (
-# 93 "kawaparser.mly"
-        ( Get(m) )
-# 832 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 92 "kawaparser.mly"
- _1
-# 837 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 92 "kawaparser.mly"
-       ( This )
-# 842 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 91 "kawaparser.mly"
- _1
-# 847 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 91 "kawaparser.mly"
-        ( Bool(false) )
-# 852 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 90 "kawaparser.mly"
- _1
-# 857 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 90 "kawaparser.mly"
-       ( Bool(true) )
-# 862 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 89 "kawaparser.mly"
-  n
-# 867 "kawaparser__mock.ml.mock"
+                        _5
+# 728 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
+# 89 "kawaparser.mly"
+                   _4
+# 732 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
+# 89 "kawaparser.mly"
+             e
+# 736 "kawaparser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 89 "kawaparser.mly"
+       _2
+# 740 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 89 "kawaparser.mly"
+ _1
+# 744 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 89 "kawaparser.mly"
+                              ( Print(e) )
+# 749 "kawaparser__mock.ml.mock"
+     : 'tv_instr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 108 "kawaparser.mly"
+                                                             _6
+# 754 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__6_ : Lexing.position) (_endpos__6_ : Lexing.position) (_startofs__6_ : int) (_endofs__6_ : int) (_loc__6_ : Lexing.position * Lexing.position) (
+# 108 "kawaparser.mly"
+                           params
+# 758 "kawaparser__mock.ml.mock"
+   : 'tv_separated_list_COMMA_expr_) (_startpos_params_ : Lexing.position) (_endpos_params_ : Lexing.position) (_startofs_params_ : int) (_endofs_params_ : int) (_loc_params_ : Lexing.position * Lexing.position) (
+# 108 "kawaparser.mly"
+                     _4
+# 762 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
+# 108 "kawaparser.mly"
+             id
+# 766 "kawaparser__mock.ml.mock"
    : (
 # 8 "kawaparser.mly"
-       (int)
-# 871 "kawaparser__mock.ml.mock"
-  )) (_startpos_n_ : Lexing.position) (_endpos_n_ : Lexing.position) (_startofs_n_ : int) (_endofs_n_ : int) (_loc_n_ : Lexing.position * Lexing.position) ->
+       (string)
+# 770 "kawaparser__mock.ml.mock"
+  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
+# 108 "kawaparser.mly"
+        _2
+# 774 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
+# 108 "kawaparser.mly"
+  e
+# 778 "kawaparser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) ->
     (
-# 89 "kawaparser.mly"
-      ( Int(n) )
-# 876 "kawaparser__mock.ml.mock"
+# 108 "kawaparser.mly"
+                                                                   ( MethCall(e, id, params) )
+# 783 "kawaparser__mock.ml.mock"
      : 'tv_expr) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 45 "kawaparser.mly"
-          parent
-# 881 "kawaparser__mock.ml.mock"
+# 107 "kawaparser.mly"
+                                                      _5
+# 788 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
+# 107 "kawaparser.mly"
+                    params
+# 792 "kawaparser__mock.ml.mock"
+   : 'tv_separated_list_COMMA_expr_) (_startpos_params_ : Lexing.position) (_endpos_params_ : Lexing.position) (_startofs_params_ : int) (_endofs_params_ : int) (_loc_params_ : Lexing.position * Lexing.position) (
+# 107 "kawaparser.mly"
+              _3
+# 796 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 107 "kawaparser.mly"
+      id
+# 800 "kawaparser__mock.ml.mock"
    : (
-# 9 "kawaparser.mly"
+# 8 "kawaparser.mly"
        (string)
-# 885 "kawaparser__mock.ml.mock"
-  )) (_startpos_parent_ : Lexing.position) (_endpos_parent_ : Lexing.position) (_startofs_parent_ : int) (_endofs_parent_ : int) (_loc_parent_ : Lexing.position * Lexing.position) (
-# 45 "kawaparser.mly"
+# 804 "kawaparser__mock.ml.mock"
+  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
+# 107 "kawaparser.mly"
  _1
-# 889 "kawaparser__mock.ml.mock"
+# 808 "kawaparser__mock.ml.mock"
    : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
     (
-# 45 "kawaparser.mly"
+# 107 "kawaparser.mly"
+                                                            ( NewCstr(id, params) )
+# 813 "kawaparser__mock.ml.mock"
+     : 'tv_expr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 106 "kawaparser.mly"
+      id
+# 818 "kawaparser__mock.ml.mock"
+   : (
+# 8 "kawaparser.mly"
+       (string)
+# 822 "kawaparser__mock.ml.mock"
+  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
+# 106 "kawaparser.mly"
+ _1
+# 826 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 106 "kawaparser.mly"
+               ( New(id) )
+# 831 "kawaparser__mock.ml.mock"
+     : 'tv_expr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 105 "kawaparser.mly"
+             _3
+# 836 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 105 "kawaparser.mly"
+       e
+# 840 "kawaparser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 105 "kawaparser.mly"
+ _1
+# 844 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 105 "kawaparser.mly"
+                   ( e )
+# 849 "kawaparser__mock.ml.mock"
+     : 'tv_expr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 104 "kawaparser.mly"
+                e2
+# 854 "kawaparser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e2_ : Lexing.position) (_endpos_e2_ : Lexing.position) (_startofs_e2_ : int) (_endofs_e2_ : int) (_loc_e2_ : Lexing.position * Lexing.position) (
+# 104 "kawaparser.mly"
+          b
+# 858 "kawaparser__mock.ml.mock"
+   : 'tv_bop) (_startpos_b_ : Lexing.position) (_endpos_b_ : Lexing.position) (_startofs_b_ : int) (_endofs_b_ : int) (_loc_b_ : Lexing.position * Lexing.position) (
+# 104 "kawaparser.mly"
+  e1
+# 862 "kawaparser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e1_ : Lexing.position) (_endpos_e1_ : Lexing.position) (_startofs_e1_ : int) (_endofs_e1_ : int) (_loc_e1_ : Lexing.position * Lexing.position) ->
+    (
+# 104 "kawaparser.mly"
+                        ( Binop(b, e1, e2) )
+# 867 "kawaparser__mock.ml.mock"
+     : 'tv_expr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 103 "kawaparser.mly"
+        e
+# 872 "kawaparser__mock.ml.mock"
+   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
+# 103 "kawaparser.mly"
+  u
+# 876 "kawaparser__mock.ml.mock"
+   : 'tv_uop) (_startpos_u_ : Lexing.position) (_endpos_u_ : Lexing.position) (_startofs_u_ : int) (_endofs_u_ : int) (_loc_u_ : Lexing.position * Lexing.position) ->
+    (
+# 103 "kawaparser.mly"
+               ( Unop(u, e) )
+# 881 "kawaparser__mock.ml.mock"
+     : 'tv_expr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 102 "kawaparser.mly"
+  m
+# 886 "kawaparser__mock.ml.mock"
+   : 'tv_mem) (_startpos_m_ : Lexing.position) (_endpos_m_ : Lexing.position) (_startofs_m_ : int) (_endofs_m_ : int) (_loc_m_ : Lexing.position * Lexing.position) ->
+    (
+# 102 "kawaparser.mly"
+        ( Get(m) )
+# 891 "kawaparser__mock.ml.mock"
+     : 'tv_expr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 101 "kawaparser.mly"
+ _1
+# 896 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 101 "kawaparser.mly"
+       ( This )
+# 901 "kawaparser__mock.ml.mock"
+     : 'tv_expr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 100 "kawaparser.mly"
+ _1
+# 906 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 100 "kawaparser.mly"
+        ( Bool(false) )
+# 911 "kawaparser__mock.ml.mock"
+     : 'tv_expr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 99 "kawaparser.mly"
+ _1
+# 916 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 99 "kawaparser.mly"
+       ( Bool(true) )
+# 921 "kawaparser__mock.ml.mock"
+     : 'tv_expr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 98 "kawaparser.mly"
+  n
+# 926 "kawaparser__mock.ml.mock"
+   : (
+# 7 "kawaparser.mly"
+       (int)
+# 930 "kawaparser__mock.ml.mock"
+  )) (_startpos_n_ : Lexing.position) (_endpos_n_ : Lexing.position) (_startofs_n_ : int) (_endofs_n_ : int) (_loc_n_ : Lexing.position * Lexing.position) ->
+    (
+# 98 "kawaparser.mly"
+      ( Int(n) )
+# 935 "kawaparser__mock.ml.mock"
+     : 'tv_expr) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 44 "kawaparser.mly"
+          parent
+# 940 "kawaparser__mock.ml.mock"
+   : (
+# 8 "kawaparser.mly"
+       (string)
+# 944 "kawaparser__mock.ml.mock"
+  )) (_startpos_parent_ : Lexing.position) (_endpos_parent_ : Lexing.position) (_startofs_parent_ : int) (_endofs_parent_ : int) (_loc_parent_ : Lexing.position * Lexing.position) (
+# 44 "kawaparser.mly"
+ _1
+# 948 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 44 "kawaparser.mly"
                        ( parent )
-# 894 "kawaparser__mock.ml.mock"
+# 953 "kawaparser__mock.ml.mock"
      : 'tv_class_extension) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 38 "kawaparser.mly"
+# 37 "kawaparser.mly"
                                                                                                _6
-# 899 "kawaparser__mock.ml.mock"
+# 958 "kawaparser__mock.ml.mock"
    : unit) (_startpos__6_ : Lexing.position) (_endpos__6_ : Lexing.position) (_startofs__6_ : int) (_endofs__6_ : int) (_loc__6_ : Lexing.position * Lexing.position) (
-# 38 "kawaparser.mly"
+# 37 "kawaparser.mly"
                                                             attrs_methods
-# 903 "kawaparser__mock.ml.mock"
+# 962 "kawaparser__mock.ml.mock"
    : 'tv_list_class_attr_meth_) (_startpos_attrs_methods_ : Lexing.position) (_endpos_attrs_methods_ : Lexing.position) (_startofs_attrs_methods_ : int) (_endofs_attrs_methods_ : int) (_loc_attrs_methods_ : Lexing.position * Lexing.position) (
-# 38 "kawaparser.mly"
+# 37 "kawaparser.mly"
                                                      _4
-# 907 "kawaparser__mock.ml.mock"
+# 966 "kawaparser__mock.ml.mock"
    : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 38 "kawaparser.mly"
+# 37 "kawaparser.mly"
                        parent
-# 911 "kawaparser__mock.ml.mock"
+# 970 "kawaparser__mock.ml.mock"
    : 'tv_option_class_extension_) (_startpos_parent_ : Lexing.position) (_endpos_parent_ : Lexing.position) (_startofs_parent_ : int) (_endofs_parent_ : int) (_loc_parent_ : Lexing.position * Lexing.position) (
-# 38 "kawaparser.mly"
+# 37 "kawaparser.mly"
         cls_name
-# 915 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 919 "kawaparser__mock.ml.mock"
-=======
-# 79 "kawaparser.mly"
-                                                   ( While(e, seq) )
-# 642 "kawaparser__mock.ml.mock"
-     : 'tv_instr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 78 "kawaparser.mly"
-                                                                            _11
-# 647 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__11_ : Lexing.position) (_endpos__11_ : Lexing.position) (_startofs__11_ : int) (_endofs__11_ : int) (_loc__11_ : Lexing.position * Lexing.position) (
-# 78 "kawaparser.mly"
-                                                            seq2
-# 651 "kawaparser__mock.ml.mock"
-   : 'tv_list_instr_) (_startpos_seq2_ : Lexing.position) (_endpos_seq2_ : Lexing.position) (_startofs_seq2_ : int) (_endofs_seq2_ : int) (_loc_seq2_ : Lexing.position * Lexing.position) (
-# 78 "kawaparser.mly"
-                                                     _9
-# 655 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__9_ : Lexing.position) (_endpos__9_ : Lexing.position) (_startofs__9_ : int) (_endofs__9_ : int) (_loc__9_ : Lexing.position * Lexing.position) (
-# 78 "kawaparser.mly"
-                                                _8
-# 659 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__8_ : Lexing.position) (_endpos__8_ : Lexing.position) (_startofs__8_ : int) (_endofs__8_ : int) (_loc__8_ : Lexing.position * Lexing.position) (
-# 78 "kawaparser.mly"
-                                            _7
-# 663 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__7_ : Lexing.position) (_endpos__7_ : Lexing.position) (_startofs__7_ : int) (_endofs__7_ : int) (_loc__7_ : Lexing.position * Lexing.position) (
-# 78 "kawaparser.mly"
-                            seq1
-# 667 "kawaparser__mock.ml.mock"
-   : 'tv_list_instr_) (_startpos_seq1_ : Lexing.position) (_endpos_seq1_ : Lexing.position) (_startofs_seq1_ : int) (_endofs_seq1_ : int) (_loc_seq1_ : Lexing.position * Lexing.position) (
-# 78 "kawaparser.mly"
-                     _5
-# 671 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
-# 78 "kawaparser.mly"
-                _4
-# 675 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 78 "kawaparser.mly"
-          e
-# 679 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 78 "kawaparser.mly"
-    _2
-# 683 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 78 "kawaparser.mly"
- _1
-# 687 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 78 "kawaparser.mly"
-                                                                                 ( If(e, seq1, seq2) )
-# 692 "kawaparser__mock.ml.mock"
-     : 'tv_instr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 77 "kawaparser.mly"
-                       _4
-# 697 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 77 "kawaparser.mly"
-                 e
-# 701 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 77 "kawaparser.mly"
-         _2
-# 705 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 77 "kawaparser.mly"
-  mem
-# 709 "kawaparser__mock.ml.mock"
-   : 'tv_mem) (_startpos_mem_ : Lexing.position) (_endpos_mem_ : Lexing.position) (_startofs_mem_ : int) (_endofs_mem_ : int) (_loc_mem_ : Lexing.position * Lexing.position) ->
-    (
-# 77 "kawaparser.mly"
-                             ( Set(mem, e) )
-# 714 "kawaparser__mock.ml.mock"
-     : 'tv_instr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 76 "kawaparser.mly"
-                        _5
-# 719 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
-# 76 "kawaparser.mly"
-                   _4
-# 723 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 76 "kawaparser.mly"
-             e
-# 727 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 76 "kawaparser.mly"
-       _2
-# 731 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 76 "kawaparser.mly"
- _1
-# 735 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 76 "kawaparser.mly"
-                              ( Print(e) )
-# 740 "kawaparser__mock.ml.mock"
-     : 'tv_instr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 68 "kawaparser.mly"
-                                                             _6
-# 745 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__6_ : Lexing.position) (_endpos__6_ : Lexing.position) (_startofs__6_ : int) (_endofs__6_ : int) (_loc__6_ : Lexing.position * Lexing.position) (
-# 68 "kawaparser.mly"
-                           params
-# 749 "kawaparser__mock.ml.mock"
-   : 'tv_separated_list_COMMA_expr_) (_startpos_params_ : Lexing.position) (_endpos_params_ : Lexing.position) (_startofs_params_ : int) (_endofs_params_ : int) (_loc_params_ : Lexing.position * Lexing.position) (
-# 68 "kawaparser.mly"
-                     _4
-# 753 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 68 "kawaparser.mly"
-             id
-# 757 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 761 "kawaparser__mock.ml.mock"
-  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
-# 68 "kawaparser.mly"
-        _2
-# 765 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 68 "kawaparser.mly"
-  e
-# 769 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) ->
-    (
-# 68 "kawaparser.mly"
-                                                                   ( MethCall(e, id, params) )
-# 774 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 67 "kawaparser.mly"
-                                                      _5
-# 779 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
-# 67 "kawaparser.mly"
-                    params
-# 783 "kawaparser__mock.ml.mock"
-   : 'tv_separated_list_COMMA_expr_) (_startpos_params_ : Lexing.position) (_endpos_params_ : Lexing.position) (_startofs_params_ : int) (_endofs_params_ : int) (_loc_params_ : Lexing.position * Lexing.position) (
-# 67 "kawaparser.mly"
-              _3
-# 787 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
-# 67 "kawaparser.mly"
-      id
-# 791 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 795 "kawaparser__mock.ml.mock"
-  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
-# 67 "kawaparser.mly"
- _1
-# 799 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 67 "kawaparser.mly"
-                                                            ( NewCstr(id, params) )
-# 804 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 66 "kawaparser.mly"
-      id
-# 809 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 813 "kawaparser__mock.ml.mock"
-  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
-# 66 "kawaparser.mly"
- _1
-# 817 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 66 "kawaparser.mly"
-               ( New(id) )
-# 822 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 65 "kawaparser.mly"
-             _3
-# 827 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
-# 65 "kawaparser.mly"
-       e
-# 831 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 65 "kawaparser.mly"
- _1
-# 835 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 65 "kawaparser.mly"
-                   ( e )
-# 840 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 64 "kawaparser.mly"
-                e2
-# 845 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e2_ : Lexing.position) (_endpos_e2_ : Lexing.position) (_startofs_e2_ : int) (_endofs_e2_ : int) (_loc_e2_ : Lexing.position * Lexing.position) (
-# 64 "kawaparser.mly"
-          b
-# 849 "kawaparser__mock.ml.mock"
-   : 'tv_bop) (_startpos_b_ : Lexing.position) (_endpos_b_ : Lexing.position) (_startofs_b_ : int) (_endofs_b_ : int) (_loc_b_ : Lexing.position * Lexing.position) (
-# 64 "kawaparser.mly"
-  e1
-# 853 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e1_ : Lexing.position) (_endpos_e1_ : Lexing.position) (_startofs_e1_ : int) (_endofs_e1_ : int) (_loc_e1_ : Lexing.position * Lexing.position) ->
-    (
-# 64 "kawaparser.mly"
-                        ( Binop(b, e1, e2) )
-# 858 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 63 "kawaparser.mly"
-        e
-# 863 "kawaparser__mock.ml.mock"
-   : 'tv_expr) (_startpos_e_ : Lexing.position) (_endpos_e_ : Lexing.position) (_startofs_e_ : int) (_endofs_e_ : int) (_loc_e_ : Lexing.position * Lexing.position) (
-# 63 "kawaparser.mly"
-  u
-# 867 "kawaparser__mock.ml.mock"
-   : 'tv_uop) (_startpos_u_ : Lexing.position) (_endpos_u_ : Lexing.position) (_startofs_u_ : int) (_endofs_u_ : int) (_loc_u_ : Lexing.position * Lexing.position) ->
-    (
-# 63 "kawaparser.mly"
-               ( Unop(u, e) )
-# 872 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 62 "kawaparser.mly"
-  m
-# 877 "kawaparser__mock.ml.mock"
-   : 'tv_mem) (_startpos_m_ : Lexing.position) (_endpos_m_ : Lexing.position) (_startofs_m_ : int) (_endofs_m_ : int) (_loc_m_ : Lexing.position * Lexing.position) ->
-    (
-# 62 "kawaparser.mly"
-        ( Get(m) )
-# 882 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 61 "kawaparser.mly"
- _1
-# 887 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 61 "kawaparser.mly"
-       ( This )
-# 892 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 60 "kawaparser.mly"
- _1
-# 897 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 60 "kawaparser.mly"
-        ( Bool(false) )
-# 902 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 59 "kawaparser.mly"
- _1
-# 907 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 59 "kawaparser.mly"
-       ( Bool(true) )
-# 912 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 58 "kawaparser.mly"
-  n
-# 917 "kawaparser__mock.ml.mock"
+# 974 "kawaparser__mock.ml.mock"
    : (
 # 8 "kawaparser.mly"
-       (int)
-# 921 "kawaparser__mock.ml.mock"
-  )) (_startpos_n_ : Lexing.position) (_endpos_n_ : Lexing.position) (_startofs_n_ : int) (_endofs_n_ : int) (_loc_n_ : Lexing.position * Lexing.position) ->
-    (
-# 58 "kawaparser.mly"
-      ( Int(n) )
-# 926 "kawaparser__mock.ml.mock"
-     : 'tv_expr) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 35 "kawaparser.mly"
-                                                                                                _8
-# 931 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__8_ : Lexing.position) (_endpos__8_ : Lexing.position) (_startofs__8_ : int) (_endofs__8_ : int) (_loc__8_ : Lexing.position * Lexing.position) (
-# 35 "kawaparser.mly"
-                                                                        methods
-# 935 "kawaparser__mock.ml.mock"
-   : 'tv_list_method_def_) (_startpos_methods_ : Lexing.position) (_endpos_methods_ : Lexing.position) (_startofs_methods_ : int) (_endofs_methods_ : int) (_loc_methods_ : Lexing.position * Lexing.position) (
-# 35 "kawaparser.mly"
-                                                  attrs
-# 939 "kawaparser__mock.ml.mock"
-   : 'tv_list_attr_decl_) (_startpos_attrs_ : Lexing.position) (_endpos_attrs_ : Lexing.position) (_startofs_attrs_ : int) (_endofs_attrs_ : int) (_loc_attrs_ : Lexing.position * Lexing.position) (
-# 35 "kawaparser.mly"
-                                           _5
-# 943 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
-# 35 "kawaparser.mly"
-                               parent
-# 947 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
        (string)
-# 951 "kawaparser__mock.ml.mock"
-  )) (_startpos_parent_ : Lexing.position) (_endpos_parent_ : Lexing.position) (_startofs_parent_ : int) (_endofs_parent_ : int) (_loc_parent_ : Lexing.position * Lexing.position) (
-# 35 "kawaparser.mly"
-                      _3
-# 955 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
-# 35 "kawaparser.mly"
-        cls_name
-# 959 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 963 "kawaparser__mock.ml.mock"
+# 978 "kawaparser__mock.ml.mock"
   )) (_startpos_cls_name_ : Lexing.position) (_endpos_cls_name_ : Lexing.position) (_startofs_cls_name_ : int) (_endofs_cls_name_ : int) (_loc_cls_name_ : Lexing.position * Lexing.position) (
-# 35 "kawaparser.mly"
+# 37 "kawaparser.mly"
  _1
-# 967 "kawaparser__mock.ml.mock"
+# 982 "kawaparser__mock.ml.mock"
    : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
     (
-# 35 "kawaparser.mly"
-                                                                                                     ( {class_name=cls_name; attributes=attrs; methods=methods; parent=Some parent} )
-# 972 "kawaparser__mock.ml.mock"
-     : 'tv_class_def) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 34 "kawaparser.mly"
-                                                                           _6
-# 977 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__6_ : Lexing.position) (_endpos__6_ : Lexing.position) (_startofs__6_ : int) (_endofs__6_ : int) (_loc__6_ : Lexing.position * Lexing.position) (
-# 34 "kawaparser.mly"
-                                                   methods
-# 981 "kawaparser__mock.ml.mock"
-   : 'tv_list_method_def_) (_startpos_methods_ : Lexing.position) (_endpos_methods_ : Lexing.position) (_startofs_methods_ : int) (_endofs_methods_ : int) (_loc_methods_ : Lexing.position * Lexing.position) (
-# 34 "kawaparser.mly"
-                             attrs
-# 985 "kawaparser__mock.ml.mock"
-   : 'tv_list_attr_decl_) (_startpos_attrs_ : Lexing.position) (_endpos_attrs_ : Lexing.position) (_startofs_attrs_ : int) (_endofs_attrs_ : int) (_loc_attrs_ : Lexing.position * Lexing.position) (
-# 34 "kawaparser.mly"
-                      _3
-# 989 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
-# 34 "kawaparser.mly"
-        cls_name
-# 993 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 997 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)
-  )) (_startpos_cls_name_ : Lexing.position) (_endpos_cls_name_ : Lexing.position) (_startofs_cls_name_ : int) (_endofs_cls_name_ : int) (_loc_cls_name_ : Lexing.position * Lexing.position) (
-# 38 "kawaparser.mly"
- _1
-<<<<<<< HEAD
-# 923 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 38 "kawaparser.mly"
+# 37 "kawaparser.mly"
                                                                                                     ( let methods = List.filter_map (fun m_v -> match m_v with Method m -> Some m | _ -> None) attrs_methods in
-                                                                       let attrs = List.filter_map (fun m_v -> match m_v with Attr (id, t) -> Some (id, t) | _ -> None) attrs_methods in
-                                                                       {class_name=cls_name; attributes=attrs; methods=methods; parent=parent} 
+                                                                       let attrs = List.filter_map (fun m_v -> match m_v with Attr (attr) -> Some attr | _ -> None) attrs_methods in
+                                                                       {class_name=cls_name; attributes=List.concat attrs; methods=methods; parent=parent} 
                                                                      )
-# 931 "kawaparser__mock.ml.mock"
+# 990 "kawaparser__mock.ml.mock"
      : 'tv_class_def) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 50 "kawaparser.mly"
-  v_t
-# 936 "kawaparser__mock.ml.mock"
-   : 'tv_var_decl) (_startpos_v_t_ : Lexing.position) (_endpos_v_t_ : Lexing.position) (_startofs_v_t_ : int) (_endofs_v_t_ : int) (_loc_v_t_ : Lexing.position * Lexing.position) ->
-    (
-# 50 "kawaparser.mly"
-               ( let v, t = v_t in Attr(v, t) )
-# 941 "kawaparser__mock.ml.mock"
-     : 'tv_class_attr_meth) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 49 "kawaparser.mly"
+  attr
+# 995 "kawaparser__mock.ml.mock"
+   : 'tv_attr_decl) (_startpos_attr_ : Lexing.position) (_endpos_attr_ : Lexing.position) (_startofs_attr_ : int) (_endofs_attr_ : int) (_loc_attr_ : Lexing.position * Lexing.position) ->
+    (
+# 49 "kawaparser.mly"
+                 ( Attr(attr) )
+# 1000 "kawaparser__mock.ml.mock"
+     : 'tv_class_attr_meth) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 48 "kawaparser.mly"
   m
-# 946 "kawaparser__mock.ml.mock"
+# 1005 "kawaparser__mock.ml.mock"
    : 'tv_method_def) (_startpos_m_ : Lexing.position) (_endpos_m_ : Lexing.position) (_startofs_m_ : int) (_endofs_m_ : int) (_loc_m_ : Lexing.position * Lexing.position) ->
     (
-# 49 "kawaparser.mly"
+# 48 "kawaparser.mly"
                ( Method(m) )
-# 951 "kawaparser__mock.ml.mock"
+# 1010 "kawaparser__mock.ml.mock"
      : 'tv_class_attr_meth) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 136 "kawaparser.mly"
+ _1
+# 1015 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 136 "kawaparser.mly"
+                ( Neq_struct )
+# 1020 "kawaparser__mock.ml.mock"
+     : 'tv_bop) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 135 "kawaparser.mly"
+ _1
+# 1025 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 135 "kawaparser.mly"
+               ( Eq_struct )
+# 1030 "kawaparser__mock.ml.mock"
+     : 'tv_bop) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 134 "kawaparser.mly"
+ _1
+# 1035 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 134 "kawaparser.mly"
+     ( Or )
+# 1040 "kawaparser__mock.ml.mock"
+     : 'tv_bop) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 133 "kawaparser.mly"
+ _1
+# 1045 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 133 "kawaparser.mly"
+      ( And )
+# 1050 "kawaparser__mock.ml.mock"
+     : 'tv_bop) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 132 "kawaparser.mly"
+ _1
+# 1055 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 132 "kawaparser.mly"
+         ( Ge )
+# 1060 "kawaparser__mock.ml.mock"
+     : 'tv_bop) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 131 "kawaparser.mly"
+ _1
+# 1065 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 131 "kawaparser.mly"
+          ( Gt )
+# 1070 "kawaparser__mock.ml.mock"
+     : 'tv_bop) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 130 "kawaparser.mly"
+ _1
+# 1075 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 130 "kawaparser.mly"
+         ( Le )
+# 1080 "kawaparser__mock.ml.mock"
+     : 'tv_bop) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 129 "kawaparser.mly"
+ _1
+# 1085 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 129 "kawaparser.mly"
+        ( Lt )
+# 1090 "kawaparser__mock.ml.mock"
+     : 'tv_bop) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 128 "kawaparser.mly"
+ _1
+# 1095 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 128 "kawaparser.mly"
+         ( Neq )
+# 1100 "kawaparser__mock.ml.mock"
+     : 'tv_bop) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 127 "kawaparser.mly"
+ _1
+# 1105 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 127 "kawaparser.mly"
+        ( Eq )
+# 1110 "kawaparser__mock.ml.mock"
+     : 'tv_bop) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 126 "kawaparser.mly"
+ _1
+# 1115 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 126 "kawaparser.mly"
+      ( Rem )
+# 1120 "kawaparser__mock.ml.mock"
+     : 'tv_bop) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 125 "kawaparser.mly"
  _1
-# 956 "kawaparser__mock.ml.mock"
+# 1125 "kawaparser__mock.ml.mock"
    : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
     (
 # 125 "kawaparser.mly"
-     ( Or )
-# 961 "kawaparser__mock.ml.mock"
+      ( Div )
+# 1130 "kawaparser__mock.ml.mock"
      : 'tv_bop) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 124 "kawaparser.mly"
  _1
-# 966 "kawaparser__mock.ml.mock"
+# 1135 "kawaparser__mock.ml.mock"
    : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
     (
 # 124 "kawaparser.mly"
-      ( And )
-# 971 "kawaparser__mock.ml.mock"
+       ( Mul )
+# 1140 "kawaparser__mock.ml.mock"
      : 'tv_bop) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
 # 123 "kawaparser.mly"
  _1
-# 976 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 123 "kawaparser.mly"
-         ( Ge )
-# 981 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 122 "kawaparser.mly"
- _1
-# 986 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 122 "kawaparser.mly"
-          ( Gt )
-# 991 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 121 "kawaparser.mly"
- _1
-# 996 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 121 "kawaparser.mly"
-         ( Le )
-# 1001 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 120 "kawaparser.mly"
- _1
-# 1006 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 120 "kawaparser.mly"
-        ( Lt )
-# 1011 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 119 "kawaparser.mly"
- _1
-# 1016 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 119 "kawaparser.mly"
-         ( Neq )
-# 1021 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 118 "kawaparser.mly"
- _1
-# 1026 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 118 "kawaparser.mly"
-        ( Eq )
-# 1031 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 117 "kawaparser.mly"
- _1
-# 1036 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 117 "kawaparser.mly"
-      ( Rem )
-# 1041 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 116 "kawaparser.mly"
- _1
-# 1046 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 116 "kawaparser.mly"
-      ( Div )
-# 1051 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 115 "kawaparser.mly"
- _1
-# 1056 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 115 "kawaparser.mly"
-       ( Mul )
-# 1061 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 114 "kawaparser.mly"
- _1
-# 1066 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 114 "kawaparser.mly"
-        ( Sub )
-# 1071 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 113 "kawaparser.mly"
- _1
-# 1076 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 113 "kawaparser.mly"
-       ( Add )
-# 1081 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  (raise Not_found : 'tv_var_decl * 'tv_uop * 'tv_typed_variable * 'tv_type_ * 'tv_separated_nonempty_list_COMMA_typed_variable_ * 'tv_separated_nonempty_list_COMMA_expr_ * 'tv_separated_list_COMMA_typed_variable_ * 'tv_separated_list_COMMA_expr_ * 'tv_program * 'tv_option_class_extension_ * 'tv_method_def * 'tv_mem * 'tv_main * 'tv_loption_separated_nonempty_list_COMMA_typed_variable__ * 'tv_loption_separated_nonempty_list_COMMA_expr__ * 'tv_list_var_decl_ * 'tv_list_instr_var_decl_ * 'tv_list_instr_ * 'tv_list_class_def_ * 'tv_list_class_attr_meth_ * 'tv_instr_var_decl * 'tv_instr * 'tv_expr * 'tv_class_extension * 'tv_class_def * 'tv_class_attr_meth * 'tv_bop)
-=======
-# 1001 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 34 "kawaparser.mly"
-                                                                                ( {class_name=cls_name; attributes=attrs; methods=methods; parent=None} )
-# 1006 "kawaparser__mock.ml.mock"
-     : 'tv_class_def) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 101 "kawaparser.mly"
- _1
-# 1011 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 101 "kawaparser.mly"
-     ( Or )
-# 1016 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 100 "kawaparser.mly"
- _1
-# 1021 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 100 "kawaparser.mly"
-      ( And )
-# 1026 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 99 "kawaparser.mly"
- _1
-# 1031 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 99 "kawaparser.mly"
-         ( Ge )
-# 1036 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 98 "kawaparser.mly"
- _1
-# 1041 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 98 "kawaparser.mly"
-          ( Gt )
-# 1046 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 97 "kawaparser.mly"
- _1
-# 1051 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 97 "kawaparser.mly"
-         ( Le )
-# 1056 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 96 "kawaparser.mly"
- _1
-# 1061 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 96 "kawaparser.mly"
-        ( Lt )
-# 1066 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 95 "kawaparser.mly"
- _1
-# 1071 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 95 "kawaparser.mly"
-         ( Neq )
-# 1076 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 94 "kawaparser.mly"
- _1
-# 1081 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 94 "kawaparser.mly"
-        ( Eq )
-# 1086 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 93 "kawaparser.mly"
- _1
-# 1091 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 93 "kawaparser.mly"
-      ( Rem )
-# 1096 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 92 "kawaparser.mly"
- _1
-# 1101 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 92 "kawaparser.mly"
-      ( Div )
-# 1106 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 91 "kawaparser.mly"
- _1
-# 1111 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 91 "kawaparser.mly"
-       ( Mul )
-# 1116 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 90 "kawaparser.mly"
- _1
-# 1121 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 90 "kawaparser.mly"
-        ( Sub )
-# 1126 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 89 "kawaparser.mly"
- _1
-# 1131 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
-    (
-# 89 "kawaparser.mly"
-       ( Add )
-# 1136 "kawaparser__mock.ml.mock"
-     : 'tv_bop) in
-  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 43 "kawaparser.mly"
-                            _4
-# 1141 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__4_ : Lexing.position) (_endpos__4_ : Lexing.position) (_startofs__4_ : int) (_endofs__4_ : int) (_loc__4_ : Lexing.position * Lexing.position) (
-# 43 "kawaparser.mly"
-                    id
 # 1145 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 1149 "kawaparser__mock.ml.mock"
-  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
-# 43 "kawaparser.mly"
-            t
-# 1153 "kawaparser__mock.ml.mock"
-   : 'tv_type_) (_startpos_t_ : Lexing.position) (_endpos_t_ : Lexing.position) (_startofs_t_ : int) (_endofs_t_ : int) (_loc_t_ : Lexing.position * Lexing.position) (
-# 43 "kawaparser.mly"
- _1
-# 1157 "kawaparser__mock.ml.mock"
    : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
     (
-# 43 "kawaparser.mly"
-                                  ( {attribute_name=id; attribute_typ=t; final=false} )
-# 1162 "kawaparser__mock.ml.mock"
+# 123 "kawaparser.mly"
+        ( Sub )
+# 1150 "kawaparser__mock.ml.mock"
+     : 'tv_bop) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 122 "kawaparser.mly"
+ _1
+# 1155 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 122 "kawaparser.mly"
+       ( Add )
+# 1160 "kawaparser__mock.ml.mock"
+     : 'tv_bop) in
+  let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
+# 70 "kawaparser.mly"
+                            _3
+# 1165 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__3_ : Lexing.position) (_endpos__3_ : Lexing.position) (_startofs__3_ : int) (_endofs__3_ : int) (_loc__3_ : Lexing.position * Lexing.position) (
+# 70 "kawaparser.mly"
+        vars
+# 1169 "kawaparser__mock.ml.mock"
+   : 'tv_typed_variables) (_startpos_vars_ : Lexing.position) (_endpos_vars_ : Lexing.position) (_startofs_vars_ : int) (_endofs_vars_ : int) (_loc_vars_ : Lexing.position * Lexing.position) (
+# 70 "kawaparser.mly"
+ _1
+# 1173 "kawaparser__mock.ml.mock"
+   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+    (
+# 70 "kawaparser.mly"
+                                  (List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=true}) vars)
+# 1178 "kawaparser__mock.ml.mock"
      : 'tv_attr_decl) in
   let _ = fun (_eRR : exn) (_startpos : Lexing.position) (_endpos : Lexing.position) (_endpos__0_ : Lexing.position) (_symbolstartpos : Lexing.position) (_startofs : int) (_endofs : int) (_endofs__0_ : int) (_symbolstartofs : int) (_sloc : Lexing.position * Lexing.position) (_loc : Lexing.position * Lexing.position) (
-# 42 "kawaparser.mly"
-                                  _5
-# 1167 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__5_ : Lexing.position) (_endpos__5_ : Lexing.position) (_startofs__5_ : int) (_endofs__5_ : int) (_loc__5_ : Lexing.position * Lexing.position) (
-# 42 "kawaparser.mly"
-                          id
-# 1171 "kawaparser__mock.ml.mock"
-   : (
-# 9 "kawaparser.mly"
-       (string)
-# 1175 "kawaparser__mock.ml.mock"
-  )) (_startpos_id_ : Lexing.position) (_endpos_id_ : Lexing.position) (_startofs_id_ : int) (_endofs_id_ : int) (_loc_id_ : Lexing.position * Lexing.position) (
-# 42 "kawaparser.mly"
-                  t
-# 1179 "kawaparser__mock.ml.mock"
-   : 'tv_type_) (_startpos_t_ : Lexing.position) (_endpos_t_ : Lexing.position) (_startofs_t_ : int) (_endofs_t_ : int) (_loc_t_ : Lexing.position * Lexing.position) (
-# 42 "kawaparser.mly"
-       _2
+# 69 "kawaparser.mly"
+                      _2
 # 1183 "kawaparser__mock.ml.mock"
    : unit) (_startpos__2_ : Lexing.position) (_endpos__2_ : Lexing.position) (_startofs__2_ : int) (_endofs__2_ : int) (_loc__2_ : Lexing.position * Lexing.position) (
-# 42 "kawaparser.mly"
- _1
+# 69 "kawaparser.mly"
+  vars
 # 1187 "kawaparser__mock.ml.mock"
-   : unit) (_startpos__1_ : Lexing.position) (_endpos__1_ : Lexing.position) (_startofs__1_ : int) (_endofs__1_ : int) (_loc__1_ : Lexing.position * Lexing.position) ->
+   : 'tv_typed_variables) (_startpos_vars_ : Lexing.position) (_endpos_vars_ : Lexing.position) (_startofs_vars_ : int) (_endofs_vars_ : int) (_loc_vars_ : Lexing.position * Lexing.position) ->
     (
-# 42 "kawaparser.mly"
-                                        ( {attribute_name=id; attribute_typ=t; final=true} )
+# 69 "kawaparser.mly"
+                            (List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=false}) vars)
 # 1192 "kawaparser__mock.ml.mock"
      : 'tv_attr_decl) in
-  (raise Not_found : 'tv_var_decl * 'tv_uop * 'tv_typed_variable * 'tv_type_ * 'tv_separated_nonempty_list_COMMA_typed_variable_ * 'tv_separated_nonempty_list_COMMA_expr_ * 'tv_separated_nonempty_list_COMMA_IDENT_ * 'tv_separated_list_COMMA_typed_variable_ * 'tv_separated_list_COMMA_expr_ * 'tv_separated_list_COMMA_IDENT_ * 'tv_program * 'tv_method_def * 'tv_mem * 'tv_main * 'tv_loption_separated_nonempty_list_COMMA_typed_variable__ * 'tv_loption_separated_nonempty_list_COMMA_expr__ * 'tv_loption_separated_nonempty_list_COMMA_IDENT__ * 'tv_list_var_decl_ * 'tv_list_method_def_ * 'tv_list_instr_ * 'tv_list_class_def_ * 'tv_list_attr_decl_ * 'tv_instr * 'tv_expr * 'tv_class_def * 'tv_bop * 'tv_attr_decl)
->>>>>>> 541246b (idk anymore)
+  (raise Not_found : 'tv_var_decl * 'tv_uop * 'tv_typed_variables * 'tv_typed_variable * 'tv_type_ * 'tv_separated_nonempty_list_COMMA_typed_variable_ * 'tv_separated_nonempty_list_COMMA_expr_ * 'tv_separated_nonempty_list_COMMA_IDENT_ * 'tv_separated_list_COMMA_typed_variable_ * 'tv_separated_list_COMMA_expr_ * 'tv_program * 'tv_option_class_extension_ * 'tv_method_def * 'tv_mem * 'tv_main * 'tv_loption_separated_nonempty_list_COMMA_typed_variable__ * 'tv_loption_separated_nonempty_list_COMMA_expr__ * 'tv_list_var_decl_ * 'tv_list_instr_var_decl_ * 'tv_list_instr_ * 'tv_list_class_def_ * 'tv_list_class_attr_meth_ * 'tv_instr_var_decl * 'tv_instr * 'tv_expr * 'tv_class_extension * 'tv_class_def * 'tv_class_attr_meth * 'tv_bop * 'tv_attr_decl)
 
 and menhir_end_marker =
   0
@@ -2186,8 +1198,4 @@ and menhir_end_marker =
 # 269 "<standard.mly>"
   
 
-<<<<<<< HEAD
-# 1091 "kawaparser__mock.ml.mock"
-=======
 # 1202 "kawaparser__mock.ml.mock"
->>>>>>> 541246b (idk anymore)

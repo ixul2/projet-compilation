@@ -1,5 +1,5 @@
-var segment s;
-var point p;
+segment s;
+point p;
 
 class point {
   attribute int x;

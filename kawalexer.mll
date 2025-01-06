@@ -67,8 +67,10 @@ rule token = parse
   | "%"  { MOD }
   | "%"  { MOD }
 
-  | "==" { EQUAL }
-  | "!="  { NEQUAL }
+  | "===" { EQUAL }
+  | "=/="  { NEQUAL }
+  | "==" { EQUAL_STRUCT }
+  | "!="  { NEQUAL_STRUCT }
   | "<"  { LOWER }
   | "<="  { LEQUAL }
   | ">"  { GREATER }

@@ -41,7 +41,6 @@ main {
   print(t.somme());
   print(t.produit());
   pt = new triple(1, 2, 3);
-  pt = new paire(1, 2);
   print(pt.somme());
   // affiche 3, puis 12, puis 60, puis 6.
 }

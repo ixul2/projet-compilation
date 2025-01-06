@@ -19,7 +19,7 @@ let typ_to_string = function
 type unop  = Opp | Not
 type binop = Add | Sub | Mul | Div | Rem
            | Lt  | Le  | Gt | Ge | Eq  | Neq
-           | And | Or
+           | And | Or | Eq_struct | Neq_struct
 
 (* Expressions *)
 type expr =
@@ -72,17 +72,15 @@ type method_def = {
     return: typ;
 }
 
-<<<<<<< HEAD
 type instr_var_decl =
   | Instr of instr
-  | Var_decl of string * typ
-=======
+  | Var_decl of (string * typ) list
+
 type attribute_def = {
     attribute_name: string;
     attribute_typ: typ;
     final: bool;
 }
->>>>>>> 541246b (idk anymore)
         
 (* Définition de classe 
 
@@ -102,7 +100,7 @@ type class_def = {
 
 type class_attr_metho =
   | Method of method_def
-  | Attr of string * typ
+  | Attr of attribute_def list
 
 (* Programme complet : variables globales, classes, et une séquence 
    d'instructions *)
