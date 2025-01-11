@@ -1,0 +1,46 @@
+foo3 a;
+foo1 b;
+
+class foo1{
+  int x;
+  void init_x(){
+    this.x = 1;
+  }
+}
+
+class foo2 extends foo1{
+  int y;
+  void init_y(){
+    this.y = 2;
+    this.init_x();
+    //this.init_k(); //crashes
+    //this.k = 3; //crashes
+  }
+}
+
+class foo3 extends foo2{
+  int z;
+  void init_z(){
+    this.z = 3;
+  }
+}
+
+main {
+  a = new foo3;
+  a.init_x();
+  a.init_y();
+  a.init_z();
+  print(a.x);
+  print(a.y);
+  print(a.z);
+  //a.init_k(); //crashes
+  //print(a.k); //crashes
+
+  b = new foo3;
+  b.init_x();
+  print(b.x);
+  //b.init_y(); //crashes
+  //b.init_z(); //crashes
+  //print(b.y); //crashes
+  //print(b.z); //crashes
+}

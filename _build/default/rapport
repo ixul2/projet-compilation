@@ -1,7 +1,7 @@
 Il n'y a aucun bug connu dans le programme. Sauf erreur, y sont donc implémentées toutes les fonctionalités demandées ainsi que 5 extensions. 
 
 Déclarations simplifiées :
-Les mots clés method, attribute et var ont été retiré du langage dans le lexer, le parser ainsi que les tests. L'ordre imposé par la grammaire a également été assoupli. Ainsi, une déclaration de variable n'est pas obligé d'être fait au tout début d'une méthode. Il en est de même pour les attributs qui ne doivent plus nécessairement être au début d'une classe. 
+Les mots clés method, attribute et var ont été retiré du langage dans le lexer, le parser ainsi que les tests. AINSI LES PROGRAMMES QUI UTILISENT CES MOTS CLÉS PROVOQUERONT UN SYNTAX ERROR. L'ordre imposé par la grammaire a également été assoupli. Ainsi, une déclaration de variable n'est pas obligé d'être fait au tout début d'une méthode. Il en est de même pour les attributs qui ne doivent plus nécessairement être au début d'une classe. 
 
 
 Déclarations en série (voir tests/mul_dec.kwa) :
@@ -35,4 +35,6 @@ copy() -> a'[] : fait une copie du tableau dans une autre zone mémoire
 length() -> Int : renvoit la taille du tableau
 
 
-En plus de cela, le print a été élargi pour pouvoir afficher toutes les types de variables. Étant donné que la surcharge statique n'a pas été implémentée, c'est la seule fonction qui a ce comportement. J'ai aussi modifié un peu la grammaire afin que l'on puisse mettre un if sans else
+En plus de cela, le print a été élargi pour pouvoir afficher toutes les types de variables. Étant donné que la surcharge statique n'a pas été implémentée, c'est la seule fonction qui a ce comportement. J'ai également modifié un peu la grammaire afin que l'on puisse mettre un if sans else
+
+//todo : make sure function supposed to return something does 

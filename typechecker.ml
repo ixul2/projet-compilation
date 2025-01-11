@@ -139,7 +139,7 @@ let typecheck_prog p =
 
   in
   let rec check_instr i ret class_final_allowed tenv = match i with
-    | Print e -> ()
+    | Print e -> let _ = type_expr e tenv in ()
     | Expr e -> check e TVoid tenv 
     | Return e -> check e ret tenv (*we make no exception for void function as technically it makes sense for a void function to be able to return the result of another void function*)
     | Set (Var id, expr) -> check expr (type_expr (Get (Var id)) tenv) tenv (*Given that we have very simple scope management, if we can access a variable we can also set it*)
@@ -158,13 +158,18 @@ let typecheck_prog p =
     List.iter (fun i -> check_instr i ret class_final_allowed tenv) s
 
   in
-  check_seq p.main TVoid None Env.empty; (*we check main*)
   List.iter (fun cls -> let lenv = Env.empty in (*we check all the methods of all classes even though some might not be called during the execution*)
+                        let () = match cls.parent with (*we check all classes inhererit from a class that does exist*)
+                            Some parent -> (match List.find_opt (fun cls -> cls.class_name=parent) p.classes with 
+                                                              None -> undefined_element_error "class" parent 
+                                                              | _ -> ()) 
+                            | _ -> ()
+                        in 
                         let lenv = Env.add "this" (TClass cls.class_name) lenv in
                         List.iter (fun meth ->  let lenv = List.fold_left (fun env (var_name, var_type) -> Env.add var_name var_type env) lenv meth.locals in (*we add the local variables to environnement*)
                                                 let lenv = List.fold_left (fun env (param_name, param_type) -> Env.add param_name param_type env) lenv meth.params in (*we add the parameters to the environnement*)
                                                 if meth.method_name = "constructor" then
-                                                  if meth.return != TVoid then 
+                                                  if meth.return != TVoid then (*method constructor has to be of type TVoid*)
                                                     type_error meth.return TVoid
 
                                                   else
@@ -173,4 +178,6 @@ let typecheck_prog p =
                                                 else
                                                   check_seq meth.code meth.return None lenv;
                         ) cls.methods;
-            ) p.classes
+            ) p.classes;
+
+  check_seq p.main TVoid None Env.empty (*we check main*)
