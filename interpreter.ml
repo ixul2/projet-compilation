@@ -11,44 +11,40 @@ and obj = {
   cls:    string;
   fields: (string, value) Hashtbl.t ;
 }
+exception Return of value
 
-let print_value value = 
-    let rec print_value value = match value with 
-                           VInt i -> Printf.printf "%d" i
-                         | VBool b -> Printf.printf "%b" b
-                         | VObj obj -> Printf.printf "<Object %s>" obj.cls
-                         | VArray arr -> Printf.printf "["; Array.iteri (fun i v -> if i<>0 then Printf.printf " "; print_value v;) arr; Printf.printf "]"
-                         | Null -> Printf.printf "Null"
-
-    in
-    print_value value;
-    Printf.printf "\n%!"
 
 exception Error of string
-exception Return of value
+
+let undefined_element_error ty_el name_el = raise (Error (Printf.sprintf "the %s %s does not exist"(ty_el) (name_el)))
+
+let not_a_class_error ty_el = raise (Error (Printf.sprintf "Trying to access %s of non-object type" (ty_el)))
+
+let invalid_arguments_error method_name = raise (Invalid_argument ("Invalid arguments for method "^method_name))
+
+
 
 let exec_prog (p: program): unit =
   let env = Hashtbl.create 16 in
   List.iter (fun (x, _) -> Hashtbl.add env x Null) p.globals;
   
-  let rec eval_call f this args = (*function used to hand a method call*)
+  let rec eval_call method_name this args = (*function used to hand a method call*)
     (*we define a function to help us explore the heritage tree of a class and get the desired method. This could be generalized to allow a class to inherit from several classes*)
-    let rec explore_heritage_tree cls = let cls = List.find (fun c -> cls=c.class_name) p.classes in 
-                                          match List.find_opt (fun m->m.method_name=f) cls.methods with 
+    let rec explore_heritage_tree cls_name method_name = let cls = List.find (fun c -> cls_name=c.class_name) p.classes in 
+                                          match List.find_opt (fun m->m.method_name=method_name) cls.methods with 
                                           None -> (match cls.parent with 
-                                                    None -> failwith "Class doesn't have this method"
-                                                    | Some parent -> explore_heritage_tree parent)
+                                                    None -> undefined_element_error "method" (method_name^"("^cls_name^")")
+                                                    | Some parent -> explore_heritage_tree parent method_name)
 
-                                          | Some f -> f
+                                          | Some method_name -> method_name
     in
-    let f = explore_heritage_tree this.cls in
+    let meth = explore_heritage_tree this.cls method_name in (*we fetch the method in the heritage tree*)
     let lenv = Hashtbl.create 16 in (*we create the local environnement*)
-    List.iter (fun (x, _) -> Hashtbl.add lenv x Null) f.locals; (*we initialize the local varables*)
-    if List.length f.params  <> List.length args then failwith "Invalid parameters for the class" else
-    List.iter2 (fun (param_name, _) arg -> Hashtbl.add lenv param_name arg) f.params args; (*we create the variables for the arguments*)
+    List.iter (fun (x, _) -> Hashtbl.add lenv x Null) meth.locals; (*we initialize the local varables*)
+    if List.length meth.params  <> List.length args then invalid_arguments_error (method_name^"("^this.cls^")") else
+    List.iter2 (fun (param_name, _) arg -> Hashtbl.add lenv param_name arg) meth.params args; (*we create the variables for the arguments*)
     Hashtbl.add lenv "this" (VObj this); (*we add the object 'this'*)
-    exec_seq f.code lenv;
-    match Hashtbl.find_opt lenv "return" with None -> Null | Some v -> v (*we use the pseudo-variable "return" in the local environnement to pass the return value back to the caller*)
+    try exec_seq meth.code lenv; Null with Return e -> e
 
   and exec_seq s lenv =
     let rec evali e = match eval e with
@@ -70,16 +66,16 @@ let exec_prog (p: program): unit =
                               | None -> None
                                       
 
-    and initialize_class name = 
+    and initialize_class cls_name = 
       let rec initialize_attributes cls ht =  List.iter (fun attr -> Hashtbl.add ht attr.attribute_name Null) cls.attributes;
                                               match cls.parent with 
                                                   None -> ()
                                                 | Some parent -> initialize_attributes (List.find (fun c -> c.class_name=parent) p.classes) ht
                                           
       in
-      match List.find_opt (fun cls -> cls.class_name=name) p.classes with
-          None -> failwith "Class doesn't exist"
-        | Some cls -> let obj = {cls=name; fields = Hashtbl.create 16} in 
+      match List.find_opt (fun cls -> cls.class_name=cls_name) p.classes with
+          None -> undefined_element_error "class" cls_name
+        | Some cls -> let obj = {cls=cls_name; fields = Hashtbl.create 16} in 
           initialize_attributes cls obj.fields;
           obj
         
@@ -113,25 +109,25 @@ let exec_prog (p: program): unit =
       | Binop (And, expr1, expr2) -> VBool (evalb(expr1) && evalb(expr2))
       | Binop (Or, expr1, expr2) -> VBool (evalb(expr1) || evalb(expr2))
 
-      | Get (Var s) -> (match search_env_opt s with
-                            None -> failwith "Variable doesn't exist"
-                          | Some (_, v) -> v)
+      | Get (Var var_name) -> (match search_env_opt var_name with
+                            None -> undefined_element_error "variable" var_name
+                          | Some (_, variable) -> variable)
 
-      | Get (Field (obj_expr, s)) -> let obj = evalo obj_expr in
-                                      (match Hashtbl.find_opt obj.fields s with
-                                        None -> failwith "Variable doesn't exist"
+      | Get (Field (obj_expr, attribute_name)) -> let obj = evalo obj_expr in
+                                      (match Hashtbl.find_opt obj.fields attribute_name with
+                                        None -> undefined_element_error "attribute" attribute_name
                                       | Some v -> v)
 
-      | New s -> (match s with 
+      | New class_name -> (match class_name with 
                     "array" -> VArray ([||])
-                  | _ -> VObj (initialize_class s))
+                  | _ -> VObj (initialize_class class_name))
 
-      | NewCstr (s, params) -> (match s with
+      | NewCstr (class_name, params) -> (match class_name with
                                   "array" -> (match params with 
                                                 [length; default] -> VArray (Array.init (evali length) (fun x -> eval default))
-                                              | _ -> failwith "invalid argument")
+                                              | _ -> invalid_arguments_error ("constructor(array)"))
 
-                                | _ -> let obj = initialize_class s in 
+                                | _ -> let obj = initialize_class class_name in 
                                        let _ = eval_call "constructor" obj (List.map (fun expr -> eval expr) params) in (*we call the constructor method*)
                                        VObj obj)
 
@@ -140,44 +136,53 @@ let exec_prog (p: program): unit =
       | MethCall (obj_expr, method_name, params) ->   let params = List.map eval params in
                                                       (match eval obj_expr with 
                                                         VObj obj ->  eval_call method_name obj params
-                                                      | VArray arr -> (match method_name with 
-                                                                          "set" -> (match params with [VInt index; value] -> Array.set arr index value; Null | _ -> failwith "invalid arguments")
-                                                                        | "get" -> (match params with (VInt index)::[] -> Array.get arr index | _ -> failwith "invalid arguments")
-                                                                        | "copy" -> (match params with [] -> VArray (Array.copy arr) | _ -> failwith "invalid arguments")
-                                                                        | "length" -> (match params with [] -> VInt (Array.length arr) | _ -> failwith "invalid arguments")
-                                                                        | _ -> failwith "invalid method"
+                                                      | VArray arr -> (match method_name with (*the methods for the array are hardcoded*)
+                                                                          "set" -> (match params with [VInt index; value] -> Array.set arr index value; Null | _ -> invalid_arguments_error ("set(array)"))
+                                                                        | "get" -> (match params with (VInt index)::[] -> Array.get arr index | _ -> invalid_arguments_error ("get(array)"))
+                                                                        | "copy" -> (match params with [] -> VArray (Array.copy arr) | _ -> invalid_arguments_error ("copy(array)"))
+                                                                        | "length" -> (match params with [] -> VInt (Array.length arr) | _ -> invalid_arguments_error ("length(array)"))
+                                                                        | _ -> undefined_element_error "method" (method_name^"(array)")
                                                                       ) 
 
-                                                      | _ -> failwith "Trying to access method of type that doesn't have any") 
+                                                      | _ -> not_a_class_error "method") 
 
       | Array list_exprs -> VArray (Array.of_list(List.map eval list_exprs))
 
     in
   
     let rec exec (i: instr): unit = match i with
-      | Print e -> print_value (eval e)
-      | If (e, seq1, seq2) -> if evalb e then
+      | Print e ->  let rec print_value value = match value with 
+                        VInt i -> Printf.printf "%d" i
+                      | VBool b -> Printf.printf "%b" b
+                      | VObj obj -> Printf.printf "<Object %s>" obj.cls
+                      | VArray arr -> Printf.printf "["; Array.iteri (fun i v -> if i<>0 then Printf.printf ", "; print_value v;) arr; Printf.printf "]"
+                      | Null -> Printf.printf "Null"
+                    in
+                    print_value (eval e);
+                    Printf.printf "\n%!"
+
+      | If (expr, seq1, seq2) -> if evalb expr then
                                 exec_seq seq1
                               else
                                 exec_seq seq2
 
-      | While (e, seq) -> if evalb e then
+      | While (expr, seq) -> if evalb expr then
                                 let _ = exec_seq seq in
-                                exec (While (e, seq))
+                                exec (While (expr, seq))
 
-      | Set (Var s, e) -> (match search_env_opt s with
-                              None -> failwith "Can't set a variable that hasn't been declared" 
-                            | Some (ht, _) -> Hashtbl.replace ht s (eval e))
+      | Set (Var variable_name, expr) -> (match search_env_opt variable_name with
+                              None -> undefined_element_error "variable" variable_name
+                            | Some (ht, _) -> Hashtbl.replace ht variable_name (eval expr))
 
-      | Set (Field (obj_expr, s), e) -> let obj = evalo obj_expr in
-                                      if Hashtbl.find_opt obj.fields s = None then
-                                        failwith "The object doesn't have this field" 
+      | Set (Field (obj_expr, attribute_name), expr) -> let obj = evalo obj_expr in
+                                      if Hashtbl.find_opt obj.fields attribute_name = None then
+                                        undefined_element_error "attribute" (attribute_name^"("^obj.cls^")")
 
                                       else
-                                        Hashtbl.replace obj.fields s (eval e)
+                                        Hashtbl.replace obj.fields attribute_name (eval expr)
                               
 
-      | Return expr ->  Hashtbl.add lenv "return" (eval expr)
+      | Return expr ->  raise (Return (eval expr))
       | Expr expr -> let _ = eval expr in ()
 
 

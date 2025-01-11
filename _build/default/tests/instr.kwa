@@ -7,7 +7,9 @@ main {
   n = 9;
   acc = 1;
   while (n != 0) {
-    if (n%2 != 0){acc = a*acc;} else {}
+    if (n%2 != 0){
+      acc = a*acc;
+    }
     a = a*a;
     n = n/2;
   }

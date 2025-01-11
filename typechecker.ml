@@ -1,21 +1,19 @@
 open Kawa
 
 exception Error of string
+
 let error s = raise (Error s)
-let type_error ty_actual ty_expected =
-  error (Printf.sprintf "expected %s, got %s"
-           (typ_to_string ty_expected) (typ_to_string ty_actual))
 
-let undefined_element_error ty_el name_el =
-  error (Printf.sprintf "the %s %s does not exist"
-           (ty_el) (name_el))
+let type_error ty_actual ty_expected = error (Printf.sprintf "expected %s, got %s" (typ_to_string ty_expected) (typ_to_string ty_actual))
 
-let not_a_class_error ty_el =
-  error (Printf.sprintf "Trying to access %s of non-object type"
-           (ty_el))
+let undefined_element_error ty_el name_el = error (Printf.sprintf "the %s %s does not exist" (ty_el) (name_el))
 
-let final_error el_name = error (Printf.sprintf "Trying to change value of final attribute : %s"
-           (el_name))
+let not_a_class_error ty_el = error (Printf.sprintf "Trying to access %s of non-object type" (ty_el))
+
+let final_error el_name = error (Printf.sprintf "Trying to change value of final attribute : %s" (el_name))
+
+let invalid_arguments_error method_name = error (Printf.sprintf "Invalid arguments for method %s" method_name)
+
 
 module Env = Map.Make(String)
 type tenv = typ Env.t
@@ -56,7 +54,7 @@ let typecheck_prog p =
   let rec depth_array t = match t with TArray t' -> 1 + depth_array t' | TEmptyArray -> 1 | _ -> 0 in
 
   let rec check_types typ_e typ = match typ_e, typ with 
-                                    TClass class_typ, TClass class_typ_e -> (match explore_heritage_tree (fun cls -> if cls.class_name = class_typ then Some class_typ else None) (get_class class_typ_e) with 
+                                    TClass class_typ_e, TClass class_typ -> (match explore_heritage_tree (fun cls -> if cls.class_name = class_typ then Some class_typ else None) (get_class class_typ_e) with 
                                                                                 None -> type_error typ_e typ
                                                                               | _ -> ())
 
@@ -108,15 +106,15 @@ let typecheck_prog p =
     | NewCstr (cls_name, params) -> (match cls_name with 
                                       "array" -> (match params with 
                                                     [length; default] -> check length TInt tenv; TArray (type_expr default tenv)
-                                                  | _ -> raise (Invalid_argument "Invalid arguments for array constructor"))
+                                                  | _ -> invalid_arguments_error "constructor(array)")
 
                                     | _ -> let _ = type_call cls_name "constructor" (List.map (fun p -> type_expr p tenv) params) in TClass cls_name)
 
     | MethCall (expr_obj, method_name, params) -> (match type_expr expr_obj tenv with
                                                       TClass cls_name -> type_call cls_name method_name (List.map (fun p -> type_expr p tenv) params)
                                                     | TArray t -> (match method_name with 
-                                                                     "get" -> t
-                                                                   | "set" -> TVoid
+                                                                     "get" ->  (match params with index::[] -> check index TInt tenv; t | _ -> invalid_arguments_error "get(array)") 
+                                                                   | "set" ->  (match params with [index; value] -> check index TInt tenv; check value t tenv; TVoid | _ -> invalid_arguments_error "set(array)") 
                                                                    | "copy" -> TArray t
                                                                    | "length" -> TInt
                                                                    | _ -> undefined_element_error "method" (method_name^"(array)"))

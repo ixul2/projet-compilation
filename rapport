@@ -1,7 +1,7 @@
 Il n'y a aucun bug connu dans le programme. Sauf erreur, y sont donc implémentées toutes les fonctionalités demandées ainsi que 5 extensions. 
 
 Déclarations simplifiées :
-Les mots clés method, attribute et var ont été retiré du langage dans le lexer, le parser ainsi que les tests. L'ordre imposé par la grammaire a également été assoupli. Ainsi, une déclaration de variable n'est pas obligé d'être fait au tout début d'une méthode. Il en est de même pour les attributs qui ne doivent plus nécessairement être au début d'une classe. 
+Les mots clés method, attribute et var ont été retiré du langage dans le lexer, le parser ainsi que les tests. AINSI LES PROGRAMMES QUI UTILISENT CES MOTS CLÉS PROVOQUERONT UN SYNTAX ERROR. L'ordre imposé par la grammaire a également été assoupli. Ainsi, une déclaration de variable n'est pas obligé d'être fait au tout début d'une méthode. Il en est de même pour les attributs qui ne doivent plus nécessairement être au début d'une classe. 
 
 
 Déclarations en série (voir tests/mul_dec.kwa) :
@@ -29,14 +29,10 @@ b = [true, false, false];
 b = array(5, array(5, true)); // un tableau 2d de taille 5x5 où toutes les valeurs sont initialisés à true 
 
 On dispose ensuite de 4 méthodes pour manipuler les tableaux
-set(int index, a' value) : modifie la valeur du tableau à l'indice index
-get(int index) : renvoie le valeur du tableau à l'indice index
-copy() : fait une copie du tableau dans une autre zone mémoire
-length() : renvoit la taille du tableau
+set(int index, a' value) -> Void : modifie la valeur du tableau à l'indice index
+get(int index) -> a' : renvoie le valeur du tableau à l'indice index
+copy() -> a'[] : fait une copie du tableau dans une autre zone mémoire
+length() -> Int : renvoit la taille du tableau
 
 
-En plus de cela, le print a été élargi pour pouvoir afficher toutes les types de variables. Étant donné que la surcharge statique n'a pas été implémenté, c'est la seule fonction qui a ce comportement. 
-
-//to do, initialiser les objets avec les attributs de tous les parents 
-//expliquer return dans code
-//check set 
+En plus de cela, le print a été élargi pour pouvoir afficher toutes les types de variables. Étant donné que la surcharge statique n'a pas été implémentée, c'est la seule fonction qui a ce comportement. J'ai également modifié un peu la grammaire afin que l'on puisse mettre un if sans else

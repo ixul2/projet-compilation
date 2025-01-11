@@ -1,0 +1,16 @@
+foo obj;
+
+class foo {
+  int min(a, b) {
+    if (a < b){
+      return a;
+    }
+    return b;
+  }
+}
+
+main {
+  p = new foo;
+  print(p.min(23, 0)) // affiche 0
+  print(p.min(5, 10)) // affiche 10
+}

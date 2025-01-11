@@ -133,7 +133,7 @@ let rec _menhir_reduce11 : _menhir_env -> 'ttv_tail * _menhir_state * (Kawa.mem_
   fun _menhir_env _menhir_stack ->
     let (_menhir_stack, _menhir_s, (m : (Kawa.mem_access))) = _menhir_stack in
     let _v : (Kawa.expr) = 
-# 106 "kawaparser.mly"
+# 107 "kawaparser.mly"
         ( Get(m) )
 # 139 "kawaparser.ml"
      in
@@ -192,7 +192,7 @@ and _menhir_goto_list_instr_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kaw
                     | WHILE ->
                         _menhir_run41 _menhir_env (Obj.magic _menhir_stack) MenhirState126
                     | END ->
-                        _menhir_reduce46 _menhir_env (Obj.magic _menhir_stack) MenhirState126
+                        _menhir_reduce47 _menhir_env (Obj.magic _menhir_stack) MenhirState126
                     | _ ->
                         assert (not _menhir_env._menhir_error);
                         _menhir_env._menhir_error <- true;
@@ -203,6 +203,15 @@ and _menhir_goto_list_instr_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kaw
                     let _menhir_stack = Obj.magic _menhir_stack in
                     let (_menhir_stack, _menhir_s, _) = _menhir_stack in
                     _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
+            | BOOL | END | FALSE | IDENT _ | IF | INT | LPAR | L_BRACKET | MINUS | N _ | NEW | NOT | PRINT | RETURN | THIS | TRUE | VOID | WHILE ->
+                let _menhir_stack = Obj.magic _menhir_stack in
+                let (((_menhir_stack, _menhir_s), _, (e : (Kawa.expr))), _, (seq1 : (Kawa.seq))) = _menhir_stack in
+                let _v : (Kawa.instr) = 
+# 96 "kawaparser.mly"
+                                                 ( If(e, seq1, []) )
+# 213 "kawaparser.ml"
+                 in
+                _menhir_goto_instr _menhir_env _menhir_stack _menhir_s _v
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -228,7 +237,7 @@ and _menhir_goto_list_instr_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kaw
             let _v : (Kawa.instr) = 
 # 95 "kawaparser.mly"
                                                                                  ( If(e, seq1, seq2) )
-# 232 "kawaparser.ml"
+# 241 "kawaparser.ml"
              in
             _menhir_goto_instr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -244,7 +253,7 @@ and _menhir_goto_list_instr_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kaw
         let _v : (Kawa.seq) = 
 # 213 "<standard.mly>"
     ( x :: xs )
-# 248 "kawaparser.ml"
+# 257 "kawaparser.ml"
          in
         _menhir_goto_list_instr_ _menhir_env _menhir_stack _menhir_s _v
     | MenhirState105 ->
@@ -258,9 +267,9 @@ and _menhir_goto_list_instr_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kaw
             let _menhir_stack = Obj.magic _menhir_stack in
             let (((_menhir_stack, _menhir_s), _, (e : (Kawa.expr))), _, (seq : (Kawa.seq))) = _menhir_stack in
             let _v : (Kawa.instr) = 
-# 96 "kawaparser.mly"
+# 97 "kawaparser.mly"
                                                    ( While(e, seq) )
-# 264 "kawaparser.ml"
+# 273 "kawaparser.ml"
              in
             _menhir_goto_instr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -282,7 +291,7 @@ and _menhir_goto_list_instr_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kaw
             let _v : (Kawa.seq) = 
 # 33 "kawaparser.mly"
                                  ( seq )
-# 286 "kawaparser.ml"
+# 295 "kawaparser.ml"
              in
             let _menhir_stack = (_menhir_stack, _v) in
             let _menhir_stack = Obj.magic _menhir_stack in
@@ -296,7 +305,7 @@ and _menhir_goto_list_instr_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kaw
                 let _v : (Kawa.program) = 
 # 29 "kawaparser.mly"
                                                            ( {classes=cls; globals= List.concat glb; main=main_fun} )
-# 300 "kawaparser.ml"
+# 309 "kawaparser.ml"
                  in
                 let _menhir_stack = Obj.magic _menhir_stack in
                 let _menhir_stack = Obj.magic _menhir_stack in
@@ -333,7 +342,7 @@ and _menhir_goto_list_class_attr_meth_ : _menhir_env -> 'ttv_tail -> _menhir_sta
             let ((((_menhir_stack, _menhir_s), (cls_name : (
 # 8 "kawaparser.mly"
        (string)
-# 337 "kawaparser.ml"
+# 346 "kawaparser.ml"
             ))), (parent : (string option))), _, (attrs_methods : (Kawa.class_attr_metho list))) = _menhir_stack in
             let _v : (Kawa.class_def) = 
 # 37 "kawaparser.mly"
@@ -342,7 +351,7 @@ and _menhir_goto_list_class_attr_meth_ : _menhir_env -> 'ttv_tail -> _menhir_sta
                                                                                                       let attrs = List.filter_map (fun m_v -> match m_v with Attr (attr) -> Some attr | _ -> None) attrs_methods in
                                                                                                       {class_name=cls_name; attributes=List.concat attrs; methods=methods; parent=parent} 
                                                                                                      )
-# 346 "kawaparser.ml"
+# 355 "kawaparser.ml"
              in
             let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
             let _menhir_stack = Obj.magic _menhir_stack in
@@ -352,7 +361,7 @@ and _menhir_goto_list_class_attr_meth_ : _menhir_env -> 'ttv_tail -> _menhir_sta
             | CLASS ->
                 _menhir_run18 _menhir_env (Obj.magic _menhir_stack) MenhirState156
             | MAIN ->
-                _menhir_reduce44 _menhir_env (Obj.magic _menhir_stack) MenhirState156
+                _menhir_reduce45 _menhir_env (Obj.magic _menhir_stack) MenhirState156
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -370,7 +379,7 @@ and _menhir_goto_list_class_attr_meth_ : _menhir_env -> 'ttv_tail -> _menhir_sta
         let _v : (Kawa.class_attr_metho list) = 
 # 213 "<standard.mly>"
     ( x :: xs )
-# 374 "kawaparser.ml"
+# 383 "kawaparser.ml"
          in
         _menhir_goto_list_class_attr_meth_ _menhir_env _menhir_stack _menhir_s _v
     | _ ->
@@ -394,7 +403,7 @@ and _menhir_goto_class_attr_meth : _menhir_env -> 'ttv_tail -> _menhir_state -> 
     | VOID ->
         _menhir_run1 _menhir_env (Obj.magic _menhir_stack) MenhirState145
     | END ->
-        _menhir_reduce42 _menhir_env (Obj.magic _menhir_stack) MenhirState145
+        _menhir_reduce43 _menhir_env (Obj.magic _menhir_stack) MenhirState145
     | _ ->
         assert (not _menhir_env._menhir_error);
         _menhir_env._menhir_error <- true;
@@ -416,17 +425,17 @@ and _menhir_goto_loption_separated_nonempty_list_COMMA_expr__ : _menhir_env -> '
             let (((_menhir_stack, _menhir_s, (e : (Kawa.expr))), (id : (
 # 8 "kawaparser.mly"
        (string)
-# 420 "kawaparser.ml"
+# 429 "kawaparser.ml"
             ))), _, (xs : (Kawa.expr list))) = _menhir_stack in
             let _v : (Kawa.expr) = let params = 
 # 232 "<standard.mly>"
     ( xs )
-# 425 "kawaparser.ml"
+# 434 "kawaparser.ml"
              in
             
-# 112 "kawaparser.mly"
+# 113 "kawaparser.mly"
                                                                    ( MethCall(e, id, params) )
-# 430 "kawaparser.ml"
+# 439 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -448,12 +457,12 @@ and _menhir_goto_loption_separated_nonempty_list_COMMA_expr__ : _menhir_env -> '
             let _v : (Kawa.expr) = let exprs = 
 # 232 "<standard.mly>"
     ( xs )
-# 452 "kawaparser.ml"
+# 461 "kawaparser.ml"
              in
             
-# 113 "kawaparser.mly"
+# 114 "kawaparser.mly"
                                                         ( Array(exprs) )
-# 457 "kawaparser.ml"
+# 466 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -474,17 +483,17 @@ and _menhir_goto_loption_separated_nonempty_list_COMMA_expr__ : _menhir_env -> '
             let (((_menhir_stack, _menhir_s), (id : (
 # 8 "kawaparser.mly"
        (string)
-# 478 "kawaparser.ml"
+# 487 "kawaparser.ml"
             ))), _, (xs : (Kawa.expr list))) = _menhir_stack in
             let _v : (Kawa.expr) = let params = 
 # 232 "<standard.mly>"
     ( xs )
-# 483 "kawaparser.ml"
+# 492 "kawaparser.ml"
              in
             
-# 111 "kawaparser.mly"
+# 112 "kawaparser.mly"
                                                             ( NewCstr(id, params) )
-# 488 "kawaparser.ml"
+# 497 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -586,7 +595,7 @@ and _menhir_goto_instr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.inst
         | WHILE ->
             _menhir_run41 _menhir_env (Obj.magic _menhir_stack) MenhirState129
         | END ->
-            _menhir_reduce46 _menhir_env (Obj.magic _menhir_stack) MenhirState129
+            _menhir_reduce47 _menhir_env (Obj.magic _menhir_stack) MenhirState129
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
@@ -598,7 +607,7 @@ and _menhir_goto_instr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.inst
         let _v : (Kawa.instr_var_decl) = 
 # 72 "kawaparser.mly"
           ( Instr(i) )
-# 602 "kawaparser.ml"
+# 611 "kawaparser.ml"
          in
         _menhir_goto_instr_var_decl _menhir_env _menhir_stack _menhir_s _v
     | _ ->
@@ -614,7 +623,7 @@ and _menhir_goto_separated_nonempty_list_COMMA_expr_ : _menhir_env -> 'ttv_tail 
         let _v : (Kawa.expr list) = 
 # 144 "<standard.mly>"
     ( x )
-# 618 "kawaparser.ml"
+# 627 "kawaparser.ml"
          in
         _menhir_goto_loption_separated_nonempty_list_COMMA_expr__ _menhir_env _menhir_stack _menhir_s _v
     | MenhirState92 ->
@@ -625,7 +634,7 @@ and _menhir_goto_separated_nonempty_list_COMMA_expr_ : _menhir_env -> 'ttv_tail 
         let _v : (Kawa.expr list) = 
 # 243 "<standard.mly>"
     ( x :: xs )
-# 629 "kawaparser.ml"
+# 638 "kawaparser.ml"
          in
         _menhir_goto_separated_nonempty_list_COMMA_expr_ _menhir_env _menhir_stack _menhir_s _v
     | _ ->
@@ -1058,7 +1067,7 @@ and _menhir_run59 : _menhir_env -> 'ttv_tail * _menhir_state * (Kawa.expr) -> 't
             | TRUE ->
                 _menhir_run43 _menhir_env (Obj.magic _menhir_stack) MenhirState61
             | RPAR ->
-                _menhir_reduce52 _menhir_env (Obj.magic _menhir_stack) MenhirState61
+                _menhir_reduce53 _menhir_env (Obj.magic _menhir_stack) MenhirState61
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -1068,12 +1077,12 @@ and _menhir_run59 : _menhir_env -> 'ttv_tail * _menhir_state * (Kawa.expr) -> 't
             let ((_menhir_stack, _menhir_s, (e : (Kawa.expr))), (var : (
 # 8 "kawaparser.mly"
        (string)
-# 1072 "kawaparser.ml"
+# 1081 "kawaparser.ml"
             ))) = _menhir_stack in
             let _v : (Kawa.mem_access) = 
-# 119 "kawaparser.mly"
+# 120 "kawaparser.mly"
                        ( Field(e, var) )
-# 1077 "kawaparser.ml"
+# 1086 "kawaparser.ml"
              in
             _menhir_goto_mem _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1149,21 +1158,21 @@ and _menhir_run94 : _menhir_env -> 'ttv_tail * _menhir_state * (Kawa.expr) -> 't
         _menhir_env._menhir_error <- true;
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState94
 
-and _menhir_reduce46 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
+and _menhir_reduce47 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _v : (Kawa.seq) = 
 # 211 "<standard.mly>"
     ( [] )
-# 1158 "kawaparser.ml"
+# 1167 "kawaparser.ml"
      in
     _menhir_goto_list_instr_ _menhir_env _menhir_stack _menhir_s _v
 
-and _menhir_reduce42 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
+and _menhir_reduce43 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _v : (Kawa.class_attr_metho list) = 
 # 211 "<standard.mly>"
     ( [] )
-# 1167 "kawaparser.ml"
+# 1176 "kawaparser.ml"
      in
     _menhir_goto_list_class_attr_meth_ _menhir_env _menhir_stack _menhir_s _v
 
@@ -1194,7 +1203,7 @@ and _menhir_goto_attr_decl : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.
     let _v : (Kawa.class_attr_metho) = 
 # 50 "kawaparser.mly"
                  ( Attr(attr) )
-# 1198 "kawaparser.ml"
+# 1207 "kawaparser.ml"
      in
     _menhir_goto_class_attr_meth _menhir_env _menhir_stack _menhir_s _v
 
@@ -1240,7 +1249,7 @@ and _menhir_goto_instr_var_decl : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     | WHILE ->
         _menhir_run41 _menhir_env (Obj.magic _menhir_stack) MenhirState139
     | END ->
-        _menhir_reduce48 _menhir_env (Obj.magic _menhir_stack) MenhirState139
+        _menhir_reduce49 _menhir_env (Obj.magic _menhir_stack) MenhirState139
     | _ ->
         assert (not _menhir_env._menhir_error);
         _menhir_env._menhir_error <- true;
@@ -1262,12 +1271,12 @@ and _menhir_goto_list_instr_var_decl_ : _menhir_env -> 'ttv_tail -> _menhir_stat
             let ((((_menhir_stack, _menhir_s, (ret : (Kawa.typ))), _, (id : (
 # 8 "kawaparser.mly"
        (string)
-# 1266 "kawaparser.ml"
+# 1275 "kawaparser.ml"
             ))), _, (xs : ((string * Kawa.typ) list))), _, (instr_var_decls : (Kawa.instr_var_decl list))) = _menhir_stack in
             let _v : (Kawa.method_def) = let params = 
 # 232 "<standard.mly>"
     ( xs )
-# 1271 "kawaparser.ml"
+# 1280 "kawaparser.ml"
              in
             
 # 58 "kawaparser.mly"
@@ -1276,7 +1285,7 @@ and _menhir_goto_list_instr_var_decl_ : _menhir_env -> 'ttv_tail -> _menhir_stat
                                                                                                                              let code = List.filter_map (fun v_i -> match v_i with Instr i -> Some i | _ -> None) instr_var_decls in
                                                                                                                              {method_name=id; code=code; params=params; locals=List.concat loc; return=ret}
                                                                                                                            )
-# 1280 "kawaparser.ml"
+# 1289 "kawaparser.ml"
              in
             let _menhir_stack = Obj.magic _menhir_stack in
             let _menhir_stack = Obj.magic _menhir_stack in
@@ -1284,7 +1293,7 @@ and _menhir_goto_list_instr_var_decl_ : _menhir_env -> 'ttv_tail -> _menhir_stat
             let _v : (Kawa.class_attr_metho) = 
 # 49 "kawaparser.mly"
                ( Method(m) )
-# 1288 "kawaparser.ml"
+# 1297 "kawaparser.ml"
              in
             _menhir_goto_class_attr_meth _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1300,46 +1309,46 @@ and _menhir_goto_list_instr_var_decl_ : _menhir_env -> 'ttv_tail -> _menhir_stat
         let _v : (Kawa.instr_var_decl list) = 
 # 213 "<standard.mly>"
     ( x :: xs )
-# 1304 "kawaparser.ml"
+# 1313 "kawaparser.ml"
          in
         _menhir_goto_list_instr_var_decl_ _menhir_env _menhir_stack _menhir_s _v
     | _ ->
         _menhir_fail ()
 
-and _menhir_reduce52 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
+and _menhir_reduce53 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _v : (Kawa.expr list) = 
 # 142 "<standard.mly>"
     ( [] )
-# 1315 "kawaparser.ml"
+# 1324 "kawaparser.ml"
      in
     _menhir_goto_loption_separated_nonempty_list_COMMA_expr__ _menhir_env _menhir_stack _menhir_s _v
 
 and _menhir_run53 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 8 "kawaparser.mly"
        (string)
-# 1322 "kawaparser.ml"
+# 1331 "kawaparser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
     let _menhir_env = _menhir_discard _menhir_env in
-    _menhir_reduce57 _menhir_env (Obj.magic _menhir_stack)
+    _menhir_reduce58 _menhir_env (Obj.magic _menhir_stack)
 
-and _menhir_reduce57 : _menhir_env -> 'ttv_tail * _menhir_state * (
+and _menhir_reduce58 : _menhir_env -> 'ttv_tail * _menhir_state * (
 # 8 "kawaparser.mly"
        (string)
-# 1332 "kawaparser.ml"
+# 1341 "kawaparser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack ->
     let (_menhir_stack, _menhir_s, (var : (
 # 8 "kawaparser.mly"
        (string)
-# 1338 "kawaparser.ml"
+# 1347 "kawaparser.ml"
     ))) = _menhir_stack in
     let _v : (Kawa.mem_access) = 
-# 118 "kawaparser.mly"
+# 119 "kawaparser.mly"
             ( Var(var) )
-# 1343 "kawaparser.ml"
+# 1352 "kawaparser.ml"
      in
     _menhir_goto_mem _menhir_env _menhir_stack _menhir_s _v
 
@@ -1388,9 +1397,9 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s), _, (e : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = 
-# 109 "kawaparser.mly"
+# 110 "kawaparser.mly"
                    ( e )
-# 1394 "kawaparser.ml"
+# 1403 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | STAR ->
@@ -1412,14 +1421,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 130 "kawaparser.mly"
+# 131 "kawaparser.mly"
        ( Mul )
-# 1418 "kawaparser.ml"
+# 1427 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1423 "kawaparser.ml"
+# 1432 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1500,7 +1509,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _v : (Kawa.expr list) = 
 # 241 "<standard.mly>"
     ( [ x ] )
-# 1504 "kawaparser.ml"
+# 1513 "kawaparser.ml"
              in
             _menhir_goto_separated_nonempty_list_COMMA_expr_ _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1526,14 +1535,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 128 "kawaparser.mly"
+# 129 "kawaparser.mly"
        ( Add )
-# 1532 "kawaparser.ml"
+# 1541 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1537 "kawaparser.ml"
+# 1546 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1553,14 +1562,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 132 "kawaparser.mly"
+# 133 "kawaparser.mly"
       ( Rem )
-# 1559 "kawaparser.ml"
+# 1568 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1564 "kawaparser.ml"
+# 1573 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1580,14 +1589,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 131 "kawaparser.mly"
+# 132 "kawaparser.mly"
       ( Div )
-# 1586 "kawaparser.ml"
+# 1595 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1591 "kawaparser.ml"
+# 1600 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1633,14 +1642,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 140 "kawaparser.mly"
+# 141 "kawaparser.mly"
      ( Or )
-# 1639 "kawaparser.ml"
+# 1648 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1644 "kawaparser.ml"
+# 1653 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1670,14 +1679,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 142 "kawaparser.mly"
+# 143 "kawaparser.mly"
                 ( Neq_struct )
-# 1676 "kawaparser.ml"
+# 1685 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1681 "kawaparser.ml"
+# 1690 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1703,14 +1712,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 129 "kawaparser.mly"
+# 130 "kawaparser.mly"
         ( Sub )
-# 1709 "kawaparser.ml"
+# 1718 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1714 "kawaparser.ml"
+# 1723 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1740,14 +1749,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 134 "kawaparser.mly"
+# 135 "kawaparser.mly"
          ( Neq )
-# 1746 "kawaparser.ml"
+# 1755 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1751 "kawaparser.ml"
+# 1760 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1777,14 +1786,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 135 "kawaparser.mly"
+# 136 "kawaparser.mly"
         ( Lt )
-# 1783 "kawaparser.ml"
+# 1792 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1788 "kawaparser.ml"
+# 1797 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1814,14 +1823,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 136 "kawaparser.mly"
+# 137 "kawaparser.mly"
          ( Le )
-# 1820 "kawaparser.ml"
+# 1829 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1825 "kawaparser.ml"
+# 1834 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1851,14 +1860,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 137 "kawaparser.mly"
+# 138 "kawaparser.mly"
           ( Gt )
-# 1857 "kawaparser.ml"
+# 1866 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1862 "kawaparser.ml"
+# 1871 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1888,14 +1897,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 138 "kawaparser.mly"
+# 139 "kawaparser.mly"
          ( Ge )
-# 1894 "kawaparser.ml"
+# 1903 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1899 "kawaparser.ml"
+# 1908 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1925,14 +1934,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 141 "kawaparser.mly"
+# 142 "kawaparser.mly"
                ( Eq_struct )
-# 1931 "kawaparser.ml"
+# 1940 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1936 "kawaparser.ml"
+# 1945 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -1962,14 +1971,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 133 "kawaparser.mly"
+# 134 "kawaparser.mly"
         ( Eq )
-# 1968 "kawaparser.ml"
+# 1977 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 1973 "kawaparser.ml"
+# 1982 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -2015,14 +2024,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s, (e1 : (Kawa.expr))), _, (e2 : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let b = 
-# 139 "kawaparser.mly"
+# 140 "kawaparser.mly"
       ( And )
-# 2021 "kawaparser.ml"
+# 2030 "kawaparser.ml"
              in
             
-# 108 "kawaparser.mly"
+# 109 "kawaparser.mly"
                         ( Binop(b, e1, e2) )
-# 2026 "kawaparser.ml"
+# 2035 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -2042,14 +2051,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s), _, (e : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let u = 
-# 123 "kawaparser.mly"
+# 124 "kawaparser.mly"
         ( Opp )
-# 2048 "kawaparser.ml"
+# 2057 "kawaparser.ml"
              in
             
-# 107 "kawaparser.mly"
+# 108 "kawaparser.mly"
                ( Unop(u, e) )
-# 2053 "kawaparser.ml"
+# 2062 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -2069,14 +2078,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s), _, (e : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.expr) = let u = 
-# 124 "kawaparser.mly"
+# 125 "kawaparser.mly"
       ( Not )
-# 2075 "kawaparser.ml"
+# 2084 "kawaparser.ml"
              in
             
-# 107 "kawaparser.mly"
+# 108 "kawaparser.mly"
                ( Unop(u, e) )
-# 2080 "kawaparser.ml"
+# 2089 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -2159,7 +2168,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
                 | WHILE ->
                     _menhir_run41 _menhir_env (Obj.magic _menhir_stack) MenhirState105
                 | END ->
-                    _menhir_reduce46 _menhir_env (Obj.magic _menhir_stack) MenhirState105
+                    _menhir_reduce47 _menhir_env (Obj.magic _menhir_stack) MenhirState105
                 | _ ->
                     assert (not _menhir_env._menhir_error);
                     _menhir_env._menhir_error <- true;
@@ -2219,9 +2228,9 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let ((_menhir_stack, _menhir_s), _, (e : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.instr) = 
-# 97 "kawaparser.mly"
+# 98 "kawaparser.mly"
                      ( Return(e) )
-# 2225 "kawaparser.ml"
+# 2234 "kawaparser.ml"
              in
             _menhir_goto_instr _menhir_env _menhir_stack _menhir_s _v
         | STAR ->
@@ -2280,7 +2289,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
                 let _v : (Kawa.instr) = 
 # 93 "kawaparser.mly"
                               ( Print(e) )
-# 2284 "kawaparser.ml"
+# 2293 "kawaparser.ml"
                  in
                 _menhir_goto_instr _menhir_env _menhir_stack _menhir_s _v
             | _ ->
@@ -2371,7 +2380,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
                 | WHILE ->
                     _menhir_run41 _menhir_env (Obj.magic _menhir_stack) MenhirState118
                 | END ->
-                    _menhir_reduce46 _menhir_env (Obj.magic _menhir_stack) MenhirState118
+                    _menhir_reduce47 _menhir_env (Obj.magic _menhir_stack) MenhirState118
                 | _ ->
                     assert (not _menhir_env._menhir_error);
                     _menhir_env._menhir_error <- true;
@@ -2433,7 +2442,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _v : (Kawa.instr) = 
 # 94 "kawaparser.mly"
                              ( Set(mem, e) )
-# 2437 "kawaparser.ml"
+# 2446 "kawaparser.ml"
              in
             _menhir_goto_instr _menhir_env _menhir_stack _menhir_s _v
         | STAR ->
@@ -2485,9 +2494,9 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.expr)
             let _menhir_stack = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, (e : (Kawa.expr))) = _menhir_stack in
             let _v : (Kawa.instr) = 
-# 98 "kawaparser.mly"
+# 99 "kawaparser.mly"
               ( Expr(e) )
-# 2491 "kawaparser.ml"
+# 2500 "kawaparser.ml"
              in
             _menhir_goto_instr _menhir_env _menhir_stack _menhir_s _v
         | STAR ->
@@ -2549,7 +2558,7 @@ and _menhir_goto_list_class_def_ : _menhir_env -> 'ttv_tail -> _menhir_state -> 
                 | WHILE ->
                     _menhir_run41 _menhir_env (Obj.magic _menhir_stack) MenhirState151
                 | END ->
-                    _menhir_reduce46 _menhir_env (Obj.magic _menhir_stack) MenhirState151
+                    _menhir_reduce47 _menhir_env (Obj.magic _menhir_stack) MenhirState151
                 | _ ->
                     assert (not _menhir_env._menhir_error);
                     _menhir_env._menhir_error <- true;
@@ -2572,7 +2581,7 @@ and _menhir_goto_list_class_def_ : _menhir_env -> 'ttv_tail -> _menhir_state -> 
         let _v : (Kawa.class_def list) = 
 # 213 "<standard.mly>"
     ( x :: xs )
-# 2576 "kawaparser.ml"
+# 2585 "kawaparser.ml"
          in
         _menhir_goto_list_class_def_ _menhir_env _menhir_stack _menhir_s _v
     | _ ->
@@ -2601,7 +2610,7 @@ and _menhir_goto_option_class_extension_ : _menhir_env -> 'ttv_tail -> (string o
         | VOID ->
             _menhir_run1 _menhir_env (Obj.magic _menhir_stack) MenhirState23
         | END ->
-            _menhir_reduce42 _menhir_env (Obj.magic _menhir_stack) MenhirState23
+            _menhir_reduce43 _menhir_env (Obj.magic _menhir_stack) MenhirState23
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
@@ -2623,12 +2632,12 @@ and _menhir_goto_separated_nonempty_list_COMMA_IDENT_ : _menhir_env -> 'ttv_tail
         let (_menhir_stack, _menhir_s, (x : (
 # 8 "kawaparser.mly"
        (string)
-# 2627 "kawaparser.ml"
+# 2636 "kawaparser.ml"
         ))) = _menhir_stack in
         let _v : (string list) = 
 # 243 "<standard.mly>"
     ( x :: xs )
-# 2632 "kawaparser.ml"
+# 2641 "kawaparser.ml"
          in
         _menhir_goto_separated_nonempty_list_COMMA_IDENT_ _menhir_env _menhir_stack _menhir_s _v
     | MenhirState29 | MenhirState8 ->
@@ -2639,7 +2648,7 @@ and _menhir_goto_separated_nonempty_list_COMMA_IDENT_ : _menhir_env -> 'ttv_tail
         let _v : ((string * Kawa.typ) list) = 
 # 80 "kawaparser.mly"
                                                        ( List.map (fun id -> (id, typ)) ids )
-# 2643 "kawaparser.ml"
+# 2652 "kawaparser.ml"
          in
         let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
         (match _menhir_s with
@@ -2656,7 +2665,7 @@ and _menhir_goto_separated_nonempty_list_COMMA_IDENT_ : _menhir_env -> 'ttv_tail
                 let _v : ((string * Kawa.typ) list) = 
 # 76 "kawaparser.mly"
                             ( vars )
-# 2660 "kawaparser.ml"
+# 2669 "kawaparser.ml"
                  in
                 let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
                 (match _menhir_s with
@@ -2674,7 +2683,7 @@ and _menhir_goto_separated_nonempty_list_COMMA_IDENT_ : _menhir_env -> 'ttv_tail
                     | VOID ->
                         _menhir_run1 _menhir_env (Obj.magic _menhir_stack) MenhirState5
                     | CLASS | MAIN ->
-                        _menhir_reduce50 _menhir_env (Obj.magic _menhir_stack) MenhirState5
+                        _menhir_reduce51 _menhir_env (Obj.magic _menhir_stack) MenhirState5
                     | _ ->
                         assert (not _menhir_env._menhir_error);
                         _menhir_env._menhir_error <- true;
@@ -2686,7 +2695,7 @@ and _menhir_goto_separated_nonempty_list_COMMA_IDENT_ : _menhir_env -> 'ttv_tail
                     let _v : (Kawa.instr_var_decl) = 
 # 71 "kawaparser.mly"
                 ( Var_decl(vars) )
-# 2690 "kawaparser.ml"
+# 2699 "kawaparser.ml"
                      in
                     _menhir_goto_instr_var_decl _menhir_env _menhir_stack _menhir_s _v
                 | _ ->
@@ -2710,7 +2719,7 @@ and _menhir_goto_separated_nonempty_list_COMMA_IDENT_ : _menhir_env -> 'ttv_tail
                 let _v : (Kawa.attribute_def list) = 
 # 54 "kawaparser.mly"
                                   (List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=true}) vars)
-# 2714 "kawaparser.ml"
+# 2723 "kawaparser.ml"
                  in
                 _menhir_goto_attr_decl _menhir_env _menhir_stack _menhir_s _v
             | _ ->
@@ -2732,7 +2741,7 @@ and _menhir_goto_separated_nonempty_list_COMMA_IDENT_ : _menhir_env -> 'ttv_tail
                 let _v : (Kawa.attribute_def list) = 
 # 53 "kawaparser.mly"
                             (List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=false}) vars)
-# 2736 "kawaparser.ml"
+# 2745 "kawaparser.ml"
                  in
                 _menhir_goto_attr_decl _menhir_env _menhir_stack _menhir_s _v
             | _ ->
@@ -2746,12 +2755,12 @@ and _menhir_goto_separated_nonempty_list_COMMA_IDENT_ : _menhir_env -> 'ttv_tail
     | _ ->
         _menhir_fail ()
 
-and _menhir_reduce48 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
+and _menhir_reduce49 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _v : (Kawa.instr_var_decl list) = 
 # 211 "<standard.mly>"
     ( [] )
-# 2755 "kawaparser.ml"
+# 2764 "kawaparser.ml"
      in
     _menhir_goto_list_instr_var_decl_ _menhir_env _menhir_stack _menhir_s _v
 
@@ -2802,9 +2811,9 @@ and _menhir_run43 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
     let _menhir_env = _menhir_discard _menhir_env in
     let _menhir_stack = Obj.magic _menhir_stack in
     let _v : (Kawa.expr) = 
-# 103 "kawaparser.mly"
+# 104 "kawaparser.mly"
        ( Bool(true) )
-# 2808 "kawaparser.ml"
+# 2817 "kawaparser.ml"
      in
     _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
 
@@ -2813,9 +2822,9 @@ and _menhir_run44 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
     let _menhir_env = _menhir_discard _menhir_env in
     let _menhir_stack = Obj.magic _menhir_stack in
     let _v : (Kawa.expr) = 
-# 105 "kawaparser.mly"
+# 106 "kawaparser.mly"
        ( This )
-# 2819 "kawaparser.ml"
+# 2828 "kawaparser.ml"
      in
     _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
 
@@ -2961,7 +2970,7 @@ and _menhir_run46 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
             | TRUE ->
                 _menhir_run43 _menhir_env (Obj.magic _menhir_stack) MenhirState48
             | RPAR ->
-                _menhir_reduce52 _menhir_env (Obj.magic _menhir_stack) MenhirState48
+                _menhir_reduce53 _menhir_env (Obj.magic _menhir_stack) MenhirState48
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -2971,12 +2980,12 @@ and _menhir_run46 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
             let ((_menhir_stack, _menhir_s), (id : (
 # 8 "kawaparser.mly"
        (string)
-# 2975 "kawaparser.ml"
+# 2984 "kawaparser.ml"
             ))) = _menhir_stack in
             let _v : (Kawa.expr) = 
-# 110 "kawaparser.mly"
+# 111 "kawaparser.mly"
                ( New(id) )
-# 2980 "kawaparser.ml"
+# 2989 "kawaparser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
         | _ ->
@@ -2995,7 +3004,7 @@ and _menhir_run46 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
 and _menhir_run49 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 7 "kawaparser.mly"
        (int)
-# 2999 "kawaparser.ml"
+# 3008 "kawaparser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -3003,12 +3012,12 @@ and _menhir_run49 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let (n : (
 # 7 "kawaparser.mly"
        (int)
-# 3007 "kawaparser.ml"
+# 3016 "kawaparser.ml"
     )) = _v in
     let _v : (Kawa.expr) = 
-# 102 "kawaparser.mly"
+# 103 "kawaparser.mly"
       ( Int(n) )
-# 3012 "kawaparser.ml"
+# 3021 "kawaparser.ml"
      in
     _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
 
@@ -3070,7 +3079,7 @@ and _menhir_run51 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
     | TRUE ->
         _menhir_run43 _menhir_env (Obj.magic _menhir_stack) MenhirState51
     | R_BRACKET ->
-        _menhir_reduce52 _menhir_env (Obj.magic _menhir_stack) MenhirState51
+        _menhir_reduce53 _menhir_env (Obj.magic _menhir_stack) MenhirState51
     | _ ->
         assert (not _menhir_env._menhir_error);
         _menhir_env._menhir_error <- true;
@@ -3152,7 +3161,7 @@ and _menhir_run114 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
 and _menhir_run135 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 8 "kawaparser.mly"
        (string)
-# 3156 "kawaparser.ml"
+# 3165 "kawaparser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -3160,9 +3169,9 @@ and _menhir_run135 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let _tok = _menhir_env._menhir_token in
     match _tok with
     | IDENT _ | L_BRACKET ->
-        _menhir_reduce72 _menhir_env (Obj.magic _menhir_stack)
+        _menhir_reduce73 _menhir_env (Obj.magic _menhir_stack)
     | AND | ASSIGN | DIV | DOT | EQUAL | EQUAL_STRUCT | GEQUAL | GREATER | LEQUAL | LOWER | MINUS | MOD | NEQUAL | NEQUAL_STRUCT | OR | PLUS | SEMI | STAR ->
-        _menhir_reduce57 _menhir_env (Obj.magic _menhir_stack)
+        _menhir_reduce58 _menhir_env (Obj.magic _menhir_stack)
     | _ ->
         assert (not _menhir_env._menhir_error);
         _menhir_env._menhir_error <- true;
@@ -3175,18 +3184,18 @@ and _menhir_run54 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
     let _menhir_env = _menhir_discard _menhir_env in
     let _menhir_stack = Obj.magic _menhir_stack in
     let _v : (Kawa.expr) = 
-# 104 "kawaparser.mly"
+# 105 "kawaparser.mly"
         ( Bool(false) )
-# 3181 "kawaparser.ml"
+# 3190 "kawaparser.ml"
      in
     _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
 
-and _menhir_reduce44 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
+and _menhir_reduce45 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _v : (Kawa.class_def list) = 
 # 211 "<standard.mly>"
     ( [] )
-# 3190 "kawaparser.ml"
+# 3199 "kawaparser.ml"
      in
     _menhir_goto_list_class_def_ _menhir_env _menhir_stack _menhir_s _v
 
@@ -3214,12 +3223,12 @@ and _menhir_run18 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
                 let (parent : (
 # 8 "kawaparser.mly"
        (string)
-# 3218 "kawaparser.ml"
+# 3227 "kawaparser.ml"
                 )) = _v in
                 let _v : (string) = 
 # 45 "kawaparser.mly"
                        ( parent )
-# 3223 "kawaparser.ml"
+# 3232 "kawaparser.ml"
                  in
                 let _menhir_stack = Obj.magic _menhir_stack in
                 let _menhir_stack = Obj.magic _menhir_stack in
@@ -3227,7 +3236,7 @@ and _menhir_run18 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
                 let _v : (string option) = 
 # 116 "<standard.mly>"
     ( Some x )
-# 3231 "kawaparser.ml"
+# 3240 "kawaparser.ml"
                  in
                 _menhir_goto_option_class_extension_ _menhir_env _menhir_stack _v
             | _ ->
@@ -3240,7 +3249,7 @@ and _menhir_run18 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
             let _v : (string option) = 
 # 114 "<standard.mly>"
     ( None )
-# 3244 "kawaparser.ml"
+# 3253 "kawaparser.ml"
              in
             _menhir_goto_option_class_extension_ _menhir_env _menhir_stack _v
         | _ ->
@@ -3272,7 +3281,7 @@ and _menhir_goto_separated_nonempty_list_COMMA_typed_variable_ : _menhir_env -> 
         let _v : ((string * Kawa.typ) list) = 
 # 243 "<standard.mly>"
     ( x :: xs )
-# 3276 "kawaparser.ml"
+# 3285 "kawaparser.ml"
          in
         _menhir_goto_separated_nonempty_list_COMMA_typed_variable_ _menhir_env _menhir_stack _menhir_s _v
     | MenhirState31 ->
@@ -3282,27 +3291,27 @@ and _menhir_goto_separated_nonempty_list_COMMA_typed_variable_ : _menhir_env -> 
         let _v : ((string * Kawa.typ) list) = 
 # 144 "<standard.mly>"
     ( x )
-# 3286 "kawaparser.ml"
+# 3295 "kawaparser.ml"
          in
         _menhir_goto_loption_separated_nonempty_list_COMMA_typed_variable__ _menhir_env _menhir_stack _menhir_s _v
     | _ ->
         _menhir_fail ()
 
-and _menhir_reduce63 : _menhir_env -> 'ttv_tail * _menhir_state * (
+and _menhir_reduce64 : _menhir_env -> 'ttv_tail * _menhir_state * (
 # 8 "kawaparser.mly"
        (string)
-# 3295 "kawaparser.ml"
+# 3304 "kawaparser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack ->
     let (_menhir_stack, _menhir_s, (x : (
 # 8 "kawaparser.mly"
        (string)
-# 3301 "kawaparser.ml"
+# 3310 "kawaparser.ml"
     ))) = _menhir_stack in
     let _v : (string list) = 
 # 241 "<standard.mly>"
     ( [ x ] )
-# 3306 "kawaparser.ml"
+# 3315 "kawaparser.ml"
      in
     _menhir_goto_separated_nonempty_list_COMMA_IDENT_ _menhir_env _menhir_stack _menhir_s _v
 
@@ -3358,7 +3367,7 @@ and _menhir_goto_loption_separated_nonempty_list_COMMA_typed_variable__ : _menhi
             | WHILE ->
                 _menhir_run41 _menhir_env (Obj.magic _menhir_stack) MenhirState40
             | END ->
-                _menhir_reduce48 _menhir_env (Obj.magic _menhir_stack) MenhirState40
+                _menhir_reduce49 _menhir_env (Obj.magic _menhir_stack) MenhirState40
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -3379,7 +3388,7 @@ and _menhir_goto_loption_separated_nonempty_list_COMMA_typed_variable__ : _menhi
 and _menhir_run12 : _menhir_env -> 'ttv_tail * _menhir_state * (
 # 8 "kawaparser.mly"
        (string)
-# 3383 "kawaparser.ml"
+# 3392 "kawaparser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -3406,7 +3415,7 @@ and _menhir_run9 : _menhir_env -> 'ttv_tail * _menhir_state * (Kawa.typ) -> _men
         let _v : (Kawa.typ) = 
 # 89 "kawaparser.mly"
                               ( TArray(t) )
-# 3410 "kawaparser.ml"
+# 3419 "kawaparser.ml"
          in
         _menhir_goto_type_ _menhir_env _menhir_stack _menhir_s _v
     | _ ->
@@ -3419,7 +3428,7 @@ and _menhir_run9 : _menhir_env -> 'ttv_tail * _menhir_state * (Kawa.typ) -> _men
 and _menhir_run11 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 8 "kawaparser.mly"
        (string)
-# 3423 "kawaparser.ml"
+# 3432 "kawaparser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
@@ -3429,7 +3438,7 @@ and _menhir_run11 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     | COMMA ->
         _menhir_run12 _menhir_env (Obj.magic _menhir_stack)
     | SEMI ->
-        _menhir_reduce63 _menhir_env (Obj.magic _menhir_stack)
+        _menhir_reduce64 _menhir_env (Obj.magic _menhir_stack)
     | _ ->
         assert (not _menhir_env._menhir_error);
         _menhir_env._menhir_error <- true;
@@ -3448,7 +3457,7 @@ and _menhir_goto_list_var_decl_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let _v : ((string * Kawa.typ) list list) = 
 # 213 "<standard.mly>"
     ( x :: xs )
-# 3452 "kawaparser.ml"
+# 3461 "kawaparser.ml"
          in
         _menhir_goto_list_var_decl_ _menhir_env _menhir_stack _menhir_s _v
     | MenhirState0 ->
@@ -3459,7 +3468,7 @@ and _menhir_goto_list_var_decl_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         | CLASS ->
             _menhir_run18 _menhir_env (Obj.magic _menhir_stack) MenhirState17
         | MAIN ->
-            _menhir_reduce44 _menhir_env (Obj.magic _menhir_stack) MenhirState17
+            _menhir_reduce45 _menhir_env (Obj.magic _menhir_stack) MenhirState17
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
@@ -3467,21 +3476,21 @@ and _menhir_goto_list_var_decl_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     | _ ->
         _menhir_fail ()
 
-and _menhir_reduce72 : _menhir_env -> 'ttv_tail * _menhir_state * (
+and _menhir_reduce73 : _menhir_env -> 'ttv_tail * _menhir_state * (
 # 8 "kawaparser.mly"
        (string)
-# 3474 "kawaparser.ml"
+# 3483 "kawaparser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack ->
     let (_menhir_stack, _menhir_s, (cls_name : (
 # 8 "kawaparser.mly"
        (string)
-# 3480 "kawaparser.ml"
+# 3489 "kawaparser.ml"
     ))) = _menhir_stack in
     let _v : (Kawa.typ) = 
 # 88 "kawaparser.mly"
                  ( TClass(cls_name) )
-# 3485 "kawaparser.ml"
+# 3494 "kawaparser.ml"
      in
     _menhir_goto_type_ _menhir_env _menhir_stack _menhir_s _v
 
@@ -3535,7 +3544,7 @@ and _menhir_goto_type_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.typ)
                     let _v : ((string * Kawa.typ) list) = 
 # 142 "<standard.mly>"
     ( [] )
-# 3539 "kawaparser.ml"
+# 3548 "kawaparser.ml"
                      in
                     _menhir_goto_loption_separated_nonempty_list_COMMA_typed_variable__ _menhir_env _menhir_stack _menhir_s _v
                 | _ ->
@@ -3543,7 +3552,7 @@ and _menhir_goto_type_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.typ)
                     _menhir_env._menhir_error <- true;
                     _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState31)
             | SEMI ->
-                _menhir_reduce63 _menhir_env (Obj.magic _menhir_stack)
+                _menhir_reduce64 _menhir_env (Obj.magic _menhir_stack)
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -3569,13 +3578,13 @@ and _menhir_goto_type_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.typ)
             let (id : (
 # 8 "kawaparser.mly"
        (string)
-# 3573 "kawaparser.ml"
+# 3582 "kawaparser.ml"
             )) = _v in
             let (_menhir_stack, _menhir_s, (typ : (Kawa.typ))) = _menhir_stack in
             let _v : (string * Kawa.typ) = 
 # 66 "kawaparser.mly"
                      ( (id, typ) )
-# 3579 "kawaparser.ml"
+# 3588 "kawaparser.ml"
              in
             let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
             let _menhir_stack = Obj.magic _menhir_stack in
@@ -3605,7 +3614,7 @@ and _menhir_goto_type_ : _menhir_env -> 'ttv_tail -> _menhir_state -> (Kawa.typ)
                 let _v : ((string * Kawa.typ) list) = 
 # 241 "<standard.mly>"
     ( [ x ] )
-# 3609 "kawaparser.ml"
+# 3618 "kawaparser.ml"
                  in
                 _menhir_goto_separated_nonempty_list_COMMA_typed_variable_ _menhir_env _menhir_stack _menhir_s _v
             | _ ->
@@ -3813,12 +3822,12 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         let _menhir_stack = Obj.magic _menhir_stack in
         raise _eRR
 
-and _menhir_reduce50 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
+and _menhir_reduce51 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _v : ((string * Kawa.typ) list list) = 
 # 211 "<standard.mly>"
     ( [] )
-# 3822 "kawaparser.ml"
+# 3831 "kawaparser.ml"
      in
     _menhir_goto_list_var_decl_ _menhir_env _menhir_stack _menhir_s _v
 
@@ -3829,7 +3838,7 @@ and _menhir_run1 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
     let _v : (Kawa.typ) = 
 # 87 "kawaparser.mly"
        ( TVoid )
-# 3833 "kawaparser.ml"
+# 3842 "kawaparser.ml"
      in
     _menhir_goto_type_ _menhir_env _menhir_stack _menhir_s _v
 
@@ -3840,19 +3849,19 @@ and _menhir_run2 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
     let _v : (Kawa.typ) = 
 # 86 "kawaparser.mly"
       ( TInt )
-# 3844 "kawaparser.ml"
+# 3853 "kawaparser.ml"
      in
     _menhir_goto_type_ _menhir_env _menhir_stack _menhir_s _v
 
 and _menhir_run3 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 8 "kawaparser.mly"
        (string)
-# 3851 "kawaparser.ml"
+# 3860 "kawaparser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
     let _menhir_env = _menhir_discard _menhir_env in
-    _menhir_reduce72 _menhir_env (Obj.magic _menhir_stack)
+    _menhir_reduce73 _menhir_env (Obj.magic _menhir_stack)
 
 and _menhir_run4 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
@@ -3861,7 +3870,7 @@ and _menhir_run4 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
     let _v : (Kawa.typ) = 
 # 85 "kawaparser.mly"
        ( TBool )
-# 3865 "kawaparser.ml"
+# 3874 "kawaparser.ml"
      in
     _menhir_goto_type_ _menhir_env _menhir_stack _menhir_s _v
 
@@ -3898,7 +3907,7 @@ and program : (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (Kawa.program) =
     | VOID ->
         _menhir_run1 _menhir_env (Obj.magic _menhir_stack) MenhirState0
     | CLASS | MAIN ->
-        _menhir_reduce50 _menhir_env (Obj.magic _menhir_stack) MenhirState0
+        _menhir_reduce51 _menhir_env (Obj.magic _menhir_stack) MenhirState0
     | _ ->
         assert (not _menhir_env._menhir_error);
         _menhir_env._menhir_error <- true;
@@ -3907,4 +3916,4 @@ and program : (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (Kawa.program) =
 # 269 "<standard.mly>"
   
 
-# 3911 "kawaparser.ml"
+# 3920 "kawaparser.ml"

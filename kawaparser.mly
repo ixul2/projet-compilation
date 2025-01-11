@@ -93,6 +93,7 @@ instr:
 | PRINT LPAR e=expr RPAR SEMI { Print(e) }
 | mem=mem ASSIGN e=expr SEMI { Set(mem, e) }
 | IF LPAR e=expr RPAR BEGIN seq1=list(instr) END ELSE BEGIN seq2=list(instr) END { If(e, seq1, seq2) }
+| IF LPAR e=expr RPAR BEGIN seq1=list(instr) END { If(e, seq1, []) }
 | WHILE LPAR e=expr RPAR BEGIN seq=list(instr) END { While(e, seq) }
 | RETURN e=expr SEMI { Return(e) }
 | e=expr SEMI { Expr(e) }

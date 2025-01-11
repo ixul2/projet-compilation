@@ -16,7 +16,7 @@ class paire {
   }
 }
 
-class triple extends paire {
+class triple extends paire{
   int z;
 
   void constructor(int x, int y, int z) {
