@@ -6,7 +6,7 @@
 
 %token <int> N
 %token <string> IDENT
-%token FINAL CLASS NEW THIS IF ELSE WHILE RETURN INT BOOL VOID EXTENDS MAIN
+%token VAR ATTRIBUTE METHOD FINAL CLASS NEW THIS IF ELSE WHILE RETURN INT BOOL VOID EXTENDS MAIN
 %token ASSIGN LPAR RPAR L_BRACKET R_BRACKET BEGIN END SEMI COMMA DOT
 %token PLUS MINUS STAR DIV MOD
 %token EQUAL NEQUAL EQUAL_STRUCT NEQUAL_STRUCT LOWER LEQUAL GREATER GEQUAL AND OR NOT
@@ -50,12 +50,12 @@ class_attr_meth:
 | attr=attr_decl { Attr(attr) }
 
 attr_decl:
-| vars=typed_variables SEMI {List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=false}) vars} 
-| FINAL vars=typed_variables SEMI {List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=true}) vars} 
+| ioption(ATTRIBUTE) vars=typed_variables SEMI {List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=false}) vars} 
+| ioption(ATTRIBUTE) FINAL vars=typed_variables SEMI {List.map (fun var -> let v, t = var in {attribute_name=v; attribute_typ=t; final=true}) vars} 
 ;
 
 method_def:
-| ret=type_ id=IDENT LPAR params=separated_list(COMMA, typed_variable) RPAR BEGIN instr_var_decls=list(instr_var_decl) END { (*we use the same trick for variables and instructions in method_def as we did for attributes and methods in class_def*)
+| ioption(METHOD) ret=type_ id=IDENT LPAR params=separated_list(COMMA, typed_variable) RPAR BEGIN instr_var_decls=list(instr_var_decl) END { (*we use the same trick for variables and instructions in method_def as we did for attributes and methods in class_def*)
                                                                                                                              let loc = List.filter_map (fun v_i -> match v_i with Var_decl vars -> Some vars | _ -> None) instr_var_decls in
                                                                                                                              let code = List.filter_map (fun v_i -> match v_i with Instr i -> Some i | _ -> None) instr_var_decls in
                                                                                                                              {method_name=id; code=code; params=params; locals=List.concat loc; return=ret}
@@ -68,7 +68,7 @@ typed_variable:
 
 
 instr_var_decl:
-| vars=var_decl { Var_decl(vars) }
+| ioption(VAR) vars=var_decl { Var_decl(vars) }
 | i=instr { Instr(i) }
 
 

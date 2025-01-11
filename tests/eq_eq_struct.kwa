@@ -24,8 +24,8 @@ main {
   d = new foo(2, 2);
   print(a==b);
   print(a===b);
-  print(a==c);
-  print(a=/=c);
+  print(a===c);
+  print(a!=c);
   print(a!=d);
   print(a=/=d);
   // Ne doit renvoyer que des true

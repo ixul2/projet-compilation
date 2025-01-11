@@ -122,7 +122,7 @@ let typecheck_prog p =
                                                     | TEmptyArray -> (match method_name with 
                                                                    | "copy" -> TEmptyArray
                                                                    | "length" -> TInt
-                                                                   | _ -> undefined_element_error "method" (method_name^"(array)"))
+                                                                   | _ -> undefined_element_error "method" (method_name^"(EmptyArray)"))
 
                                                     | _ -> not_a_class_error "method")
                                                 

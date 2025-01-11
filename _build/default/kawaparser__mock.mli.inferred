@@ -1,6 +1,7 @@
 type token =
     WHILE
   | VOID
+  | VAR
   | TRUE
   | THIS
   | STAR
@@ -18,6 +19,7 @@ type token =
   | N of int
   | MOD
   | MINUS
+  | METHOD
   | MAIN
   | L_BRACKET
   | LPAR
@@ -42,6 +44,7 @@ type token =
   | CLASS
   | BOOL
   | BEGIN
+  | ATTRIBUTE
   | ASSIGN
   | AND
 val menhir_begin_marker : int
@@ -69,6 +72,9 @@ val xv_list_instr_var_decl_ : Kawa.instr_var_decl list
 val xv_list_instr_ : Kawa.seq
 val xv_list_class_def_ : Kawa.class_def list
 val xv_list_class_attr_meth_ : Kawa.class_attr_metho list
+val xv_ioption_VAR_ : unit option
+val xv_ioption_METHOD_ : unit option
+val xv_ioption_ATTRIBUTE_ : unit option
 val xv_instr_var_decl : Kawa.instr_var_decl
 val xv_instr : Kawa.instr
 val xv_expr : Kawa.expr

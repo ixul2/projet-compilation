@@ -1,7 +1,7 @@
 Il n'y a aucun bug connu dans le programme. Sauf erreur, y sont donc implémentées toutes les fonctionalités demandées ainsi que 5 extensions. 
 
 Déclarations simplifiées :
-Les mots clés method, attribute et var ont été retiré du langage dans le lexer, le parser ainsi que les tests. AINSI LES PROGRAMMES QUI UTILISENT CES MOTS CLÉS PROVOQUERONT UN SYNTAX ERROR. L'ordre imposé par la grammaire a également été assoupli. Ainsi, une déclaration de variable n'est pas obligé d'être fait au tout début d'une méthode. Il en est de même pour les attributs qui ne doivent plus nécessairement être au début d'une classe. 
+Les mots clés method, attribute et var ont été retiré du langage dans le lexer, le parser ainsi que les tests. Néanmoins, ces mots clés ne provoquent pas d'erreur de syntaxe si utilisés. Pour ce faire, la règle de la librarie standard de menhir 'ioption' a utilisée. L'ordre imposé par la grammaire a également été assoupli. Ainsi, une déclaration de variable n'est pas obligé d'être fait au tout début d'une méthode. Il en est de même pour les attributs qui ne doivent plus nécessairement être au début d'une classe. 
 
 
 Déclarations en série (voir tests/mul_dec.kwa) :

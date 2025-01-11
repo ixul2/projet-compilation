@@ -10,9 +10,9 @@ main {
   b = [new array];
   b = [[0, 1], [0, 1]];
   a = b.get(0);
-  print(a==[0, 1]); // true
-  print(a=/=[0, 1]); //true
-  print(a===b.get(0)); //true
-  print(a=/=b.get(0).copy()); //true
+  print(a!=[0, 1]); // true
+  print(a===[0, 1]); //true
+  print(a==b.get(0)); //true
+  print(a!=b.get(0).copy()); //true
   //b = (new array).get(0); //This crashes as an empty array does not have a get method. Only a non-empty array does
 }

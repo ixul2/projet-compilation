@@ -13,7 +13,9 @@
       "true",       TRUE;
       "false",      FALSE;
 
-
+      "var",        VAR;
+      "attribute",  ATTRIBUTE;
+      "method",     METHOD;
       "final",      FINAL;
       "class",      CLASS;
       "new",        NEW;
@@ -69,10 +71,10 @@ rule token = parse
   | "%"  { MOD }
   | "%"  { MOD }
 
-  | "===" { EQUAL }
-  | "=/="  { NEQUAL }
-  | "==" { EQUAL_STRUCT }
-  | "!="  { NEQUAL_STRUCT }
+  | "===" { EQUAL_STRUCT }
+  | "=/="  { NEQUAL_STRUCT }
+  | "==" { EQUAL }
+  | "!="  { NEQUAL }
   | "<"  { LOWER }
   | "<="  { LEQUAL }
   | ">"  { GREATER }
