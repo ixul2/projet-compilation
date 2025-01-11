@@ -38,3 +38,4 @@ length() -> Int : renvoit la taille du tableau
 En plus de cela, le print a été élargi pour pouvoir afficher toutes les types de variables. Étant donné que la surcharge statique n'a pas été implémentée, c'est la seule fonction qui a ce comportement. J'ai également modifié un peu la grammaire afin que l'on puisse mettre un if sans else
 
 //todo : make sure function supposed to return something does 
+//todo : fix depth array

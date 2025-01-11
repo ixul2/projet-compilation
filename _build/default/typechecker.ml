@@ -51,7 +51,7 @@ let typecheck_prog p =
                                                   | Some attr-> attr
   in
 
-  let rec depth_array t = match t with TArray t' -> 1 + depth_array t' | TEmptyArray -> 1 | _ -> 0 in
+  let rec depth_array t = match t with TArray t' -> 2 + depth_array t' | TEmptyArray -> 2 | _ -> 1 in
 
   let rec check_types typ_e typ = match typ_e, typ with 
                                     TClass class_typ_e, TClass class_typ -> (match explore_heritage_tree (fun cls -> if cls.class_name = class_typ then Some class_typ else None) (get_class class_typ_e) with 
@@ -59,7 +59,7 @@ let typecheck_prog p =
                                                                               | _ -> ())
 
                                     | TArray arr1, TArray arr2 -> check_types arr1 arr2
-                                    | TEmptyArray, TArray arr -> if (depth_array arr) <> 0 then type_error typ_e typ
+                                    | TEmptyArray, TArray arr -> if (depth_array arr) > 1 then type_error typ_e typ
                                     | _ -> if typ <> typ_e then type_error typ_e typ
 
   in
