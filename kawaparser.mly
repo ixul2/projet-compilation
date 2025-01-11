@@ -7,14 +7,14 @@
 %token <int> N
 %token <string> IDENT
 %token FINAL CLASS NEW THIS IF ELSE WHILE RETURN INT BOOL VOID EXTENDS MAIN
-%token ASSIGN LPAR RPAR BEGIN END SEMI COMMA DOT
+%token ASSIGN LPAR RPAR L_BRACKET R_BRACKET BEGIN END SEMI COMMA DOT
 %token PLUS MINUS STAR DIV MOD
 %token EQUAL NEQUAL EQUAL_STRUCT NEQUAL_STRUCT LOWER LEQUAL GREATER GEQUAL AND OR NOT
 %token PRINT TRUE FALSE
 %token EOF
 
 %left OR, AND
-%left LOWER, LEQUAL, GREATER, GEQUAL, NEQUAL, EQUAL
+%left LOWER, LEQUAL, GREATER, GEQUAL, NEQUAL, EQUAL, EQUAL_STRUCT, NEQUAL_STRUCT
 %left MINUS, PLUS
 %left DIV, STAR, MOD
 %left U_op
@@ -86,6 +86,7 @@ type_:
 | INT { TInt }
 | VOID { TVoid } 
 | cls_name=IDENT { TClass(cls_name) }
+| t=type_ L_BRACKET R_BRACKET { TArray(t) }
 ;
 
 instr:
@@ -109,6 +110,7 @@ expr:
 | NEW id=IDENT { New(id) }
 | NEW id=IDENT LPAR params=separated_list(COMMA, expr) RPAR { NewCstr(id, params) }
 | e=expr DOT id=IDENT LPAR params=separated_list(COMMA, expr) RPAR { MethCall(e, id, params) }
+| L_BRACKET exprs=separated_list(COMMA, expr) R_BRACKET { Array(exprs) }
 ;
 
 

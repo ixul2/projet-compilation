@@ -1,0 +1,6 @@
+int[] a;
+int[][] b;
+
+main {
+  /*b = (new array).get(0); This crashes is an empty array does not have a get method. Only a non-empty array does*/
+}

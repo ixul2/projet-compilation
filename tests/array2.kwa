@@ -1,0 +1,30 @@
+int[][] b;
+int[] a;
+int counter1, counter2, sum;
+
+main {
+  b = new array(10, new array(10, 0)); //2d 10x10 array filled with zeros
+  counter1 = 0;
+  while(counter1 < b.length()){
+    counter2 = 0;
+    a = new array(10, 0);
+    while (counter2 < a.length()){
+      a.set(counter2, (counter1+1)*(counter2+1));
+      counter2 = counter2 + 1;
+    }
+    b.set(counter1, a);
+    counter1 = counter1+1;
+  }
+  print(b); //shows multiplication tables
+  sum = 0;
+  counter1 = 0;
+  while(counter1 < 10){
+    counter2 = 0;
+    while (counter2 < 10){
+      sum = sum + b.get(counter1).get(counter2);
+      counter2 = counter2 + 1;
+    }
+    counter1 = counter1+1;
+  }
+  print(sum); //the sum of all the numbers in the multiplication tables is 3025
+}

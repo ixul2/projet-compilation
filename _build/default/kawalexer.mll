@@ -57,6 +57,8 @@ rule token = parse
   | ","  { COMMA }
   | "("  { LPAR }
   | ")"  { RPAR }
+  | "["  {L_BRACKET}
+  | "]"  {R_BRACKET}
   | "{"  { BEGIN }
   | "}"  { END }
 

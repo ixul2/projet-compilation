@@ -53,15 +53,23 @@ let typecheck_prog p =
                                                   | Some attr-> attr
   in
 
+  let rec depth_array t = match t with TArray t' -> 1 + depth_array t' | TEmptyArray -> 1 | _ -> 0 in
+
+  let rec check_types typ_e typ = match typ_e, typ with 
+                                    TClass class_typ, TClass class_typ_e -> (match explore_heritage_tree (fun cls -> if cls.class_name = class_typ then Some class_typ else None) (get_class class_typ_e) with 
+                                                                                None -> type_error typ_e typ
+                                                                              | _ -> ())
+
+                                    | TArray arr1, TArray arr2 -> check_types arr1 arr2
+                                    | TEmptyArray, TArray arr -> if (depth_array arr) <> 0 then type_error typ_e typ
+                                    | _ -> if typ <> typ_e then type_error typ_e typ
+
+  in
+
   let rec check e typ tenv =
     let typ_e = type_expr e tenv in
-    match typ, typ_e with 
-      TClass class_typ, TClass class_typ_e -> (match explore_heritage_tree (fun cls -> if cls.class_name = class_typ then Some class_typ else None) (get_class class_typ_e) with 
-                                                  None -> type_error typ_e typ
-                                                | _ -> ())
-
-      | _ -> if typ <> typ_e then type_error typ_e typ
-
+    check_types typ_e typ
+    
   and type_call cls_name method_name params =  let meth = get_method cls_name method_name in
                                                 List.iter2 (fun (_, typ) param -> if param<>typ then type_error typ param) meth.params params; (*we check the arguments are all the right type*)
                                                 meth.return
@@ -93,19 +101,47 @@ let typecheck_prog p =
                                     TClass cls -> (get_attribute cls method_name).attribute_typ
                                   | _ -> not_a_class_error "attribute")
 
-    | New cls_name -> let _ = get_class cls_name in TClass cls_name
+    | New cls_name -> (match cls_name with
+                                 "array" -> TEmptyArray
+                               | _ -> let _ = get_class cls_name in TClass cls_name)
 
-    | NewCstr (cls_name, params) -> let _ = type_call cls_name "constructor" (List.map (fun p -> type_expr p tenv) params) in TClass cls_name
+    | NewCstr (cls_name, params) -> (match cls_name with 
+                                      "array" -> (match params with 
+                                                    [length; default] -> check length TInt tenv; TArray (type_expr default tenv)
+                                                  | _ -> raise (Invalid_argument "Invalid arguments for array constructor"))
+
+                                    | _ -> let _ = type_call cls_name "constructor" (List.map (fun p -> type_expr p tenv) params) in TClass cls_name)
 
     | MethCall (expr_obj, method_name, params) -> (match type_expr expr_obj tenv with
-                                                     TClass cls_name -> type_call cls_name method_name (List.map (fun p -> type_expr p tenv) params)
+                                                      TClass cls_name -> type_call cls_name method_name (List.map (fun p -> type_expr p tenv) params)
+                                                    | TArray t -> (match method_name with 
+                                                                     "get" -> t
+                                                                   | "set" -> TVoid
+                                                                   | "copy" -> TArray t
+                                                                   | "length" -> TInt
+                                                                   | _ -> undefined_element_error "method" (method_name^"(array)"))
+
+                                                    | TEmptyArray -> (match method_name with 
+                                                                   | "copy" -> TEmptyArray
+                                                                   | "length" -> TInt
+                                                                   | _ -> undefined_element_error "method" (method_name^"(array)"))
+
                                                     | _ -> not_a_class_error "method")
                                                 
     | This -> type_expr (Get (Var "this")) tenv
+    | Array expr_list ->  if List.compare_length_with expr_list 0 = 0 then 
+                            TEmptyArray 
+
+                          else 
+                            let expr_list_type = List.map (fun e -> type_expr e tenv) expr_list in
+                            (*for the expression [[], [1, 2]]. The type has to be based on that of [1, 2] not necessarily that of the first element*)
+                            let most_defined_element = List.fold_left (fun e1 e2 -> if depth_array e1 > depth_array e2 then e1 else e2) (List.hd expr_list_type) expr_list_type in 
+                            List.iter (fun e -> check e most_defined_element tenv) expr_list;
+                            TArray most_defined_element
 
   in
   let rec check_instr i ret class_final_allowed tenv = match i with
-    | Print e -> check e TInt tenv
+    | Print e -> ()
     | Expr e -> check e TVoid tenv 
     | Return e -> check e ret tenv (*we make no exception for void function as technically it makes sense for a void function to be able to return the result of another void function*)
     | Set (Var id, expr) -> check expr (type_expr (Get (Var id)) tenv) tenv (*Given that we have very simple scope management, if we can access a variable we can also set it*)

@@ -1,0 +1,18 @@
+int[] a;
+int[][] b;
+
+main {
+  a = [0, 0, 0, 0];
+  b = new array(5, [0, 1]); 
+  print(b); //[[0 1] [0 1] [0 1] [0 1] [0 1]]
+  print(a); //[0 0 0 0]
+  /*b = []*/
+  b = [new array];
+  b = [[0, 1], [0, 1]];
+  a = b.get(0);
+  print(a==[0, 1]); // true
+  print(a=/=[0, 1]); //true
+  print(a===b.get(0)); //true
+  print(a=/=b.get(0).copy()); //true
+  /*b = (new array).get(0); This crashes is an empty array does not have a get method. Only a non-empty array does*/
+}

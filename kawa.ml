@@ -9,12 +9,16 @@ type typ =
   | TInt
   | TBool
   | TClass of string
+  | TArray of typ
+  | TEmptyArray
 
-let typ_to_string = function
+let rec typ_to_string = function
   | TVoid    -> "void"
   | TInt     -> "int"
   | TBool    -> "bool"
   | TClass c -> c
+  | TArray t -> (typ_to_string t)^"[]"
+  | TEmptyArray -> "[]"
 
 type unop  = Opp | Not
 type binop = Add | Sub | Mul | Div | Rem
@@ -26,6 +30,7 @@ type expr =
   (* Base arithmétique *)
   | Int    of int
   | Bool   of bool
+  | Array of expr list
   | Unop   of unop * expr
   | Binop  of binop * expr * expr
   (* Accès à une variable ou un attribut *)

@@ -1,15 +1,42 @@
-extensions implémentées :
-- retirer les mots clés method, attribute, et var 
-- pouvoir déclarer plusieurs variables du même type en même temps (int a, b, c;)
-- le mot clé final
-- l'égalité structurel. L'opération === (resp : =/=) indique l'égalité en mémoire. L'opération 
+Il n'y a aucun bug connu dans le programme. Sauf erreur, y sont donc implémentées toutes les fonctionalités demandées ainsi que 5 extensions. 
 
-quelques choix :
-on utilise "return" comme pseudo-variable pour renvoyer valeur
-on peut changer ordre methods attributes
-nouvelles erreurs pour que ce soit plus claire
-on peut accéder à l'environnement global depuis les méthodes
-nouveaux tests
-proper error handling
+Déclarations simplifiées :
+Les mots clés method, attribute et var ont été retiré du langage dans le lexer, le parser ainsi que les tests. L'ordre imposé par la grammaire a également été assoupli. Ainsi, une déclaration de variable n'est pas obligé d'être fait au tout début d'une méthode. Il en est de même pour les attributs qui ne doivent plus nécessairement être au début d'une classe. 
+
+
+Déclarations en série (voir tests/mul_dec.kwa) :
+Plusieurs variables d'une même type peuvent être déclarées en même temps comme suit : 
+int x, y, z;
+Cet ajout a été relativement simple car il ne nécessite de modifications que dans le parser.
+
+
+Champs immuables (voir tests/final.kwa) :
+Le mot clé final a été ajouté pour les classes. En plus du parser, un type attribute_def a été rajouté pour plus de clarté dans le fichier kawa.ml. À noter que similairement à Java, final empêche la ré-afectation de la variable hors du constructeur mais s'il s'agit d'un tableau (aussi implémentés) des modifications in-place sont autorisées.
+
+
+Égalité structurel (voir tests/eq_eq_struct.kwa) :
+L'opération === (resp, =/=) designe ainsi l'égalité en mémoire. L'opération == (resp, !=) désigne l'égalité structurelle.
+
+
+Tableau (voir tests/array.kwa et tests/array2.kwa) :
+Les tableaux ont été implémentés. Lors de la déclaration des variables on ajoute [] au type pour indiquer qu'il s'agit d'un tableau. On peut ensuite définir un tableau des 2 manières. Voici un petit exemple 
+int[] a; //un tableau de int
+bool[][] b; //un tableau 2d de booléens
+a = [1, 2, 3];
+a = array; //un tableau vide
+a = array(5, 0); //un tableau de taille 5 où toutes les valeurs sont initialisés à 0
+b = [true, false, false];
+b = array(5, array(5, true)); // un tableau 2d de taille 5x5 où toutes les valeurs sont initialisés à true 
+
+On dispose ensuite de 4 méthodes pour manipuler les tableaux
+set(int index, a' value) : modifie la valeur du tableau à l'indice index
+get(int index) : renvoie le valeur du tableau à l'indice index
+copy() : fait une copie du tableau dans une autre zone mémoire
+length() : renvoit la taille du tableau
+
+
+En plus de cela, le print a été élargi pour pouvoir afficher toutes les types de variables. Étant donné que la surcharge statique n'a pas été implémenté, c'est la seule fonction qui a ce comportement. 
 
 //to do, initialiser les objets avec les attributs de tous les parents 
+//expliquer return dans code
+//check set 

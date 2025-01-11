@@ -11,5 +11,8 @@ nouvelles erreurs pour que ce soit plus claire
 on peut accéder à l'environnement global depuis les méthodes
 nouveaux tests
 proper error handling
+elargir print
+
+a = [1, 2, 3]
 
 //to do, initialiser les objets avec les attributs de tous les parents 

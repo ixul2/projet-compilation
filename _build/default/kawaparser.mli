@@ -8,6 +8,7 @@ type token =
   | THIS
   | STAR
   | SEMI
+  | R_BRACKET
   | RPAR
   | RETURN
   | PRINT
@@ -21,6 +22,7 @@ type token =
   | MOD
   | MINUS
   | MAIN
+  | L_BRACKET
   | LPAR
   | LOWER
   | LEQUAL

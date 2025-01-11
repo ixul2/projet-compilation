@@ -4,12 +4,25 @@ type value =
   | VInt  of int
   | VBool of bool
   | VObj  of obj
+  | VArray of value array
   | Null
 
 and obj = { 
   cls:    string;
   fields: (string, value) Hashtbl.t ;
 }
+
+let print_value value = 
+    let rec print_value value = match value with 
+                           VInt i -> Printf.printf "%d" i
+                         | VBool b -> Printf.printf "%b" b
+                         | VObj obj -> Printf.printf "<Object %s>" obj.cls
+                         | VArray arr -> Printf.printf "["; Array.iteri (fun i v -> if i<>0 then Printf.printf " "; print_value v;) arr; Printf.printf "]"
+                         | Null -> Printf.printf "Null"
+
+    in
+    print_value value;
+    Printf.printf "\n%!"
 
 exception Error of string
 exception Return of value
@@ -89,7 +102,7 @@ let exec_prog (p: program): unit =
                                             VBool b1, VBool b2 ->  VBool (b1==b2)
                                           | VInt n1, VInt n2 ->  VBool (n1==n2)
                                           | VObj obj1, VObj obj2 -> VBool (obj1 == obj2)
-                                          | Null, Null -> VBool true
+                                          | VArray arr1, VArray arr2 -> VBool (arr1 == arr2)
                                           | _, _ -> VBool false)
 
       | Binop (Neq, expr1, expr2) -> VBool (not (evalb (Binop (Eq, expr1, expr2))))
@@ -109,20 +122,40 @@ let exec_prog (p: program): unit =
                                         None -> failwith "Variable doesn't exist"
                                       | Some v -> v)
 
-      | New s -> VObj (initialize_class s)
+      | New s -> (match s with 
+                    "array" -> VArray ([||])
+                  | _ -> VObj (initialize_class s))
 
-      | NewCstr (s, params) -> let obj = initialize_class s in 
-                              let _ = eval_call "constructor" obj (List.map (fun expr -> eval expr) params) in (*we call the constructor method*)
-                              VObj obj
+      | NewCstr (s, params) -> (match s with
+                                  "array" -> (match params with 
+                                                [length; default] -> VArray (Array.init (evali length) (fun x -> eval default))
+                                              | _ -> failwith "invalid argument")
+
+                                | _ -> let obj = initialize_class s in 
+                                       let _ = eval_call "constructor" obj (List.map (fun expr -> eval expr) params) in (*we call the constructor method*)
+                                       VObj obj)
 
       | This -> eval (Get (Var "this")) 
 
-      | MethCall (obj_expr, method_name, params) -> eval_call method_name (evalo obj_expr) (List.map (fun expr -> eval expr) params)
+      | MethCall (obj_expr, method_name, params) ->   let params = List.map eval params in
+                                                      (match eval obj_expr with 
+                                                        VObj obj ->  eval_call method_name obj params
+                                                      | VArray arr -> (match method_name with 
+                                                                          "set" -> (match params with [VInt index; value] -> Array.set arr index value; Null | _ -> failwith "invalid arguments")
+                                                                        | "get" -> (match params with (VInt index)::[] -> Array.get arr index | _ -> failwith "invalid arguments")
+                                                                        | "copy" -> (match params with [] -> VArray (Array.copy arr) | _ -> failwith "invalid arguments")
+                                                                        | "length" -> (match params with [] -> VInt (Array.length arr) | _ -> failwith "invalid arguments")
+                                                                        | _ -> failwith "invalid method"
+                                                                      ) 
+
+                                                      | _ -> failwith "Trying to access method of type that doesn't have any") 
+
+      | Array list_exprs -> VArray (Array.of_list(List.map eval list_exprs))
 
     in
   
     let rec exec (i: instr): unit = match i with
-      | Print e -> Printf.printf "%d\n%!" (evali e)
+      | Print e -> print_value (eval e)
       | If (e, seq1, seq2) -> if evalb e then
                                 exec_seq seq1
                               else
